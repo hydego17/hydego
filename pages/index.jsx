@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import styled from "@emotion/styled";
 import Head from "next/head";
 
@@ -8,6 +10,8 @@ import { getAllProjects } from "lib/api";
 import { useGetProjects } from "hooks";
 
 export default function Home({ initialData }) {
+  const [pageIndex, setPageIndex] = useState(0);
+
   const { data: projects, loading, error } = useGetProjects(initialData);
 
   return (
@@ -39,7 +43,7 @@ export default function Home({ initialData }) {
 }
 
 export async function getStaticProps() {
-  const initialData = await getAllProjects();
+  const initialData = await getAllProjects({ offset: 0 });
 
   // Sort projects based on createdAt (newest to oldest )
   // const initialData = projects?.sort(
