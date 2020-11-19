@@ -15,6 +15,7 @@ export default function Layout({ children }) {
 }
 
 const LayoutStyled = styled.main`
+  min-height: 100vh;
   .container {
     display: flex;
     flex-direction: column;

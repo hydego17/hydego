@@ -5,8 +5,11 @@ import Layout from "components/Layout";
 import Projects from "components/Projects";
 
 import { getAllProjects } from "lib/api";
+import { useGetProjects } from "hooks";
 
-export default function Home({ projects }) {
+export default function Home({ initialData }) {
+  const { data: projects, loading, error } = useGetProjects(initialData);
+
   return (
     <Layout>
       <Head>
@@ -19,17 +22,31 @@ export default function Home({ projects }) {
         <p>a web developer</p>
       </HomeStyled>
 
-      <h2>Projects</h2>
-      {projects.map((project, index) => (
-        <Projects key={index} project={project} />
-      ))}
+      {loading && <h2> Loading...</h2>}
+
+      {projects && (
+        <>
+          <h2>Projects</h2>
+          {projects.map((project, index) => (
+            <Projects key={index} project={project} />
+          ))}
+        </>
+      )}
+
+      {error && <h2> No data at the moment, Sorry... </h2>}
     </Layout>
   );
 }
 
 export async function getStaticProps() {
-  const projects = await getAllProjects();
-  return { props: { projects } };
+  const initialData = await getAllProjects();
+
+  // Sort projects based on createdAt (newest to oldest )
+  // const initialData = projects?.sort(
+  //   (newest, oldest) =>
+  //     new Date(oldest._createdAt) - new Date(newest._createdAt)
+  // );
+  return { props: { initialData } };
 }
 
 const HomeStyled = styled.section`
