@@ -6,12 +6,12 @@ import Head from "next/head";
 import Layout from "components/Layout";
 import Projects from "components/Projects";
 
-import client from "lib/sanity";
+import { getAllProjects } from "lib/api";
 import { useGetProjects } from "hooks";
 
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 
-export default function Home({ initialData }) {
+export default function Home({ initialData, testData }) {
   const [isLast, setIsLast] = useState(0);
   const [isFirst, setIsFirst] = useState(0);
 
@@ -19,6 +19,7 @@ export default function Home({ initialData }) {
 
   const { data: projects, error, loading } = useGetProjects({
     pageNum: offset,
+    testData,
   });
 
   useEffect(() => {
@@ -85,23 +86,10 @@ link,
 'slug':slug.current,
 `;
 
-export async function getAllProjects() {
-  // => Learn how to GROQ
-  // For pagination, take only 3 first data
-  // Descending order (newest first)
-  const results = await client.fetch(
-    `*[_type == "projects"] 
-    | order(_createdAt desc)
-    {${projectFields}}
-   `
-  );
-
-  return results;
-}
-
 export async function getStaticProps() {
   const initialData = await getAllProjects();
-  return { props: { initialData } };
+  const testData = await initialData.slice(0, 3);
+  return { props: { initialData, testData } };
 }
 
 const HomeStyled = styled.section`
