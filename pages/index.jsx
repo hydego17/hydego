@@ -1,40 +1,95 @@
 import { useState, useEffect } from "react";
 
+import ReactPaginate from "react-paginate";
+import { useRouter } from "next/router";
+import axios from "axios";
+
 import styled from "@emotion/styled";
 import Head from "next/head";
 
 import Layout from "components/Layout";
 import Projects from "components/Projects";
 
-import { getAllProjects } from "lib/api";
-import { useGetProjects } from "hooks";
-
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 
-export default function Home({ initialData, testData }) {
-  const [isLast, setIsLast] = useState(0);
-  const [isFirst, setIsFirst] = useState(0);
+export default function Home({ projects, firstData, lastData }) {
+  const router = useRouter();
 
   const [offset, setOffset] = useState(0);
+  //State for the loading indicator
+  const [isLoading, setLoading] = useState(false);
+  const startLoading = () => setLoading(true);
+  const stopLoading = () => setLoading(false);
 
-  const { data: projects, error, loading } = useGetProjects({
-    pageNum: offset,
-    testData,
-  });
+  const [isFirst, setIsFirst] = useState(0);
+  const [isLast, setIsLast] = useState(0);
 
+  // Set Loading Based on router
   useEffect(() => {
-    if (projects) {
-      const firstProject = projects[0];
-      const firstInit = initialData[0];
-      const lastProject = projects[projects.length - 1];
-      const lastInit = initialData[initialData.length - 1];
-      const isFirstTheSame = firstProject.slug === firstInit.slug;
-      const isLastTheSame = lastProject.slug === lastInit.slug;
+    //After the component is mounted set router event handlers
+    router.events.on("routeChangeStart", startLoading);
+    router.events.on("routeChangeComplete", stopLoading);
 
-      setIsFirst(isFirstTheSame ? 1 : 0);
-      setIsLast(isLastTheSame ? 1 : 0);
-    }
-  }, [projects, initialData]);
+    return () => {
+      router.events.off("routeChangeStart", startLoading);
+      router.events.off("routeChangeComplete", stopLoading);
+    };
+  }, []);
+
+  // Change pages based on query
+  useEffect(() => {
+    // Triggers fetch for new page
+    const handlePagination = () => {
+      const path = router.pathname;
+      const query = router.query;
+      query.page = offset;
+
+      router.push({
+        pathname: path,
+        query: query,
+      });
+      window.scrollTo(0, 0);
+    };
+    handlePagination();
+  }, [offset]);
+
+  // Disabled Pagination Button
+  useEffect(() => {
+    const firstDisplayed = projects[0].slug;
+    const lastDisplayed = projects[projects.length - 1].slug;
+
+    const isFirstTheSame = firstDisplayed === firstData;
+    const isLastTheSame = lastDisplayed === lastData;
+
+    setIsFirst(isFirstTheSame ? 1 : 0);
+    setIsLast(isLastTheSame ? 1 : 0);
+  }, [projects, firstData, lastData]);
+
+  let content = null;
+
+  if (isLoading) content = <h2 className="loader">Loading...</h2>;
+  else {
+    //Generating projects list
+    content = (
+      <>
+        <h2>Projects</h2>
+        <section className="projects-list">
+          {projects.map((project, index) => (
+            <Projects key={index} project={project} />
+          ))}
+        </section>
+
+        <div className="pagination">
+          <button disabled={isFirst} onClick={() => setOffset(offset - 1)}>
+            Prev
+          </button>
+          <button disabled={isLast} onClick={() => setOffset(offset + 1)}>
+            Next
+          </button>
+        </div>
+      </>
+    );
+  }
 
   return (
     <Layout>
@@ -49,50 +104,39 @@ export default function Home({ initialData, testData }) {
           <p>a web developer</p>
         </section>
 
-        {loading && <h2>Loading...</h2>}
-        {error && <h2>Something is wrong...</h2>}
-        {projects && (
-          <>
-            <h2>Projects</h2>
-
-            <section className="projects-list">
-              {projects.map((project, index) => (
-                <Projects key={index} project={project} />
-              ))}
-            </section>
-
-            <section className="pagination">
-              <button onClick={() => setOffset(offset - 3)} disabled={isFirst}>
-                <FaChevronLeft />
-              </button>
-              <button onClick={() => setOffset(offset + 3)} disabled={isLast}>
-                <FaChevronRight />
-              </button>
-            </section>
-          </>
-        )}
+        <article>{content}</article>
       </HomeStyled>
     </Layout>
   );
 }
 
-const projectFields = `
-title,
-subtitle,
-content,
-techStacks,
-coverImage,
-link,
-'slug':slug.current,
-`;
-
-export async function getStaticProps() {
-  const initialData = await getAllProjects();
-  const testData = await initialData.slice(0, 3);
-  return { props: { initialData, testData } };
-}
+export const getServerSideProps = async ({ query }) => {
+  // Fetch the first page as default
+  const page = query.page || 0;
+  let projectsData = null;
+  // Fetch data from API
+  try {
+    const { data } = await axios.get(
+      `${process.env.FETCH_URL}/api/projects?page=${page}`
+    );
+    projectsData = data;
+  } catch (err) {
+    projectsData = { error: { message: err.message } };
+  }
+  // Pass data to the page via props
+  return {
+    props: {
+      projects: projectsData.data,
+      firstData: projectsData.firstData.current,
+      lastData: projectsData.lastData.current,
+    },
+  };
+};
 
 const HomeStyled = styled.section`
+  .loader {
+    transition: all 0.5s ease;
+  }
   .intro {
     margin-bottom: 2rem;
     h1 {
@@ -119,9 +163,14 @@ const HomeStyled = styled.section`
       font-size: 1rem;
       cursor: pointer;
       transition: all 0.3s ease;
+      font-size: 0.9rem;
 
       &:hover {
-        background: #8d8d8d;
+        background: #d4d4d4;
+      }
+
+      &:disabled {
+        color: #c9c9c9;
       }
     }
   }

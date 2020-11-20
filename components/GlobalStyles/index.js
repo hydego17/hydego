@@ -19,15 +19,22 @@ const GlobalStyles = () => (
             sans-serif;
 
           &::-webkit-scrollbar {
-            width: 0.9rem;
+            height: 13px;
+            width: 13px;
+            border-radius: 20px;
           }
 
           &::-webkit-scrollbar-track {
-            background: #dfe4ea;
+            border-radius: 20px;
+            background: padding-box rgb(204, 204, 204);
+            border-width: 2px;
+            border-style: solid;
+            border-color: rgb(239, 241, 244);
+            border-image: initial;
           }
 
           &::-webkit-scrollbar-thumb {
-            background: #a4b0be;
+            background: rgb(239, 241, 244);
           }
         }
 
