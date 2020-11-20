@@ -1,26 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
-import ReactPaginate from "react-paginate";
 import { useRouter } from "next/router";
 import axios from "axios";
 
 import styled from "@emotion/styled";
 import Head from "next/head";
 
-import Layout from "components/Layout";
 import Projects from "components/Projects";
-
-import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
+import Fade from "components/CardTransition";
 
 export default function Home({ projects, firstData, lastData }) {
   const router = useRouter();
 
   const [offset, setOffset] = useState(0);
+
   //State for the loading indicator
   const [isLoading, setLoading] = useState(false);
   const startLoading = () => setLoading(true);
   const stopLoading = () => setLoading(false);
 
+  // State for disabled buttons
   const [isFirst, setIsFirst] = useState(0);
   const [isLast, setIsLast] = useState(0);
 
@@ -48,12 +47,13 @@ export default function Home({ projects, firstData, lastData }) {
         pathname: path,
         query: query,
       });
+
       window.scrollTo(0, 0);
     };
     handlePagination();
   }, [offset]);
 
-  // Disabled Pagination Button
+  // Disable Pagination Button
   useEffect(() => {
     const firstDisplayed = projects[0].slug;
     const lastDisplayed = projects[projects.length - 1].slug;
@@ -65,18 +65,20 @@ export default function Home({ projects, firstData, lastData }) {
     setIsLast(isLastTheSame ? 1 : 0);
   }, [projects, firstData, lastData]);
 
-  let content = null;
+  //Generating projects list
 
-  if (isLoading) content = <h2 className="loader">Loading...</h2>;
-  else {
-    //Generating projects list
+  let content = null;
+  if (isLoading) {
+    content = <h3>Loading...</h3>;
+  } else {
     content = (
       <>
         <h2>Projects</h2>
         <section className="projects-list">
-          {projects.map((project, index) => (
-            <Projects key={index} project={project} />
-          ))}
+          {projects &&
+            projects.map((project, index) => (
+              <Projects key={index} project={project} />
+            ))}
         </section>
 
         <div className="pagination">
@@ -92,7 +94,7 @@ export default function Home({ projects, firstData, lastData }) {
   }
 
   return (
-    <Layout>
+    <>
       <Head>
         <title>hydego</title>
         <link rel="shortcut icon" href="/favicon.ico" />
@@ -103,10 +105,11 @@ export default function Home({ projects, firstData, lastData }) {
           <h1>Hi, I'm Umma Ahimsha</h1>
           <p>a web developer</p>
         </section>
-
-        <article>{content}</article>
+        <article className="projects-wrapper">
+          <Fade in={!isLoading}>{content}</Fade>
+        </article>
       </HomeStyled>
-    </Layout>
+    </>
   );
 }
 
@@ -134,9 +137,6 @@ export const getServerSideProps = async ({ query }) => {
 };
 
 const HomeStyled = styled.section`
-  .loader {
-    transition: all 0.5s ease;
-  }
   .intro {
     margin-bottom: 2rem;
     h1 {
@@ -175,6 +175,9 @@ const HomeStyled = styled.section`
     }
   }
 
+  .projects-wrapper {
+    min-height: 80vh;
+  }
   h2 {
     font-size: clamp(1.4rem, 5vw, 1.6rem);
   }

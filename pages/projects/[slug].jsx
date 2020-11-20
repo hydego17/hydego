@@ -4,12 +4,10 @@ import BlockContent from "@sanity/block-content-to-react";
 import { getAllProjects, urlFor } from "lib/api";
 import { getSingleProject } from "lib/api";
 
-import Layout from "components/Layout";
-
 export default function ProjectDetail({ project }) {
   const { title, techStacks, coverImage, link } = project;
   return (
-    <Layout>
+    <>
       <ProjectDetailStyled>
         <section className="detail-body">
           <header className="title">
@@ -42,7 +40,7 @@ export default function ProjectDetail({ project }) {
           <img src={urlFor(coverImage)} alt={title} />
         </figure>
       </ProjectDetailStyled>
-    </Layout>
+    </>
   );
 }
 

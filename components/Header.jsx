@@ -37,6 +37,7 @@ export default function Header() {
 
 const HeaderStyled = styled.nav`
   position: sticky;
+  z-index: 2;
   top: 0;
   padding: 2rem 0;
   margin-bottom: 2rem;

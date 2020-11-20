@@ -1018,7 +1018,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4":
+"@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7":
   version "7.12.5"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.12.5.tgz#410e7e487441e1b360c29be715d870d9b985882e"
   integrity sha512-plcc+hbExy3McchJCEQG3knOsuh3HH+Prx1P6cLIkET/0dLuQDEnrT+s27Axgc9bqfsmNUNHfscgMUdBpC9xfg==
@@ -2488,6 +2488,11 @@ csstype@^2.5.7:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.13.tgz#a6893015b90e84dd6e85d0e3b442a1e84f2dbe0f"
   integrity sha512-ul26pfSQTZW8dcOnD2iiJssfXw0gdNVX9IJDH/X3K5DGPfj+fUYe3kB+swUY6BF3oZDxaID3AJt+9/ojSAE05A==
 
+csstype@^3.0.2:
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.5.tgz#7fdec6a28a67ae18647c51668a9ff95bb2fa7bb8"
+  integrity sha512-uVDi8LpBUKQj6sdxNaTetL6FpeCqTjOvAQuQUa/qAqq8oOd4ivkbhgnqayl0dnPal8Tb/yB1tF+gOvCBiicaiQ==
+
 cyclist@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
@@ -2620,6 +2625,14 @@ diffie-hellman@^5.0.0:
     bn.js "^4.1.0"
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
+
+dom-helpers@^5.0.1:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-5.2.0.tgz#57fd054c5f8f34c52a3eeffdb7e7e93cd357d95b"
+  integrity sha512-Ru5o9+V8CpunKnz5LGgWXkmrH/20cGKwcHwS4m73zIvs54CN9epEmT/HLqFJW3kXpakAFkEdzgy1hzlJe3E4OQ==
+  dependencies:
+    "@babel/runtime" "^7.8.7"
+    csstype "^3.0.2"
 
 dom-serializer@1.0.1:
   version "1.0.1"
@@ -4759,6 +4772,16 @@ react-refresh@0.8.3:
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
+
+react-transition-group@^4.4.1:
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.1.tgz#63868f9325a38ea5ee9535d828327f85773345c9"
+  integrity sha512-Djqr7OQ2aPUiYurhPalTrVy9ddmFCCzwhqQmtN+J3+3DzLO209Fdr70QrN8Z3DsglWql6iY1lDWAfpFiBtuKGw==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+    dom-helpers "^5.0.1"
+    loose-envify "^1.4.0"
+    prop-types "^15.6.2"
 
 react@17.0.1:
   version "17.0.1"

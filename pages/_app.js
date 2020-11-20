@@ -3,6 +3,7 @@ import { ThemeProvider } from "emotion-theming";
 import { DefaultSeo } from "next-seo";
 import SEO from "next-seo.config";
 
+import Layout from "components/Layout";
 import GlobalStyles from "components/GlobalStyles";
 import "styles/globals.css";
 
@@ -14,14 +15,16 @@ const theme = {
   },
 };
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, router }) {
   return (
     <>
       <DefaultSeo {...SEO} />
 
       <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        <Component {...pageProps} />
+        <Layout>
+          <GlobalStyles />
+          <Component {...pageProps} key={router.route} />
+        </Layout>
       </ThemeProvider>
     </>
   );
