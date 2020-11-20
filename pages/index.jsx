@@ -6,34 +6,34 @@ import Head from "next/head";
 import Layout from "components/Layout";
 import Projects from "components/Projects";
 
+import client from "lib/sanity";
 import { useGetProjects } from "hooks";
-import { getAllProjects } from "lib/api";
 
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 
 export default function Home({ initialData }) {
-  const { data: projects, loading, error } = useGetProjects(initialData);
-
-  const [myProjects, setMyProjects] = useState([]);
   const [isLast, setIsLast] = useState(0);
   const [isFirst, setIsFirst] = useState(0);
 
-  const [page, setPage] = useState(0);
+  const [offset, setOffset] = useState(0);
+
+  const { data: projects, error, loading } = useGetProjects({
+    pageNum: offset,
+  });
 
   useEffect(() => {
     if (projects) {
-      const pages = [...projects.slice(page, page + 3)];
-      setMyProjects(pages);
+      const firstProject = projects[0];
+      const firstInit = initialData[0];
+      const lastProject = projects[projects.length - 1];
+      const lastInit = initialData[initialData.length - 1];
+      const isFirstTheSame = firstProject.slug === firstInit.slug;
+      const isLastTheSame = lastProject.slug === lastInit.slug;
 
-      const disabledNext =
-        pages[pages.length - 1] === projects[projects.length - 1];
-
-      const disabledPrev = pages[0] === projects[0];
-
-      setIsLast(disabledNext ? 1 : 0);
-      setIsFirst(disabledPrev ? 1 : 0);
+      setIsFirst(isFirstTheSame ? 1 : 0);
+      setIsLast(isLastTheSame ? 1 : 0);
     }
-  }, [projects, page]);
+  }, [projects, initialData]);
 
   return (
     <Layout>
@@ -49,22 +49,22 @@ export default function Home({ initialData }) {
         </section>
 
         {loading && <h2>Loading...</h2>}
-        {error && <h2>Oops...something is wrong</h2>}
+        {error && <h2>Something is wrong...</h2>}
         {projects && (
           <>
             <h2>Projects</h2>
 
             <section className="projects-list">
-              {myProjects.map((project, index) => (
+              {projects.map((project, index) => (
                 <Projects key={index} project={project} />
               ))}
             </section>
 
             <section className="pagination">
-              <button onClick={() => setPage(page - 3)} disabled={isFirst}>
+              <button onClick={() => setOffset(offset - 3)} disabled={isFirst}>
                 <FaChevronLeft />
               </button>
-              <button onClick={() => setPage(page + 3)} disabled={isLast}>
+              <button onClick={() => setOffset(offset + 3)} disabled={isLast}>
                 <FaChevronRight />
               </button>
             </section>
@@ -75,9 +75,32 @@ export default function Home({ initialData }) {
   );
 }
 
+const projectFields = `
+title,
+subtitle,
+content,
+techStacks,
+coverImage,
+link,
+'slug':slug.current,
+`;
+
+export async function getAllProjects() {
+  // => Learn how to GROQ
+  // For pagination, take only 3 first data
+  // Descending order (newest first)
+  const results = await client.fetch(
+    `*[_type == "projects"] 
+    | order(_createdAt desc)
+    {${projectFields}}
+   `
+  );
+
+  return results;
+}
+
 export async function getStaticProps() {
   const initialData = await getAllProjects();
-
   return { props: { initialData } };
 }
 

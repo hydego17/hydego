@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import BlockContent from "@sanity/block-content-to-react";
 
 import { urlFor } from "lib/api";
-import { getSingleProject, getAllProjects } from "lib/api";
+import { getSingleProject } from "lib/api";
 
 import Layout from "components/Layout";
 
@@ -46,24 +46,24 @@ export default function ProjectDetail({ project }) {
   );
 }
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const project = await getSingleProject(params.slug);
 
   return { props: { project } };
 }
 
-export async function getStaticPaths() {
-  // Get all slugs from projects and provide it to paths
-  const projects = await getAllProjects();
+// export async function getStaticPaths() {
+//   // Get all slugs from projects and provide it to paths
+//   const projects = await getAllProjects();
 
-  const paths = projects?.map((p) => {
-    return {
-      params: { slug: p.slug },
-    };
-  });
+//   const paths = projects?.map((p) => {
+//     return {
+//       params: { slug: p.slug },
+//     };
+//   });
 
-  return { paths, fallback: false };
-}
+//   return { paths, fallback: false };
+// }
 
 const ProjectDetailStyled = styled.section`
   padding: 0 0.5rem;
