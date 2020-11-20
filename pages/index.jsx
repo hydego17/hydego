@@ -33,7 +33,7 @@ export default function Home({ initialData }) {
       setIsLast(disabledNext ? 1 : 0);
       setIsFirst(disabledPrev ? 1 : 0);
     }
-  }, [projects, page, setIsLast]);
+  }, [projects, page]);
 
   return (
     <Layout>
@@ -85,7 +85,8 @@ const HomeStyled = styled.section`
   .intro {
     margin-bottom: 2rem;
     h1 {
-      font-size: 2.2rem;
+      font-size: clamp(1.85rem, 2.5vw, 4rem);
+      padding-right: 2rem;
       margin-bottom: 1rem;
     }
     p {
@@ -99,24 +100,22 @@ const HomeStyled = styled.section`
     padding: 2rem 0;
 
     button {
-      outline: 0;
-      background: #000000;
-      color: #ffffff;
+      padding: 0.3rem 0.4rem;
+      margin-left: 0.5rem;
       border-radius: 2px;
       border: 0;
-      margin-left: 0.5rem;
-      cursor: pointer;
+      outline: 0;
       font-size: 1rem;
-      padding: 0.3rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
 
       &:hover {
-        background: #383838;
-      }
-
-      &:disabled {
-        background: #f0f0f0;
-        color: #424242;
+        background: #8d8d8d;
       }
     }
+  }
+
+  h2 {
+    font-size: clamp(1.4rem, 5vw, 1.6rem);
   }
 `;
