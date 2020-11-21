@@ -1,11 +1,25 @@
+import { useRouter } from "next/router";
+import ErrorPage from "next/error";
 import styled from "@emotion/styled";
 import BlockContent from "@sanity/block-content-to-react";
 
-import { getAllProjects, urlFor } from "lib/api";
-import { getSingleProject } from "lib/api";
+import {
+  urlFor,
+  getAllProjects,
+  getSingleProject,
+  getPaginatedProjects,
+} from "lib/api";
 
 export default function ProjectDetail({ project }) {
+  const router = useRouter();
+
+  // Check fallback status
+  if (!router.isFallback && !project?.slug) {
+    return <ErrorPage statusCode="404" />;
+  }
+
   const { title, techStacks, coverImage, link } = project;
+
   return (
     <>
       <ProjectDetailStyled>
@@ -52,11 +66,11 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
   // Get all slugs from projects and provide it to paths
-  const projects = await getAllProjects();
+  const projects = await getPaginatedProjects();
 
   const paths = projects?.map((p) => ({ params: { slug: p.slug } }));
 
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 }
 
 const ProjectDetailStyled = styled.section`
