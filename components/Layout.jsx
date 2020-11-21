@@ -19,9 +19,11 @@ export default function Layout({ children }) {
     </>
   );
 }
+// background: ${(props) => props.theme.dark.background};
 
 const LayoutStyled = styled.main`
   min-height: 50vh;
+
   .container {
     display: flex;
     flex-direction: column;

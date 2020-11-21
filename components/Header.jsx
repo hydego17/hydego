@@ -1,7 +1,10 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
+import { useTheme } from "providers/ThemeProvider";
+import Toggle from "react-toggle";
 
 export default function Header() {
+  const { theme, toggleTheme } = useTheme();
   return (
     <HeaderStyled>
       <header className="container">
@@ -15,19 +18,18 @@ export default function Header() {
 
         <ul className="nav_header">
           <li>
-            <Link href="/work">
-              <a>Work</a>
-            </Link>
-          </li>
-          <li>
             <Link href="/about">
               <a>About</a>
             </Link>
           </li>
           <li>
-            <Link href="/">
-              <a>Home</a>
-            </Link>
+            <label>
+              <Toggle
+                defaultChecked={theme.type === "dark"}
+                icons={false}
+                onChange={toggleTheme}
+              />
+            </label>
           </li>
         </ul>
       </header>
@@ -41,7 +43,7 @@ const HeaderStyled = styled.nav`
   top: 0;
   padding: 2rem 0;
   margin-bottom: 2rem;
-  background-color: rgba(255, 255, 255, 0.8);
+
   backdrop-filter: saturate(180%) blur(30px);
 
   @media screen and (min-width: 30em) {

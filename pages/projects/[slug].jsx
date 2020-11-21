@@ -17,6 +17,9 @@ export default function ProjectDetail({ project }) {
   if (!router.isFallback && !project?.slug) {
     return <ErrorPage statusCode="404" />;
   }
+  if (router.isFallback) {
+    return <h2> Loading... </h2>;
+  }
 
   const { title, techStacks, coverImage, link } = project;
 
@@ -27,6 +30,8 @@ export default function ProjectDetail({ project }) {
           <header className="title">
             <h2>{title}</h2>
           </header>
+
+          <hr />
 
           <article className="description">
             <h3> Case Study </h3>
@@ -80,7 +85,6 @@ const ProjectDetailStyled = styled.section`
     overflow: hidden;
     border-radius: 5px;
     padding: 0.25rem;
-    border: 1px solid #ededed;
 
     @media screen and (min-width: 678px) {
       margin-right: 2rem;
@@ -94,11 +98,10 @@ const ProjectDetailStyled = styled.section`
 
     .title {
       padding-bottom: 1rem;
-      border-bottom: 1px solid #ededed;
     }
 
     .description {
-      padding: 1.5rem 0 1rem 0;
+      padding: 1rem 0;
 
       p {
         padding: 0.5rem 0;

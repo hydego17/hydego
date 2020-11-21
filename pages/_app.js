@@ -1,26 +1,19 @@
-import { ThemeProvider } from "emotion-theming";
+import ThemeProvider from "providers/ThemeProvider";
 
 import { DefaultSeo } from "next-seo";
 import SEO from "next-seo.config";
 
 import Layout from "components/Layout";
 import GlobalStyles from "components/GlobalStyles";
-import "styles/globals.css";
 
-const theme = {
-  colors: {
-    primary: "#222f3e",
-    light_gray: "#ced6e0",
-    dark_gray: "#a4b0be",
-  },
-};
+import "styles/globals.css";
 
 function MyApp({ Component, pageProps, router }) {
   return (
     <>
       <DefaultSeo {...SEO} />
 
-      <ThemeProvider theme={theme}>
+      <ThemeProvider>
         <Layout>
           <GlobalStyles />
           <Component {...pageProps} key={router.route} />

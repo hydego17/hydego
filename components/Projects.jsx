@@ -19,6 +19,8 @@ export default function Projects({ project }) {
             </a>
           </Link>
 
+          <hr />
+
           <p>{subtitle}</p>
 
           <div className="links">
@@ -44,18 +46,11 @@ const ProjectsStyled = styled.article`
     border-radius: 3px;
     cursor: pointer;
     margin-top: 1rem;
-    border: 1px solid #ededed;
     padding: 1rem;
     transition: box-shadow 0.3s ease;
 
-    &:hover {
-      box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
-        0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06);
-    }
-
     .card-image {
       padding: 0.2rem;
-      border: 1px solid #ededed;
       flex-shrink: 1;
       overflow: hidden;
       border-radius: 5px;
@@ -76,8 +71,6 @@ const ProjectsStyled = styled.article`
       }
 
       padding-bottom: 0.5rem;
-      margin-bottom: 0.5rem;
-      border-bottom: 1px solid #ededed;
     }
 
     .links {
