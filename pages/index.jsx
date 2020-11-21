@@ -1,20 +1,22 @@
-import { useState, useEffect, useRef } from "react";
-
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import axios from "axios";
-
-import styled from "@emotion/styled";
 import Head from "next/head";
 
-import Projects from "components/Projects";
+import styled from "@emotion/styled";
+
+import { getInitialProjects } from "lib/api";
+
 import Fade from "components/CardTransition";
+import Projects from "components/Projects";
+import PaginateBtn from "components/PaginateBtn";
 
 export default function Home({ projects, firstData, lastData, maxPage }) {
   const router = useRouter();
 
+  // State for offset page query
   const [offset, setOffset] = useState(0);
 
-  //State for the loading indicator
+  // State for the loading indicator
   const [isLoading, setLoading] = useState(false);
   const startLoading = () => setLoading(true);
   const stopLoading = () => setLoading(false);
@@ -28,7 +30,6 @@ export default function Home({ projects, firstData, lastData, maxPage }) {
     //After the component is mounted set router event handlers
     router.events.on("routeChangeStart", startLoading);
     router.events.on("routeChangeComplete", stopLoading);
-
     return () => {
       router.events.off("routeChangeStart", startLoading);
       router.events.off("routeChangeComplete", stopLoading);
@@ -59,7 +60,7 @@ export default function Home({ projects, firstData, lastData, maxPage }) {
 
   // Disable Pagination Button
   useEffect(() => {
-    if (projects) {
+    if (projects && firstData && lastData) {
       const firstDisplayed = projects[0]?.slug;
       const lastDisplayed = projects[projects.length - 1]?.slug;
 
@@ -71,8 +72,7 @@ export default function Home({ projects, firstData, lastData, maxPage }) {
     }
   }, [projects, firstData, lastData]);
 
-  //Generating projects list
-
+  // Conditional Rendering
   let content = null;
   if (isLoading) {
     content = <h3>Loading...</h3>;
@@ -87,14 +87,12 @@ export default function Home({ projects, firstData, lastData, maxPage }) {
             ))}
         </section>
 
-        <div className="pagination">
-          <button disabled={isFirst} onClick={() => setOffset(offset - 1)}>
-            Prev
-          </button>
-          <button disabled={isLast} onClick={() => setOffset(offset + 1)}>
-            Next
-          </button>
-        </div>
+        <PaginateBtn
+          isFirst={isFirst}
+          isLast={isLast}
+          offset={offset}
+          setOffset={setOffset}
+        />
       </>
     );
   }
@@ -120,25 +118,23 @@ export default function Home({ projects, firstData, lastData, maxPage }) {
 }
 
 export const getServerSideProps = async ({ query }) => {
-  // Fetch the first page as default
   const page = query.page || 0;
-  let projectsData = null;
-  // Fetch data from API
-  try {
-    const { data } = await axios.get(
-      `${process.env.FETCH_URL}/api/projects?page=${page}`
-    );
-    projectsData = data;
-  } catch (err) {
-    projectsData = { error: { message: err.message } };
-  }
+  const {
+    data,
+    firstData,
+    lastData,
+    currPage,
+    maxPage,
+  } = await getInitialProjects(page);
+
   // Pass data to the page via props
   return {
     props: {
-      projects: projectsData.data,
-      firstData: projectsData.firstData.current,
-      lastData: projectsData.lastData.current,
-      maxPage: projectsData.maxPage,
+      projects: data,
+      firstData: firstData.current,
+      lastData: lastData.current,
+      currPage,
+      maxPage,
     },
   };
 };
@@ -156,32 +152,6 @@ const HomeStyled = styled.section`
       font-size: 1.1rem;
     }
   }
-
-  .pagination {
-    float: right;
-    padding: 2rem 0;
-
-    button {
-      padding: 0.3rem 0.4rem;
-      margin-left: 0.5rem;
-      border-radius: 2px;
-      border: 0;
-      outline: 0;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 0.9rem;
-
-      &:hover {
-        background: #d4d4d4;
-      }
-
-      &:disabled {
-        color: #c9c9c9;
-      }
-    }
-  }
-
   .projects-wrapper {
     min-height: 80vh;
   }
