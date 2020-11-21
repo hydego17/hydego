@@ -1,4 +1,4 @@
-import { getPreview } from "lib/api";
+import { getSingleProject } from "lib/api";
 
 export default async function previewReadOnly(req, res) {
   if (
@@ -8,13 +8,13 @@ export default async function previewReadOnly(req, res) {
     return res.status(401).json({ message: "Invalid Token" });
   }
 
-  const project = await getPreview(req.query.slug);
+  const project = await getSingleProject(req.query.slug);
 
   if (!project) {
     return res.status(401).json({ message: "Invalid Slug" });
   }
 
-  res.setPreviewData({ message: "hello" });
+  res.setPreviewData({ message: "ok" });
   res.writeHead(307, { Location: `/projects/${project.slug}` });
 
   res.end();

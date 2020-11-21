@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import Link from "next/link";
 import { FaWindowClose } from "react-icons/fa";
 
 export default function PreviewAlert() {
@@ -6,9 +7,12 @@ export default function PreviewAlert() {
     <PreviewStyled>
       <div className="preview-alert">
         <h4>(Preview Mode)</h4>
-        <a href="#">
-          <FaWindowClose />
-        </a>
+
+        <Link href="/api/exit-preview">
+          <a>
+            <FaWindowClose />
+          </a>
+        </Link>
       </div>
     </PreviewStyled>
   );

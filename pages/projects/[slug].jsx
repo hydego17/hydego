@@ -66,7 +66,7 @@ export default function ProjectDetail({ project, preview }) {
 }
 
 export async function getStaticProps({ params, preview = false, previewData }) {
-  const project = await getSingleProject(params.slug);
+  const project = await getSingleProject(params.slug, preview);
 
   return { props: { project, preview }, revalidate: 1 };
 }

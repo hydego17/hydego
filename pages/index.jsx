@@ -26,7 +26,9 @@ export default function Home({
   const [offset, setOffset] = useState(0);
 
   // State for the loading indicator
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
+
   const startLoading = () => setLoading(true);
   const stopLoading = () => setLoading(false);
 
@@ -36,6 +38,8 @@ export default function Home({
 
   // Set Loading Based on router
   useEffect(() => {
+    setIsMounted(!isLoading ? true : false);
+
     //After the component is mounted set router event handlers
     router.events.on("routeChangeStart", startLoading);
     router.events.on("routeChangeComplete", stopLoading);
@@ -43,7 +47,7 @@ export default function Home({
       router.events.off("routeChangeStart", startLoading);
       router.events.off("routeChangeComplete", stopLoading);
     };
-  }, []);
+  }, [isLoading]);
 
   // Change pages based on query
   useEffect(() => {
@@ -90,7 +94,7 @@ export default function Home({
       <>
         <h2>Projects</h2>
         <section className="projects-list">
-          {projects &&
+          {isMounted &&
             projects.map((project, index) => (
               <Projects key={index} project={project} />
             ))}
@@ -120,7 +124,7 @@ export default function Home({
         </section>
         {preview && <PreviewAlert />}
         <article className="projects-wrapper">
-          <Fade in={!isLoading}>{content}</Fade>
+          <Fade in={isMounted}>{content}</Fade>
         </article>
       </HomeStyled>
     </>
