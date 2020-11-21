@@ -80,11 +80,6 @@ const ProjectsStyled = styled.article`
       small {
         padding-right: 0.5rem;
       }
-      a {
-        &:hover {
-          color: #507496;
-        }
-      }
     }
   }
 `;

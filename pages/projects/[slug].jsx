@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import ErrorPage from "next/error";
 import styled from "@emotion/styled";
 import BlockContent from "@sanity/block-content-to-react";
-
 import {
   urlFor,
   getAllProjects,
@@ -10,7 +9,9 @@ import {
   getPaginatedProjects,
 } from "lib/api";
 
-export default function ProjectDetail({ project }) {
+import PreviewAlert from "components/PreviewAlert";
+
+export default function ProjectDetail({ project, preview }) {
   const router = useRouter();
 
   // Check fallback status
@@ -27,6 +28,7 @@ export default function ProjectDetail({ project }) {
     <>
       <ProjectDetailStyled>
         <section className="detail-body">
+          {preview && <PreviewAlert />}
           <header className="title">
             <h2>{title}</h2>
           </header>
@@ -63,10 +65,10 @@ export default function ProjectDetail({ project }) {
   );
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params, preview = false, previewData }) {
   const project = await getSingleProject(params.slug);
 
-  return { props: { project }, revalidate: 1 };
+  return { props: { project, preview }, revalidate: 1 };
 }
 
 export async function getStaticPaths() {
@@ -78,6 +80,7 @@ export async function getStaticPaths() {
   return { paths, fallback: true };
 }
 
+// Style
 const ProjectDetailStyled = styled.section`
   padding: 0 0.5rem;
 
@@ -97,6 +100,9 @@ const ProjectDetailStyled = styled.section`
     margin-bottom: 3rem;
 
     .title {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
       padding-bottom: 1rem;
     }
 

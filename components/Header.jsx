@@ -16,7 +16,7 @@ export default function Header() {
           </Link>
         </div>
 
-        <ul className="nav_header">
+        <ul className="nav-header">
           <li>
             <Link href="/about">
               <a>About</a>
@@ -50,18 +50,12 @@ const HeaderStyled = styled.nav`
     margin-top: 2rem;
   }
 
-  a {
-    &:hover {
-      color: #123f68;
-    }
-  }
-
   .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    ul.nav_header {
+    ul.nav-header {
       display: flex;
 
       li {

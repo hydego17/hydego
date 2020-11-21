@@ -9,8 +9,17 @@ import { getInitialProjects } from "lib/api";
 import Fade from "components/CardTransition";
 import Projects from "components/Projects";
 import PaginateBtn from "components/PaginateBtn";
+import PreviewAlert from "components/PreviewAlert";
 
-export default function Home({ projects, firstData, lastData, maxPage }) {
+export default function Home({
+  projects,
+  firstData,
+  lastData,
+  maxPage,
+  preview,
+}) {
+  //
+  //
   const router = useRouter();
 
   // State for offset page query
@@ -109,6 +118,7 @@ export default function Home({ projects, firstData, lastData, maxPage }) {
           <h1>Hi, I'm Umma Ahimsha</h1>
           <p>a web developer</p>
         </section>
+        {preview && <PreviewAlert />}
         <article className="projects-wrapper">
           <Fade in={!isLoading}>{content}</Fade>
         </article>
@@ -117,7 +127,7 @@ export default function Home({ projects, firstData, lastData, maxPage }) {
   );
 }
 
-export const getServerSideProps = async ({ query }) => {
+export const getServerSideProps = async ({ query, preview = false }) => {
   const page = query.page || 0;
   const {
     data,
@@ -135,6 +145,7 @@ export const getServerSideProps = async ({ query }) => {
       lastData: lastData.current,
       currPage,
       maxPage,
+      preview,
     },
   };
 };

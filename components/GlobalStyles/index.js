@@ -73,6 +73,13 @@ const GlobalStyles = () => {
           border-top: 1px solid ${theme.divider};
         }
 
+        nav a,
+        .links a {
+          &:hover {
+            color: ${theme.hoverClr};
+          }
+        }
+
         .container {
           padding: 0 2rem;
           max-width: 800px;
@@ -81,6 +88,7 @@ const GlobalStyles = () => {
         }
 
         .project-card {
+          background: ${theme.cardBg};
           border: 1px solid ${theme.borderColor};
 
           &:hover {
@@ -91,6 +99,9 @@ const GlobalStyles = () => {
         .card-image,
         .detail-image {
           border: 1px solid ${theme.divider};
+        }
+        .preview-alert {
+          background-color: ${theme.divider};
         }
 
         .react-toggle {
