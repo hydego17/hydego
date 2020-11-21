@@ -47,7 +47,7 @@ export default function ProjectDetail({ project }) {
 export async function getStaticProps({ params }) {
   const project = await getSingleProject(params.slug);
 
-  return { props: { project } };
+  return { props: { project }, revalidate: 1 };
 }
 
 export async function getStaticPaths() {

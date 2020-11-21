@@ -9,7 +9,7 @@ import Head from "next/head";
 import Projects from "components/Projects";
 import Fade from "components/CardTransition";
 
-export default function Home({ projects, firstData, lastData }) {
+export default function Home({ projects, firstData, lastData, maxPage }) {
   const router = useRouter();
 
   const [offset, setOffset] = useState(0);
@@ -43,6 +43,10 @@ export default function Home({ projects, firstData, lastData }) {
       const query = router.query;
       query.page = offset;
 
+      if (query.page >= maxPage) {
+        setOffset(1);
+      }
+
       router.push({
         pathname: path,
         query: query,
@@ -51,18 +55,20 @@ export default function Home({ projects, firstData, lastData }) {
       window.scrollTo(0, 0);
     };
     handlePagination();
-  }, [offset]);
+  }, [offset, setOffset]);
 
   // Disable Pagination Button
   useEffect(() => {
-    const firstDisplayed = projects[0].slug;
-    const lastDisplayed = projects[projects.length - 1].slug;
+    if (projects) {
+      const firstDisplayed = projects[0]?.slug;
+      const lastDisplayed = projects[projects.length - 1]?.slug;
 
-    const isFirstTheSame = firstDisplayed === firstData;
-    const isLastTheSame = lastDisplayed === lastData;
+      const isFirstTheSame = firstDisplayed === firstData;
+      const isLastTheSame = lastDisplayed === lastData;
 
-    setIsFirst(isFirstTheSame ? 1 : 0);
-    setIsLast(isLastTheSame ? 1 : 0);
+      setIsFirst(isFirstTheSame ? 1 : 0);
+      setIsLast(isLastTheSame ? 1 : 0);
+    }
   }, [projects, firstData, lastData]);
 
   //Generating projects list
@@ -132,6 +138,7 @@ export const getServerSideProps = async ({ query }) => {
       projects: projectsData.data,
       firstData: projectsData.firstData.current,
       lastData: projectsData.lastData.current,
+      maxPage: projectsData.maxPage,
     },
   };
 };
