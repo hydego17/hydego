@@ -9,7 +9,7 @@ const getTransitionStyles = {
   entering: {
     position: `absolute`,
     opacity: 0,
-    transform: `translateX(50px)`,
+    transform: `translateX(-50px)`,
   },
   entered: {
     transition: `opacity ${TIMEOUT}ms ease-in-out, transform ${TIMEOUT}ms ease-in-out`,
