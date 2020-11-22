@@ -4,7 +4,7 @@ export default function About() {
   // Add sanity page
   return (
     <AboutStyled>
-      <h2>About Me</h2>
+      <h2>About Me test branch</h2>
     </AboutStyled>
   );
 }
