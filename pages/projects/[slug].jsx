@@ -2,12 +2,7 @@ import { useRouter } from "next/router";
 import ErrorPage from "next/error";
 import styled from "@emotion/styled";
 import BlockContent from "@sanity/block-content-to-react";
-import {
-  urlFor,
-  getAllProjects,
-  getSingleProject,
-  getPaginatedProjects,
-} from "lib/api";
+import { urlFor, getSingleProject, getPaginatedProjects } from "lib/api";
 
 import PreviewAlert from "components/PreviewAlert";
 

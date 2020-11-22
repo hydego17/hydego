@@ -6,7 +6,6 @@ import styled from "@emotion/styled";
 
 import { getInitialProjects } from "lib/api";
 
-import Fade from "components/CardTransition";
 import Projects from "components/Projects";
 import PaginateBtn from "components/PaginateBtn";
 import PreviewAlert from "components/PreviewAlert";
@@ -108,7 +107,10 @@ export default function Home({
   return (
     <>
       <Head>
-        <title>hydego</title>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
+        />
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
 
@@ -118,9 +120,7 @@ export default function Home({
           <p>a web developer</p>
         </section>
         {preview && <PreviewAlert />}
-        <article className="projects-wrapper">
-          <Fade in={isMounted}>{content}</Fade>
-        </article>
+        <article className="projects-wrapper">{content}</article>
       </HomeStyled>
     </>
   );
@@ -128,13 +128,7 @@ export default function Home({
 
 export const getServerSideProps = async ({ query, preview = false }) => {
   const page = query.page || 0;
-  const {
-    data,
-    firstData,
-    lastData,
-    currPage,
-    maxPage,
-  } = await getInitialProjects(page);
+  const { data, firstData, lastData, maxPage } = await getInitialProjects(page);
 
   // Pass data to the page via props
   return {
@@ -142,7 +136,6 @@ export const getServerSideProps = async ({ query, preview = false }) => {
       projects: data,
       firstData: firstData.current,
       lastData: lastData.current,
-      currPage,
       maxPage,
       preview,
     },

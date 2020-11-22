@@ -1,4 +1,4 @@
-import { getPaginatedProjects, projectFields } from "lib/api";
+import { getPaginatedProjects } from "lib/api";
 import client from "lib/sanity";
 
 export default async function getProjects(req, res) {
@@ -15,7 +15,6 @@ export default async function getProjects(req, res) {
       dataCount: data.length,
       firstData: totalProjects[0].slug,
       lastData: totalProjects[totalProjects.length - 1].slug,
-      currPage: page,
       maxPage: Math.ceil(totalProjects.length / perPage),
     });
   } catch (err) {

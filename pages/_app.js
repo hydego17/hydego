@@ -11,10 +11,9 @@ import "styles/globals.css";
 function MyApp({ Component, pageProps, router }) {
   return (
     <>
-      <DefaultSeo {...SEO} />
-
       <ThemeProvider>
         <Layout>
+          <DefaultSeo {...SEO} />
           <GlobalStyles />
           <Component {...pageProps} key={router.route} />
         </Layout>

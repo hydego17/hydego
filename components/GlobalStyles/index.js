@@ -1,9 +1,6 @@
 import { Global, css } from "@emotion/core";
 import { useTheme } from "providers/ThemeProvider";
 
-// color: ${theme.light.foreground};
-// background: ${theme.light.background};
-
 const GlobalStyles = () => {
   const { theme } = useTheme();
 

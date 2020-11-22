@@ -4,9 +4,9 @@ export default {
   openGraph: {
     type: "website",
     locale: "id_ID",
-    title: "klaskita",
+    title: "hydego",
     description: "Umma Ahimsha's portfolio",
-    url: "https://www.hydego17.github.io/",
+    url: "https://hydego17.vercel.app/",
     site_name: "hydego",
   },
   twitter: {

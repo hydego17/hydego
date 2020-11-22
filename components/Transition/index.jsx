@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import {
   TransitionGroup,
   Transition as ReactTransition,
@@ -7,9 +8,8 @@ const TIMEOUT = 200;
 
 const getTransitionStyles = {
   entering: {
-    position: `absolute`,
     opacity: 0,
-    transform: `translateX(-50px)`,
+    transform: `translateX(50px)`,
   },
   entered: {
     transition: `opacity ${TIMEOUT}ms ease-in-out, transform ${TIMEOUT}ms ease-in-out`,
@@ -34,16 +34,19 @@ const Transition = ({ children, location }) => {
         }}
       >
         {(status) => (
-          <div
+          <TransitionStyled
             style={{
               ...getTransitionStyles[status],
             }}
           >
             {children}
-          </div>
+          </TransitionStyled>
         )}
       </ReactTransition>
     </TransitionGroup>
   );
 };
+
+const TransitionStyled = styled.div``;
+
 export default Transition;
