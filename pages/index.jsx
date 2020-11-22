@@ -4,11 +4,7 @@ import Head from "next/head";
 
 import styled from "@emotion/styled";
 
-import {
-  getAllProjects,
-  getInitialProjects,
-  getPaginatedProjects,
-} from "lib/api";
+import { getPaginatedProjects } from "lib/api";
 import { useGetProjects } from "actions/projects";
 
 import Projects from "components/Projects";
@@ -29,7 +25,7 @@ export default function Home({ initialData }) {
   });
 
   const projects = fetchedProjects?.data;
-  const firstData = fetchedProjects?.firstData;
+  const firstData = initialData.firstData;
   const lastData = fetchedProjects?.lastData?.current;
 
   // Set Loading Based on router
