@@ -155,10 +155,6 @@ const GlobalStyles = () => {
           background-color: #000000;
         }
 
-        .react-toggle--checked .react-toggle-track {
-          background-color: #bdc3c7;
-        }
-
         .react-toggle--checked:hover:not(.react-toggle--disabled)
           .react-toggle-track {
           background-color: #bdc3c7;
@@ -229,7 +225,7 @@ const GlobalStyles = () => {
 
         .react-toggle--checked .react-toggle-thumb {
           left: 27px;
-          background-color: #747d8c;
+          background-color: #bbbbbb;
           border-color: #bdc3c7;
         }
 

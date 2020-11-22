@@ -18,12 +18,12 @@ export const themes = {
   dark: {
     type: "dark",
     color: "rgba(250, 250, 250)",
-    background: "rgb(30,30,30)",
-    cardBg: `linear-gradient(#242424, #242424 90%)`,
+    background: "rgb(38, 39, 46)",
+    cardBg: `linear-gradient(rgb(48, 49, 58), rgb(41, 42, 48) 90%)`,
     hoverClr: "rgb(200, 200, 200)",
-    navBg: `rgba(30, 30, 30, 0.8)`,
+    navBg: `rgba(38, 39, 46, 0.8)`,
     divider: `rgba(50, 50, 50)`,
-    borderColor: "rgb(40,40,40)",
+    borderColor: "rgb(65, 64, 68)",
     boxShadow: `
     0 2.8px 2.2px rgba(200, 200, 200, 0.034),
     0 6.7px 5.3px rgba(200, 200, 200, 0.048), 
