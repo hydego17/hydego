@@ -157,7 +157,7 @@ const GlobalStyles = () => {
 
         .react-toggle--checked:hover:not(.react-toggle--disabled)
           .react-toggle-track {
-          background-color: #bdc3c7;
+          background-color: #909497;
         }
 
         .react-toggle-track-check {

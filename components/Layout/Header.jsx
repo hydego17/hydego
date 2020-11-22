@@ -80,7 +80,7 @@ const HeaderStyled = styled.nav`
   .react-toggle-track-x {
     height: 16px;
     svg {
-      padding: 1px;
+      padding: 1.5px;
       color: #ffdf75;
     }
   }
