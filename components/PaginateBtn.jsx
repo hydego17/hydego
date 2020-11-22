@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled from "@emotion/styled";
-import { FaRoad } from "react-icons/fa";
 
 export default function PaginateBtn({
   fetchedProjects,
