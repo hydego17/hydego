@@ -36,6 +36,29 @@ export default function Home({
   const [isFirst, setIsFirst] = useState(0);
   const [isLast, setIsLast] = useState(0);
 
+  const asPath = router.asPath;
+
+  // Change pages based on query
+  useEffect(() => {
+    if (asPath === "/") {
+      setOffset(0);
+    }
+    // Triggers fetch for new page
+    const handlePagination = () => {
+      const path = router.pathname;
+      const query = router.query;
+      query.page = offset;
+
+      router.push({
+        pathname: path,
+        query: query,
+      });
+
+      window.scrollTo(0, 0);
+    };
+    handlePagination();
+  }, [offset, setOffset, asPath]);
+
   // Set Loading Based on router
   useEffect(() => {
     setIsMounted(!isLoading ? true : false);
@@ -49,31 +72,9 @@ export default function Home({
     };
   }, [isLoading]);
 
-  // Change pages based on query
-  useEffect(() => {
-    // Triggers fetch for new page
-    const handlePagination = () => {
-      const path = router.pathname;
-      const query = router.query;
-      query.page = offset;
-
-      if (query.page >= maxPage) {
-        setOffset(1);
-      }
-
-      router.push({
-        pathname: path,
-        query: query,
-      });
-
-      window.scrollTo(0, 0);
-    };
-    handlePagination();
-  }, [offset, setOffset]);
-
   // Disable Pagination Button
   useEffect(() => {
-    if (projects && firstData && lastData) {
+    if (projects) {
       const firstDisplayed = projects[0]?.slug;
       const lastDisplayed = projects[projects.length - 1]?.slug;
 
@@ -100,12 +101,7 @@ export default function Home({
             ))}
         </section>
 
-        <PaginateBtn
-          isFirst={isFirst}
-          isLast={isLast}
-          offset={offset}
-          setOffset={setOffset}
-        />
+        <PaginateBtn isFirst={isFirst} isLast={isLast} setOffset={setOffset} />
       </>
     );
   }

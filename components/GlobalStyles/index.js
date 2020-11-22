@@ -20,7 +20,7 @@ const GlobalStyles = () => {
         }
 
         body {
-          transition: background 0.3s ease, color 0.3s ease;
+          transition: background 0.3s ease;
           color: ${theme.color};
           background: ${theme.background};
           min-height: 100%;

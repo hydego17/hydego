@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
 
-export default function PaginateBtn({ isFirst, isLast, offset, setOffset }) {
+export default function PaginateBtn({ isFirst, isLast, setOffset }) {
   return (
     <PaginateBtnStyled>
-      <button disabled={isFirst} onClick={() => setOffset(offset - 1)}>
+      <button disabled={isFirst} onClick={() => setOffset((prev) => prev - 1)}>
         Prev
       </button>
-      <button disabled={isLast} onClick={() => setOffset(offset + 1)}>
+      <button disabled={isLast} onClick={() => setOffset((prev) => prev + 1)}>
         Next
       </button>
     </PaginateBtnStyled>
@@ -33,7 +33,7 @@ const PaginateBtnStyled = styled.div`
     }
 
     &:disabled {
-      color: #c9c9c9;
+      color: #797979;
     }
   }
 `;
