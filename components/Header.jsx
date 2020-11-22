@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
-import { useTheme } from "providers/ThemeProvider";
 import Toggle from "react-toggle";
+
+import { useTheme } from "providers/ThemeProvider";
 
 export default function Header() {
   const { theme, toggleTheme } = useTheme();
+
   return (
     <HeaderStyled>
       <header className="container">
@@ -25,7 +27,7 @@ export default function Header() {
           <li>
             <label>
               <Toggle
-                defaultChecked={theme.type === "dark"}
+                checked={theme.type === "dark"}
                 icons={false}
                 onChange={toggleTheme}
               />
