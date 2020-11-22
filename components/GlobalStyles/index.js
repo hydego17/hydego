@@ -230,9 +230,6 @@ const GlobalStyles = () => {
         }
 
         .react-toggle--focus .react-toggle-thumb {
-          -webkit-box-shadow: 0px 0px 3px 2px #0099e0;
-          -moz-box-shadow: 0px 0px 3px 2px #0099e0;
-          box-shadow: 0px 0px 2px 3px #0099e0;
         }
 
         .react-toggle:active:not(.react-toggle--disabled) .react-toggle-thumb {
