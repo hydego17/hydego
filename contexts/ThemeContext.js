@@ -19,7 +19,7 @@ export const themes = {
     type: "dark",
     color: "rgba(250, 250, 250)",
     background: "rgb(38, 39, 46)",
-    cardBg: `linear-gradient(rgb(48, 49, 58), rgb(41, 42, 48) 90%)`,
+    cardBg: `linear-gradient(rgb(45, 46, 55), rgb(38, 42, 46) 90%)`,
     hoverClr: "rgb(200, 200, 200)",
     navBg: `rgba(38, 39, 46, 0.8)`,
     divider: `rgba(50, 50, 50)`,
