@@ -4,6 +4,7 @@ import client from "lib/sanity";
 export default async function getProjects(req, res) {
   const page = Number(req.query.page * 3);
   const perPage = 3;
+
   try {
     const data = await getPaginatedProjects({ offset: page });
     const totalProjects = await client.fetch(

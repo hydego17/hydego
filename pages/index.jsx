@@ -4,14 +4,14 @@ import Head from "next/head";
 
 import styled from "@emotion/styled";
 
-import { getPaginatedProjects } from "lib/api";
+import { getAllProjects, getPaginatedProjects } from "lib/api";
 import { useGetProjects } from "actions/projects";
 
 import Projects from "components/Projects";
 import PaginateBtn from "components/PaginateBtn";
 import PreviewAlert from "components/PreviewAlert";
 
-export default function Home({ initialData }) {
+export default function Home({ initialData, preview }) {
   // State for offset page query
   const [offset, setOffset] = useState(0);
 
@@ -25,8 +25,8 @@ export default function Home({ initialData }) {
   });
 
   const projects = fetchedProjects?.data;
-  const firstData = initialData.firstData;
-  const lastData = fetchedProjects?.lastData?.current;
+
+  const { maxPage, firstData, lastData } = initialData;
 
   // Set Loading Based on router
 
@@ -93,18 +93,18 @@ export default function Home({ initialData }) {
   );
 }
 
-export const getStaticProps = async () => {
-  const result = await getPaginatedProjects({ offset: 0 });
+export const getStaticProps = async ({ preview = false }) => {
+  const result = await getAllProjects();
   // Pass data to the page via props
   return {
     props: {
       initialData: {
         message: "Fetched Projects",
-        data: result,
+        data: result?.slice(0, 3),
         dataCount: result?.length,
         firstData: result ? result[0].slug : null,
-        lastData: null,
-        maxPage: 2,
+        lastData: result ? result[result.length - 1].slug : null,
+        maxPage: Math.ceil(result?.length / 3),
       },
     },
   };
@@ -123,9 +123,7 @@ const HomeStyled = styled.section`
       font-size: 1.1rem;
     }
   }
-  .projects-wrapper {
-    min-height: 80vh;
-  }
+
   h2 {
     font-size: clamp(1.4rem, 5vw, 1.6rem);
   }
