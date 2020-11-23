@@ -36,7 +36,7 @@ export default function ProjectDetail({ project, preview }) {
           </article>
 
           <article className="technology">
-            <h3> Stack </h3>
+            <h3> Tools </h3>
             <small>{techStacks}</small>
           </article>
 
