@@ -8,10 +8,6 @@ export default function Projects({ project }) {
   return (
     <ProjectsStyled>
       <section className="project-card">
-        <figure className="card-image">
-          <img src={urlFor(coverImage).url()} alt={title} />
-        </figure>
-
         <article className="card-body">
           <Link target="_blank" as={`projects/${slug}`} href="projects/[slug]">
             <a className="project-title">

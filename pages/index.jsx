@@ -114,7 +114,6 @@ const HomeStyled = styled.section`
   .intro {
     margin-bottom: 2rem;
     h1 {
-      font-size: clamp(1.85rem, 2.5vw, 4rem);
       padding-right: 2rem;
       margin-bottom: 1rem;
     }
