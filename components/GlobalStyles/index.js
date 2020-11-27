@@ -44,6 +44,10 @@ const GlobalStyles = () => {
           }
         }
 
+        h1 {
+          font-size: clamp(1.85rem, 2.5vw, 4rem);
+        }
+
         a {
           color: inherit;
           text-decoration: none;

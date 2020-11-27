@@ -8,10 +8,6 @@ export default function Projects({ project }) {
   return (
     <ProjectsStyled>
       <section className="project-card">
-        <figure className="card-image">
-          <img src={urlFor(coverImage).url()} alt={title} />
-        </figure>
-
         <article className="card-body">
           <Link target="_blank" as={`projects/${slug}`} href="projects/[slug]">
             <a className="project-title">
@@ -50,6 +46,8 @@ const ProjectsStyled = styled.article`
     transition: box-shadow 0.3s ease;
 
     .card-image {
+      display: flex;
+      align-items: center;
       padding: 0.2rem;
       flex-shrink: 1;
       overflow: hidden;

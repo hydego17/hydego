@@ -1,12 +1,32 @@
+import { useState } from "react";
 import styled from "@emotion/styled";
 
-export default function PaginateBtn({ isFirst, isLast, setOffset }) {
+export default function PaginateBtn({
+  fetchedProjects,
+  isFirst,
+  isLast,
+  setOffset,
+  offset,
+  mutate,
+}) {
+  const updateProjects = async () => {
+    await setOffset((prev) => prev + 1);
+
+    mutate(fetchedProjects);
+    mutate(`api/projects?page=${offset}`);
+  };
+
   return (
     <PaginateBtnStyled>
-      <button disabled={isFirst} onClick={() => setOffset((prev) => prev - 1)}>
+      <button
+        disabled={isFirst}
+        onClick={() => {
+          setOffset((prev) => prev - 1);
+        }}
+      >
         Prev
       </button>
-      <button disabled={isLast} onClick={() => setOffset((prev) => prev + 1)}>
+      <button disabled={isLast} onClick={updateProjects}>
         Next
       </button>
     </PaginateBtnStyled>
