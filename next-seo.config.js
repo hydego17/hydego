@@ -1,11 +1,12 @@
 export default {
   title: "hydego",
-  description: "Umma Ahimsha's Website",
+  description: "Umma Ahimsha's minimal portfolio.",
+
   openGraph: {
     type: "website",
     locale: "id_ID",
     title: "hydego",
-    description: "Umma Ahimsha's portfolio",
+    description: "Umma Ahimsha's minimal portfolio.",
     url: "https://hydego17.vercel.app/",
     site_name: "hydego",
   },

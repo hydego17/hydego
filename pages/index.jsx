@@ -112,7 +112,7 @@ export const getStaticProps = async ({ preview = false }) => {
 
 const HomeStyled = styled.section`
   .intro {
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;
     h1 {
       padding-right: 2rem;
       margin-bottom: 1rem;

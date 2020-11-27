@@ -8,6 +8,9 @@ export default function Projects({ project }) {
   return (
     <ProjectsStyled>
       <section className="project-card">
+        <figure className="card-image">
+          <img src={urlFor(coverImage).url()} alt={title} />
+        </figure>
         <article className="card-body">
           <Link target="_blank" as={`projects/${slug}`} href="projects/[slug]">
             <a className="project-title">
@@ -37,6 +40,7 @@ export default function Projects({ project }) {
 
 const ProjectsStyled = styled.article`
   .project-card {
+    width: 100%;
     display: flex;
     align-items: center;
     border-radius: 3px;
@@ -45,6 +49,10 @@ const ProjectsStyled = styled.article`
     padding: 1rem;
     transition: box-shadow 0.3s ease;
 
+    .card-body {
+      width: 100%;
+    }
+
     .card-image {
       display: flex;
       align-items: center;
@@ -52,8 +60,8 @@ const ProjectsStyled = styled.article`
       flex-shrink: 1;
       overflow: hidden;
       border-radius: 5px;
-      max-width: 225px;
-      max-height: 160px;
+      max-width: 150px;
+      max-height: 100px;
       margin-right: 2rem;
 
       @media screen and (max-width: 678px) {

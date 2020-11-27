@@ -8,6 +8,7 @@ export const themes = {
     hoverClr: "#507496",
     cardBg: "white",
     navBg: `rgba(255, 255, 255, 0.8)`,
+    paginateBg: `#e4e4e4`,
     divider: `rgba(237, 237, 237)`,
     borderColor: "rgba(233, 233, 233)",
     boxShadow: `
@@ -22,6 +23,7 @@ export const themes = {
     cardBg: `linear-gradient(rgb(48, 49, 58), rgb(38, 42, 46) 90%)`,
     hoverClr: "rgb(200, 200, 200)",
     navBg: `rgba(38, 39, 46, 0.8)`,
+    paginateBg: `#3f3f3f`,
     divider: `rgba(50, 50, 50)`,
     borderColor: "rgb(65, 64, 68)",
     boxShadow: `

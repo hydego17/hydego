@@ -19,6 +19,7 @@ export default function PaginateBtn({
   return (
     <PaginateBtnStyled>
       <button
+        className="paginate-btn"
         disabled={isFirst}
         onClick={() => {
           setOffset((prev) => prev - 1);
@@ -26,7 +27,11 @@ export default function PaginateBtn({
       >
         Prev
       </button>
-      <button disabled={isLast} onClick={updateProjects}>
+      <button
+        className="paginate-btn"
+        disabled={isLast}
+        onClick={updateProjects}
+      >
         Next
       </button>
     </PaginateBtnStyled>
@@ -37,7 +42,7 @@ const PaginateBtnStyled = styled.div`
   float: right;
   padding: 2rem 0;
 
-  button {
+  .paginate-btn {
     padding: 0.3rem 0.4rem;
     margin-left: 0.5rem;
     border-radius: 2px;
@@ -48,12 +53,8 @@ const PaginateBtnStyled = styled.div`
     transition: all 0.3s ease;
     font-size: 0.9rem;
 
-    &:hover {
-      background: #d4d4d4;
-    }
-
     &:disabled {
-      color: #797979;
+      color: #858585;
     }
   }
 `;

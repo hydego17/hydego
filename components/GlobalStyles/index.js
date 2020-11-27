@@ -105,6 +105,15 @@ const GlobalStyles = () => {
           background-color: ${theme.divider};
         }
 
+        .paginate-btn {
+          color: ${theme.color};
+          background: ${theme.paginateBg};
+
+          &:hover {
+            background: ${theme.borderColor};
+          }
+        }
+
         .react-toggle {
           touch-action: pan-x;
 
