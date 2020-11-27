@@ -50,6 +50,8 @@ const ProjectsStyled = styled.article`
     transition: box-shadow 0.3s ease;
 
     .card-image {
+      display: flex;
+      align-items: center;
       padding: 0.2rem;
       flex-shrink: 1;
       overflow: hidden;

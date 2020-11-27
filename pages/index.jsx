@@ -51,13 +51,13 @@ export default function Home({ initialData, preview }) {
     content = (
       <>
         <h2>Projects</h2>
-        <section className="projects-list">
+        <article className="projects-list">
           {fetchedProjects &&
             projects &&
             projects.map((project, index) => (
               <Projects key={index} project={project} />
             ))}
-        </section>
+        </article>
 
         <PaginateBtn
           isFirst={isFirst}
@@ -87,7 +87,7 @@ export default function Home({ initialData, preview }) {
           <p>a web developer</p>
         </section>
         {/* {preview && <PreviewAlert />} */}
-        <article className="projects-wrapper">{content}</article>
+        {content}
       </HomeStyled>
     </>
   );
@@ -122,6 +122,10 @@ const HomeStyled = styled.section`
       margin-bottom: 1rem;
       font-size: 1.1rem;
     }
+  }
+
+  .projects-list {
+    min-height: 30vh;
   }
 
   h2 {

@@ -12,6 +12,7 @@ export default function PaginateBtn({
   const updateProjects = async () => {
     await setOffset((prev) => prev + 1);
 
+    mutate(fetchedProjects);
     mutate(`api/projects?page=${offset}`);
   };
 
