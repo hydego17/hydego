@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+
 import Head from "next/head";
 
 import styled from "@emotion/styled";
 
-import { getAllProjects, getPaginatedProjects } from "lib/api";
+import { getAllProjects } from "lib/api";
 import { useGetProjects } from "actions/projects";
 
 import Projects from "components/Projects";
@@ -86,14 +86,14 @@ export default function Home({ initialData, preview }) {
           <h1>Hi, I'm Umma Ahimsha</h1>
           <p>a web developer</p>
         </section>
-        {/* {preview && <PreviewAlert />} */}
+        {preview && <PreviewAlert />}
         {content}
       </HomeStyled>
     </>
   );
 }
 
-export const getStaticProps = async ({ preview = false }) => {
+export const getStaticProps = async () => {
   const result = await getAllProjects();
   // Pass data to the page via props
   return {
