@@ -3,7 +3,7 @@ import Link from "next/link";
 import { urlFor } from "lib/api";
 
 export default function Projects({ project }) {
-  const { title, subtitle, coverImage, slug, link } = project;
+  const { title, subtitle, coverImage, slug, link, code } = project;
 
   return (
     <ProjectsStyled>
@@ -28,9 +28,14 @@ export default function Projects({ project }) {
                 Site
               </a>
             </small>
-            <small>
-              <a href="#">Code</a>
-            </small>
+
+            {code && (
+              <small>
+                <a href={code} target="_blank" rel="noopener">
+                  Code
+                </a>
+              </small>
+            )}
           </div>
         </article>
       </section>

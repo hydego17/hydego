@@ -17,7 +17,7 @@ export default function ProjectDetail({ project, preview }) {
     return <h2> Loading... </h2>;
   }
 
-  const { title, techStacks, coverImage, link } = project;
+  const { title, techStacks, coverImage, link, code } = project;
 
   return (
     <>
@@ -25,30 +25,38 @@ export default function ProjectDetail({ project, preview }) {
         <section className="detail-body">
           {preview && <PreviewAlert />}
           <header className="title">
-            <h2>{title}</h2>
+            <h1>{title} </h1>
           </header>
 
           <hr />
 
+          {!code && <h2>(Private Contract)</h2>}
+
           <article className="description">
-            <h3> Case Study </h3>
+            <h2> Case Study </h2>
             <BlockContent blocks={project.content} />
           </article>
 
           <article className="technology">
-            <h3> Tools </h3>
+            <h2> Tools </h2>
             <small>{techStacks}</small>
           </article>
 
           <section className="links">
+            <h2> Links </h2>
             <small>
               <a href={link} target="_blank" rel="noopener">
                 Site
               </a>
             </small>
-            <small>
-              <a href="#">Code</a>
-            </small>
+
+            {code && (
+              <small>
+                <a href={code} target="_blank" rel="noopener">
+                  Code
+                </a>
+              </small>
+            )}
           </section>
         </section>
 
@@ -126,6 +134,7 @@ const ProjectDetailStyled = styled.section`
     .links {
       padding-top: 1rem;
       small {
+        font-size: 1rem;
         padding-right: 0.5rem;
       }
     }
@@ -135,7 +144,12 @@ const ProjectDetailStyled = styled.section`
     font-size: 14px;
   }
 
-  h3 {
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
     padding-bottom: 0.5rem;
   }
 `;
