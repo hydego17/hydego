@@ -103,9 +103,6 @@ const ProjectDetailStyled = styled.section`
     margin-bottom: 3rem;
 
     .title {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
       padding-bottom: 1rem;
     }
 

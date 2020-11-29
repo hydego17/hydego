@@ -21,7 +21,7 @@ export const themes = {
     color: "rgba(250, 250, 250)",
     background: "rgb(38, 39, 46)",
     cardBg: `linear-gradient(rgb(48, 49, 58), rgb(38, 42, 46) 90%)`,
-    hoverClr: "rgb(200, 200, 200)",
+    hoverClr: "#88c5ff",
     navBg: `rgba(38, 39, 46, 0.8)`,
     paginateBg: `#3f3f3f`,
     divider: `rgba(50, 50, 50)`,

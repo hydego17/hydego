@@ -24,6 +24,11 @@ export default function Header() {
               <a>About</a>
             </Link>
           </li>
+          <li>
+            <Link href="/archive">
+              <a>Archive</a>
+            </Link>
+          </li>
         </ul>
         <div className="nav-toggle">
           <label>

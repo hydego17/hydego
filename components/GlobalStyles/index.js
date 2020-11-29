@@ -51,6 +51,11 @@ const GlobalStyles = () => {
         a {
           color: inherit;
           text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+            color: ${theme.hoverClr};
+          }
         }
 
         ul {
@@ -67,6 +72,10 @@ const GlobalStyles = () => {
           background-color: ${theme.navBg};
         }
 
+        article p {
+          line-height: 1.625;
+        }
+
         hr {
           padding: 0.5rem;
           border: 0;
@@ -74,15 +83,8 @@ const GlobalStyles = () => {
           border-top: 1px solid ${theme.divider};
         }
 
-        nav a,
-        .links a {
-          &:hover {
-            color: ${theme.hoverClr};
-          }
-        }
-
         .container {
-          padding: 0 2rem;
+          padding: 0 1.5rem;
           max-width: 800px;
           width: 100%;
           margin: 0 auto;
