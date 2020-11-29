@@ -1,10 +1,17 @@
-import styled from "@emotion/styled";
-import { getAllArchives, getSingleArchive } from "lib/archive";
-import BlockContent from "@sanity/block-content-to-react";
-import PreviewAlert from "components/PreviewAlert";
+import { useRouter } from "next/router";
 import Link from "next/link";
+import styled from "@emotion/styled";
+import BlockContent from "@sanity/block-content-to-react";
+import { getAllArchives, getSingleArchive } from "lib/archive";
+import PreviewAlert from "components/PreviewAlert";
 
 export default function Archive({ archive, preview }) {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <h2> Loading... </h2>;
+  }
+
   return (
     <ArchiveStyled>
       {preview && <PreviewAlert />}
@@ -47,7 +54,7 @@ export async function getStaticPaths() {
     },
   }));
 
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 }
 
 // Style
