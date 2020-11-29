@@ -36,8 +36,8 @@ export default function About() {
           </p>
 
           <p>
-            If you're into literary stuff, I used to write poems and proses. You
-            can read them in the archive.
+            If you're into literary stuff, I used to write poems and proses
+            (mostly in Indonesian). You can read them in the archive.
           </p>
 
           <p>
