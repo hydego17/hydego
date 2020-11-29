@@ -13,11 +13,11 @@ export default function Archive({ initialData }) {
 
   const SEO = {
     title: "Archives",
-    description: "Some of my poems and proses | Umma Ahimsha",
+    description: "Some of my writing | Umma Ahimsha",
 
     openGraph: {
       title: "Archives",
-      description: "Some of my poems and proses | Umma Ahimsha",
+      description: "Some of my writing | Umma Ahimsha",
     },
   };
   // Add sanity page
