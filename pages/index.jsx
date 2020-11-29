@@ -66,6 +66,7 @@ export default function Home({ initialData, preview }) {
           offset={offset}
           fetchedProjects={fetchedProjects}
           mutate={mutate}
+          maxPage={maxPage}
         />
       </>
     );

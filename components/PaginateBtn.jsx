@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "@emotion/styled";
 
 export default function PaginateBtn({
@@ -7,12 +8,20 @@ export default function PaginateBtn({
   setOffset,
   offset,
   mutate,
+  maxPage,
 }) {
-  const updateProjects = async () => {
-    await setOffset((prev) => prev + 1);
+  const [pos, setPos] = useState(1);
 
-    mutate(fetchedProjects);
-    mutate(`api/projects?page=${offset}`);
+  const updateProjects = async () => {
+    if (pos < maxPage) {
+      setPos((prev) => prev + 1);
+      await setOffset((prev) => prev + 1);
+      mutate(fetchedProjects);
+      mutate(`api/projects?page=${offset}`);
+    } else {
+      await setOffset((prev) => prev + 1);
+    }
+    return null;
   };
 
   return (
