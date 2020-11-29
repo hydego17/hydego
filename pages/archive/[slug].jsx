@@ -59,6 +59,7 @@ export async function getStaticPaths() {
 
 // Style
 const ArchiveStyled = styled.article`
+  min-height: 100vh;
   header {
     display: flex;
     justify-content: space-between;

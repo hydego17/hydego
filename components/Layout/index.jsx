@@ -17,6 +17,7 @@ export default function Layout({ children }) {
 // background: ${(props) => props.theme.dark.background};
 
 const LayoutStyled = styled.main`
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;

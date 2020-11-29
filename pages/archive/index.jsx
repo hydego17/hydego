@@ -64,7 +64,6 @@ export async function getStaticProps() {
 
 const ArchiveStyled = styled.section`
   font-size: 15px;
-  min-height: 60vh;
 
   table {
     width: 100%;
