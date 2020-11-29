@@ -9,7 +9,7 @@ export default function Layout({ children }) {
   return (
     <>
       <Header />
-      <LayoutStyled>{children}</LayoutStyled>
+      <LayoutStyled className="container">{children}</LayoutStyled>
       <Footer />
     </>
   );
@@ -20,8 +20,4 @@ const LayoutStyled = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 1.5rem;
-  max-width: 800px;
-  width: 100%;
-  margin: 0 auto;
 `;

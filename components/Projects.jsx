@@ -53,6 +53,10 @@ const ProjectsStyled = styled.article`
 
   .card-body {
     width: 100%;
+
+    p {
+      line-height: 1.5;
+    }
   }
 
   .card-image {

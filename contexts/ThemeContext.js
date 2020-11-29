@@ -24,7 +24,7 @@ export const themes = {
     hoverClr: "#88c5ff",
     navBg: `rgba(38, 39, 46, 0.8)`,
     paginateBg: `#3f3f3f`,
-    divider: `rgba(50, 50, 50)`,
+    divider: `#3c3c3c`,
     borderColor: "rgb(65, 64, 68)",
     boxShadow: `
     0 2.8px 2.2px rgba(200, 200, 200, 0.034),
