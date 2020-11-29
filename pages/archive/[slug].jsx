@@ -60,6 +60,9 @@ export async function getStaticPaths() {
 // Style
 const ArchiveStyled = styled.article`
   min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+
   header {
     display: flex;
     justify-content: space-between;
