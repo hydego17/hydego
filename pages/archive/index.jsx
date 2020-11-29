@@ -59,7 +59,7 @@ export default function Archive({ initialData }) {
 
 export async function getStaticProps() {
   const initialData = await getAllArchives();
-  return { props: { initialData } };
+  return { props: { initialData }, revalidate: 1 };
 }
 
 const ArchiveStyled = styled.section`
