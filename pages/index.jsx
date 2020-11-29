@@ -94,7 +94,7 @@ export default function Home({ initialData, preview }) {
   );
 }
 
-export const getStaticProps = async () => {
+export async function getStaticProps() {
   const result = await getAllProjects();
   // Pass data to the page via props
   return {
@@ -109,7 +109,7 @@ export const getStaticProps = async () => {
       },
     },
   };
-};
+}
 
 const HomeStyled = styled.section`
   .intro {
