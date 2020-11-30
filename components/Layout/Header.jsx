@@ -31,7 +31,6 @@ export default function Header() {
           </li>
         </ul>
         <div className="nav-toggle">
-          <label htmlFor="theme-toggle"></label>
           <Toggle
             id="theme-toggle"
             aria-labelledby="theme-toggle"
@@ -42,6 +41,7 @@ export default function Header() {
             }}
             onChange={toggleTheme}
           />
+          <label htmlFor="theme-toggle"></label>
         </div>
       </header>
     </HeaderStyled>
