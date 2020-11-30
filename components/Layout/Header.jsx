@@ -31,17 +31,17 @@ export default function Header() {
           </li>
         </ul>
         <div className="nav-toggle">
-          <Toggle
-            id="theme-toggle"
-            aria-labelledby="theme-toggle"
-            checked={theme.type === "dark"}
-            icons={{
-              checked: <BsSun />,
-              unchecked: <FaMoon />,
-            }}
-            onChange={toggleTheme}
-          />
-          <label htmlFor="theme-toggle"></label>
+          <label htmlFor="theme-toggle">
+            <Toggle
+              id="theme-toggle"
+              checked={theme.type === "dark"}
+              icons={{
+                checked: <BsSun />,
+                unchecked: <FaMoon />,
+              }}
+              onChange={toggleTheme}
+            />
+          </label>
         </div>
       </header>
     </HeaderStyled>
