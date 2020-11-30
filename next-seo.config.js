@@ -7,7 +7,7 @@ export default {
     locale: "id_ID",
     title: "hydego",
     description: "Umma Ahimsha's minimal portfolio.",
-    url: "https://hydego17.vercel.app/",
+    url: "https://hydego.me/",
     site_name: "hydego",
   },
   twitter: {
