@@ -81,10 +81,7 @@ export default function Home({ initialData, preview }) {
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
         />
         <meta charSet="utf-8" />
-        <meta
-          name="google-site-verification"
-          content="8JO4hNM-F8Z45YueqCHFMD4A91RmliYbuFK3AmcTYBQ"
-        />
+
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
 
