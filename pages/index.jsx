@@ -5,7 +5,7 @@ import Head from "next/head";
 import styled from "@emotion/styled";
 
 import { getAllProjects } from "lib/api";
-import { useGetProjects } from "actions/projects";
+import { useGetProjects } from "hooks/projects";
 
 import Projects from "components/Projects";
 import PaginateBtn from "components/PaginateBtn";

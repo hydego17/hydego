@@ -1,6 +1,6 @@
 import { NextSeo } from "next-seo";
 import styled from "@emotion/styled";
-import { useGetArchive } from "actions/archive";
+import { useGetArchive } from "hooks/archive";
 import Link from "next/link";
 import { getAllArchives } from "lib/archive";
 
