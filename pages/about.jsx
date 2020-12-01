@@ -46,7 +46,6 @@ export default function About() {
 }
 
 const AboutStyled = styled.section`
-  min-height: 80vh;
   h1 {
     font-size: clamp(1.75rem, 2.5vw, 2rem);
     padding-bottom: 1rem;
