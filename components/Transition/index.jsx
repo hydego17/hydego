@@ -9,7 +9,7 @@ const TIMEOUT = 200;
 const getTransitionStyles = {
   entering: {
     opacity: 0,
-    transform: `translateX(50px)`,
+    transform: `translateX(-75px)`,
   },
   entered: {
     transition: `opacity ${TIMEOUT}ms ease-in-out, transform ${TIMEOUT}ms ease-in-out`,
@@ -19,7 +19,7 @@ const getTransitionStyles = {
   exiting: {
     transition: `opacity ${TIMEOUT}ms ease-in-out, transform ${TIMEOUT}ms ease-in-out`,
     opacity: 0,
-    transform: `translateX(-50px)`,
+    transform: `translateX(200px)`,
   },
 };
 

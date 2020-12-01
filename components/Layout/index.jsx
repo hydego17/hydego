@@ -4,17 +4,20 @@ import { useRouter } from "next/router";
 import Header from "./Header";
 import Footer from "./Footer";
 
+import Transition from "components/Transition";
+
 export default function Layout({ children }) {
   const router = useRouter();
   return (
     <>
       <Header />
-      <LayoutStyled className="container">{children}</LayoutStyled>
+      <Transition location={router.pathname}>
+        <LayoutStyled className="container">{children}</LayoutStyled>
+      </Transition>
       <Footer />
     </>
   );
 }
-// background: ${(props) => props.theme.dark.background};
 
 const LayoutStyled = styled.main`
   min-height: 75vh;

@@ -1,5 +1,5 @@
 import { useState, useContext, useMemo, useEffect } from "react";
-import { ThemeContext, themes } from "contexts/ThemeContext";
+import { ThemeContext, themes } from "./ThemeContext";
 
 const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(themes.light);
