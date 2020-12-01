@@ -52,6 +52,10 @@ const AboutStyled = styled.section`
     padding-bottom: 1rem;
   }
 
+  article {
+    max-width: 600px;
+  }
+
   p {
     padding-top: 1rem;
   }
