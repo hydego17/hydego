@@ -4,7 +4,7 @@ import {
   Transition as ReactTransition,
 } from "react-transition-group";
 
-const TIMEOUT = 200;
+const TIMEOUT = 150;
 
 const getTransitionStyles = {
   entering: {
@@ -44,6 +44,6 @@ const Transition = ({ children, location }) => {
   );
 };
 
-const TransitionStyled = styled.div``;
+const TransitionStyled = styled.main``;
 
 export default Transition;

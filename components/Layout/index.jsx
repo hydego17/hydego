@@ -19,7 +19,7 @@ export default function Layout({ children }) {
   );
 }
 
-const LayoutStyled = styled.main`
+const LayoutStyled = styled.div`
   min-height: 75vh;
   display: flex;
   flex-direction: column;
