@@ -32,8 +32,7 @@ export default function Home({ initialData, preview }) {
       <>
         <h2>Projects</h2>
         <article className="projects-list">
-          {fetchedProjects &&
-            projects &&
+          {projects &&
             projects.map((project, index) => (
               <Projects key={index} project={project} />
             ))}
