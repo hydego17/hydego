@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import Head from "next/head";
 
@@ -15,10 +15,6 @@ export default function Home({ initialData, preview }) {
   // State for offset page query
   const [offset, setOffset] = useState(0);
 
-  // State for disabled buttons
-  const [isFirst, setIsFirst] = useState(0);
-  const [isLast, setIsLast] = useState(0);
-
   const { data: fetchedProjects, loading, error, mutate } = useGetProjects({
     offset,
     initialData,
@@ -26,25 +22,9 @@ export default function Home({ initialData, preview }) {
 
   const projects = fetchedProjects?.data;
 
-  const { maxPage, firstData, lastData } = initialData;
-
-  // Set Loading Based on router
-
-  // Disable Pagination Button
-  useEffect(() => {
-    if (projects) {
-      const firstDisplayed = projects[0]?.slug;
-      const lastDisplayed = projects[projects.length - 1]?.slug;
-      const isFirstTheSame = firstDisplayed === firstData;
-      const isLastTheSame = lastDisplayed === lastData;
-
-      setIsFirst(isFirstTheSame ? 1 : 0);
-      setIsLast(isLastTheSame ? 1 : 0);
-    }
-  }, [projects]);
-
   // Conditional Rendering
   let content = null;
+
   if (loading) {
     content = <h3>Loading...</h3>;
   } else {
@@ -60,13 +40,11 @@ export default function Home({ initialData, preview }) {
         </article>
 
         <PaginateBtn
-          isFirst={isFirst}
-          isLast={isLast}
+          {...initialData}
           setOffset={setOffset}
           offset={offset}
           fetchedProjects={fetchedProjects}
           mutate={mutate}
-          maxPage={maxPage}
         />
       </>
     );

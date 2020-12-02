@@ -1,16 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 
 export default function PaginateBtn({
   fetchedProjects,
-  isFirst,
-  isLast,
   setOffset,
   offset,
   mutate,
+  firstData,
+  lastData,
   maxPage,
 }) {
+  // // State for disabled buttons
+  const [isFirst, setIsFirst] = useState(0);
+  const [isLast, setIsLast] = useState(0);
+
   const [pos, setPos] = useState(1);
+
+  // Disable Pagination Button
+  const projects = fetchedProjects.data;
+
+  useEffect(() => {
+    if (projects) {
+      const firstDisplayed = projects[0].slug;
+      const lastDisplayed = projects[projects.length - 1].slug;
+
+      setIsFirst(firstDisplayed === firstData ? 1 : 0);
+      setIsLast(lastDisplayed === lastData ? 1 : 0);
+    }
+  }, [projects]);
 
   const updateProjects = async () => {
     if (pos < maxPage) {
