@@ -5,7 +5,7 @@ export const themes = {
     type: "light",
     color: "#000000",
     background: "#ffffff",
-    hoverClr: "#507496",
+    hoverClr: "#126abd",
     cardBg: "white",
     navBg: `rgba(255, 255, 255, 0.8)`,
     paginateBg: `#e4e4e4`,

@@ -108,6 +108,10 @@ const GlobalStyles = () => {
           background-color: ${theme.divider};
         }
 
+        .detail-body .description a {
+          color: ${theme.hoverClr};
+        }
+
         .paginate-btn {
           color: ${theme.color};
           background: ${theme.paginateBg};
