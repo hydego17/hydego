@@ -88,6 +88,7 @@ export async function getStaticProps() {
         maxPage: Math.ceil(result?.length / 3),
       },
     },
+    revalidate: 1,
   };
 }
 
