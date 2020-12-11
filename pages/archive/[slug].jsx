@@ -18,17 +18,11 @@ export default function Archive({ archive, preview }) {
 
       <header>
         <h1>{archive.title}</h1>
-
-        <Link href="/archive">
-          <a>Back</a>
-        </Link>
       </header>
 
       <hr />
 
-      <article>
-        <BlockContent blocks={archive.content} />
-      </article>
+      <BlockContent blocks={archive.content} />
     </ArchiveStyled>
   );
 }
@@ -59,6 +53,7 @@ export async function getStaticPaths() {
 
 // Style
 const ArchiveStyled = styled.article`
+  max-width: 75%;
   min-height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
