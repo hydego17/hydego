@@ -8,7 +8,12 @@ export default function Projects({ project }) {
   return (
     <ProjectsStyled className="project-card">
       <figure className="card-image">
-        <img src={urlFor(coverImage).width(150).url()} alt={title} />
+        <img
+          src={urlFor(coverImage).width(150).url()}
+          alt={title}
+          width={150}
+          height={100}
+        />
       </figure>
       <article className="card-body">
         <Link target="_blank" as={`projects/${slug}`} href="projects/[slug]">
