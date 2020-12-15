@@ -41,11 +41,15 @@ const GlobalStyles = () => {
             0 12.5px 10px rgba(200, 200, 200, 0.06);
         }
 
+        html,
+        body {
+          color: var(--color);
+          background: var(--background);
+        }
+
         body {
           min-height: 80vh;
           transition: background 0.3s ease;
-          color: var(--color);
-          background: var(--background);
           min-height: 100%;
           font-family: -apple-system, BlinkMacSystemFont, "Inter", Helvetica,
             sans-serif;
