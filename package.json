@@ -1,7 +1,11 @@
 {
-  "name": "my-portfolio",
+  "name": "hydego-portfolio",
   "version": "0.1.0",
   "private": true,
+  "description": "hydego portfolio",
+  "keywords": [],
+  "author": "Umma Ahimsha <uahimsha@gmail.com>",
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -17,6 +21,7 @@
     "emotion-theming": "^10.0.27",
     "next": "10.0.1",
     "next-seo": "^4.15.0",
+    "next-themes": "^0.0.10",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-icons": "^3.11.0",

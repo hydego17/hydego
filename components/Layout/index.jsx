@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 
@@ -8,6 +9,12 @@ import Transition from "components/Transition";
 
 export default function Layout({ children }) {
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+  // When mounted on client, now we can show the UI
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null;
+
   return (
     <>
       <Header />

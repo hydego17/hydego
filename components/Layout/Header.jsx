@@ -1,14 +1,20 @@
+import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import Link from "next/link";
 import Toggle from "react-toggle";
 
-import { useTheme } from "providers/ThemeProvider";
+import { useTheme } from "next-themes";
 
 import { FaMoon } from "react-icons/fa";
 import { BsSun } from "react-icons/bs";
 
 export default function Header() {
-  const { theme, toggleTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  // After mounting, we have access to the theme
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null;
 
   return (
     <HeaderStyled>
@@ -35,12 +41,12 @@ export default function Header() {
           <Toggle
             id="theme-toggle"
             aria-labelledby="theme-toggle"
-            checked={theme.type === "dark"}
+            checked={theme === "dark"}
             icons={{
               checked: <BsSun />,
               unchecked: <FaMoon />,
             }}
-            onChange={toggleTheme}
+            onChange={() => setTheme(theme === "dark" ? "light" : "dark")}
           />
         </div>
       </header>

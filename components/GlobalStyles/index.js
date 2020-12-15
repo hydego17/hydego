@@ -1,9 +1,6 @@
 import { Global, css } from "@emotion/core";
-import { useTheme } from "providers/ThemeProvider";
 
 const GlobalStyles = () => {
-  const { theme } = useTheme();
-
   return (
     <Global
       styles={css`
@@ -16,11 +13,39 @@ const GlobalStyles = () => {
           text-rendering: optimizeLegibility;
         }
 
+        :root {
+          --color: #000000;
+          --background: #ffffff;
+          --hoverClr: #126abd;
+          --cardBg: white;
+          --navBg: rgba(255, 255, 255, 0.8);
+          --paginateBg: #e4e4e4;
+          --divider: rgba(237, 237, 237);
+          --borderColor: rgba(233, 233, 233);
+          --boxShadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+            0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+            0 12.5px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        [data-theme="dark"] {
+          --color: rgba(250, 250, 250);
+          --background: rgb(38, 39, 46);
+          --cardBg: linear-gradient(rgb(48, 49, 58), rgb(38, 42, 46) 90%);
+          --hoverClr: #88c5ff;
+          --navBg: rgba(38, 39, 46, 0.8);
+          --paginateBg: #3f3f3f;
+          --divider: #3c3c3c;
+          --borderColor: rgb(65, 64, 68);
+          --boxShadow: 0 2.8px 2.2px rgba(200, 200, 200, 0.034),
+            0 6.7px 5.3px rgba(200, 200, 200, 0.048),
+            0 12.5px 10px rgba(200, 200, 200, 0.06);
+        }
+
         body {
           min-height: 80vh;
           transition: background 0.3s ease;
-          color: ${theme.color};
-          background: ${theme.background};
+          color: var(--color);
+          background: var(--background);
           min-height: 100%;
           font-family: -apple-system, BlinkMacSystemFont, "Inter", Helvetica,
             sans-serif;
@@ -55,7 +80,7 @@ const GlobalStyles = () => {
 
           &:hover {
             text-decoration: underline;
-            color: ${theme.hoverClr};
+            color: var(--hoverClr);
           }
         }
 
@@ -70,7 +95,7 @@ const GlobalStyles = () => {
         }
 
         nav {
-          background-color: ${theme.navBg};
+          background-color: var(--navBg);
         }
 
         article p {
@@ -81,7 +106,7 @@ const GlobalStyles = () => {
           padding: 0.5rem;
           border: 0;
           height: 0;
-          border-top: 1px solid ${theme.divider};
+          border-top: 1px solid var(--divider);
         }
 
         .container {
@@ -92,32 +117,32 @@ const GlobalStyles = () => {
         }
 
         .project-card {
-          background: ${theme.cardBg};
-          border: 1px solid ${theme.borderColor};
+          background: var(--cardBg);
+          border: 1px solid var(--borderColor);
 
           &:hover {
-            box-shadow: ${theme.boxShadow};
+            box-shadow: var(--boxShadow);
           }
         }
 
         .card-image,
         .detail-image {
-          border: 1px solid ${theme.divider};
+          border: 1px solid var(--divider);
         }
         .preview-alert {
-          background-color: ${theme.divider};
+          background-color: var(--divider);
         }
 
         .detail-body .description a {
-          color: ${theme.hoverClr};
+          color: var(--hoverClr);
         }
 
         .paginate-btn {
-          color: ${theme.color};
-          background: ${theme.paginateBg};
+          color: var(--color);
+          background: var(--paginateBg);
 
           &:hover {
-            background: ${theme.borderColor};
+            background: var(--borderColor);
           }
         }
 
