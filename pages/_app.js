@@ -4,7 +4,7 @@ import { DefaultSeo } from "next-seo";
 import SEO from "next-seo.config";
 
 import Layout from "components/Layout";
-import GlobalStyles from "styles/GlobalStyles";
+import GlobalStyles from "styles/globalStyle";
 
 import "styles/main.css";
 
