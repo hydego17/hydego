@@ -15,7 +15,7 @@ const prettier = require("prettier");
                 const path = page
                   .replace("pages", "")
                   .replace("data", "")
-                  .replace(".js", "");
+                  .replace(".jsx", "");
                 const route = path === "/index" ? "" : path;
                 return `
                         <url>
