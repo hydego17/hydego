@@ -4,9 +4,9 @@ import { DefaultSeo } from "next-seo";
 import SEO from "next-seo.config";
 
 import Layout from "components/Layout";
-import GlobalStyles from "components/GlobalStyles";
+import GlobalStyles from "styles/GlobalStyles";
 
-import "styles/globals.css";
+import "styles/main.css";
 
 function MyApp({ Component, pageProps, router }) {
   return (
