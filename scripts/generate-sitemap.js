@@ -19,6 +19,7 @@ const prettier = require("prettier");
             ${pages
               .map((page) => {
                 const path = page.replace("pages", "").replace(".jsx", "");
+
                 const route = path === "/index" ? "" : path;
                 return `
                         <url>
