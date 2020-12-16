@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-import Head from "next/head";
-
 import styled from "@emotion/styled";
 
 import { getAllProjects } from "lib/api";
@@ -51,17 +49,6 @@ export default function Home({ initialData, preview }) {
 
   return (
     <>
-      <Head>
-        <html lang="en"></html>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
-        />
-        <meta charSet="utf-8" />
-
-        <link rel="shortcut icon" href="/favicon.ico" />
-      </Head>
-
       <HomeStyled>
         <section className="intro">
           <h1>Hi, I'm Umma Ahimsha</h1>
