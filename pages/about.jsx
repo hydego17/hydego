@@ -28,12 +28,14 @@ export default function About() {
 
           <p>
             Though I spend most of my time writing code for building User
-            Interfaces, I've also fiddled around with books and games.
+            Interfaces, I've also fiddled around with back-end technologies and
+            databases.
           </p>
 
           <p>
-            If you're into literary stuff, I used to write poems and proses
-            (mostly in Indonesian), which can be read in the archive.
+            I used to love books, words and everything in between. If you're
+            into literary stuff, feel free to read my poems and proses (mostly
+            in Indonesian) in the archive.
           </p>
 
           <p>
