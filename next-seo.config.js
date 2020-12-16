@@ -1,10 +1,11 @@
-const title = "Umma Ahimsha";
-const description = "Umma Ahimsha's minimal portfolio.";
+const title = "Umma Ahimsha - Developer, Designer, Geeks";
+const description =
+  "Front-End Developer and Graphic Designer based in Jakarta, Indonesia";
 
 export default {
   title,
   description,
-  canonical: "https://hydego.me",
+  canonical: "https://hydego.me/",
 
   openGraph: {
     type: "website",

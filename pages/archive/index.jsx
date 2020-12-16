@@ -12,15 +12,16 @@ export default function Archive({ initialData }) {
   };
 
   const SEO = {
-    title: "Archives",
-    description: "Some of my writing | Umma Ahimsha",
-
+    title: "Archives - Umma Ahimsha",
+    description: "Some of my writing, poems and proses",
+    canonical: "https://hydego.me/archive",
     openGraph: {
-      title: "Archives",
-      description: "Some of my writing | Umma Ahimsha",
+      title: "Archives - Umma Ahimsha",
+      url: "https://hydego.me/archive",
+      description: "Some of my writing, poems and proses",
     },
   };
-  // Add sanity page
+
   return (
     <>
       <NextSeo {...SEO} />

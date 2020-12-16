@@ -3,11 +3,12 @@ import styled from "@emotion/styled";
 
 export default function About() {
   const SEO = {
-    title: "About",
+    title: "About Me – Umma Ahimsha",
     description: "About me | Umma Ahimsha",
-
+    canonical: "https://hydego.me/about",
     openGraph: {
-      title: "About",
+      title: "About Me - Umma Ahimsha",
+      url: "https://hydego.me/about",
       description: "About me | Umma Ahimsha",
     },
   };
@@ -21,7 +22,7 @@ export default function About() {
 
         <article>
           <p>
-            My name is Umma Ahimsha, I'm a web developer based in Jakarta,
+            My name is Umma Ahimsha, I'm a Front-End developer based in Jakarta,
             Indonesia.
           </p>
 

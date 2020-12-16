@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
-import Link from "next/link";
 import styled from "@emotion/styled";
 import BlockContent from "@sanity/block-content-to-react";
+
 import { getAllArchives, getSingleArchive } from "lib/archive";
 import PreviewAlert from "components/PreviewAlert";
 
