@@ -33,7 +33,7 @@ export default function About() {
           </p>
 
           <p>
-            My young self used to love books, words -- and everything in between
+            Back then I used to love books, words -- and everything in between
             -- while was still wondering why does time interpose. If you're into
             literary stuff, feel free to read my poems and proses (mostly in
             Indonesian) in the archive.
