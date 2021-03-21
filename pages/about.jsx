@@ -49,6 +49,10 @@ const AboutStyled = styled.section`
 
   article {
     max-width: 600px;
+
+    a {
+      color: var(--hoverClr);
+    }
   }
 
   p {
