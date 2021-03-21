@@ -1,18 +1,20 @@
-import { NextSeo } from "next-seo";
-import styled from "@emotion/styled";
+import { NextSeo } from 'next-seo';
+import styled from '@emotion/styled';
+import BlockContent from '@sanity/block-content-to-react';
+import { getAboutMePage } from 'lib/api';
 
-export default function About() {
+export default function About({ content }) {
   const SEO = {
-    title: "About Me – Umma Ahimsha",
-    description: "About me | Umma Ahimsha",
-    canonical: "https://hydego.me/about",
+    title: 'About Me – Umma Ahimsha',
+    description: 'About me | Umma Ahimsha',
+    canonical: 'https://hydego.me/about',
     openGraph: {
-      title: "About Me - Umma Ahimsha",
-      url: "https://hydego.me/about",
-      description: "About me | Umma Ahimsha",
+      title: 'About Me - Umma Ahimsha',
+      url: 'https://hydego.me/about',
+      description: 'About me | Umma Ahimsha',
     },
   };
-  // Add sanity page
+
   return (
     <>
       <NextSeo {...SEO} />
@@ -21,31 +23,22 @@ export default function About() {
         <hr />
 
         <article>
-          <p>
-            My name is Umma Ahimsha, I'm a Front-End developer based in Jakarta,
-            Indonesia.
-          </p>
-
-          <p>
-            Though I spend most of my time writing code for building User
-            Interfaces, I've also fiddled around with back-end technologies and
-            databases.
-          </p>
-
-          <p>
-            Back then I used to love books, words and everything in between. If
-            you're into literary stuff, feel free to read my poems and proses
-            (mostly in Indonesian) in the archive.
-          </p>
-
-          <p>
-            You can reach me at{" "}
-            <a href="mailto:uahimsha@gmail.com">uahimsha@gmail.com</a>
-          </p>
+          <BlockContent blocks={content.description} />
         </article>
       </AboutStyled>
     </>
   );
+}
+
+export async function getStaticProps() {
+  const content = await getAboutMePage();
+
+  return {
+    props: {
+      content,
+    },
+    revalidate: 1,
+  };
 }
 
 const AboutStyled = styled.section`
