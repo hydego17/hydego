@@ -1,12 +1,12 @@
-import Head from "next/head";
-import SEO from "next-seo.config";
-import { DefaultSeo } from "next-seo";
-import { ThemeProvider } from "next-themes";
+import Head from 'next/head';
+import SEO from 'next-seo.config';
+import { DefaultSeo } from 'next-seo';
+import { ThemeProvider } from 'next-themes';
 
-import Layout from "components/Layout";
-import GlobalStyles from "styles/globalStyle";
+import Layout from 'components/Layout';
+import GlobalStyles from 'styles/globalStyle';
 
-import "styles/main.css";
+import 'styles/main.css';
 
 function MyApp({ Component, pageProps, router }) {
   return (
@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps, router }) {
         />
         <meta charSet="utf-8" />
       </Head>
-      <ThemeProvider>
+      <ThemeProvider defaultTheme="system">
         <Layout>
           <GlobalStyles />
           <Component {...pageProps} key={router.route} />
