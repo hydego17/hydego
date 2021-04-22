@@ -6,6 +6,7 @@ import BlockContent from '@sanity/block-content-to-react';
 import { urlFor, getSingleProject, getPaginatedProjects } from 'lib/api';
 import { TProject, TProjects } from 'types/project';
 
+import SeoContainer from 'components/SeoContainer';
 import PreviewAlert from 'components/PreviewAlert';
 
 export default function ProjectDetail({ project, preview }: InferGetStaticPropsType<typeof getStaticProps>) {
@@ -15,10 +16,12 @@ export default function ProjectDetail({ project, preview }: InferGetStaticPropsT
     return <h2> Loading... </h2>;
   }
 
-  const { title, techStacks, coverImage, link, code } = project;
+  const { title, techStacks, coverImage, link, code, subtitle } = project;
 
   return (
     <>
+      <SeoContainer title={`${title} - Umma Ahimsha`} description={`${subtitle}`} image={urlFor(coverImage).url()} />
+
       <ProjectDetailStyled>
         <section className="detail-body">
           {preview && <PreviewAlert />}

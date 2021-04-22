@@ -2,7 +2,7 @@ export type TProject = {
   title: string;
   subtitle: string;
   slug: string;
-  coverImage: any;
+  coverImage: {};
   content: any[];
   link: string;
   code: string;
