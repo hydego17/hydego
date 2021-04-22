@@ -17,7 +17,7 @@ export default function Archive({ initialData }: InferGetStaticPropsType<typeof 
 
   return (
     <>
-      <SeoContainer title="Archives - Umma Ahimsha" description="Some of my writing, poems and proses" />
+      <SeoContainer title="Archive - Umma Ahimsha" description="Some of my writing, poems and proses" />
       <ArchiveStyled>
         <h1>Archive</h1>
         <hr />
