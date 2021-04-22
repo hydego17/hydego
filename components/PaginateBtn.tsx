@@ -1,42 +1,36 @@
-import { useEffect, useState } from "react";
-import styled from "@emotion/styled";
+import { useEffect, useState } from 'react';
+import styled from '@emotion/styled';
 
-export default function PaginateBtn({
-  fetchedProjects,
-  setOffset,
-  offset,
-  mutate,
-  firstData,
-  lastData,
-  maxPage,
-}) {
+export default function PaginateBtn({ initialData, fetchedProjects, setOffset, offset, mutate }) {
   // // State for disabled buttons
-  const [isFirst, setIsFirst] = useState(0);
-  const [isLast, setIsLast] = useState(0);
+  const [isFirst, setIsFirst] = useState(false);
+  const [isLast, setIsLast] = useState(false);
 
   const [pos, setPos] = useState(1);
 
   // Disable Pagination Button
   const projects = fetchedProjects.data;
 
+  const { firstData, lastData, maxPage } = initialData;
+
   useEffect(() => {
     if (projects) {
       const firstDisplayed = projects[0].slug;
       const lastDisplayed = projects[projects.length - 1].slug;
 
-      setIsFirst(firstDisplayed === firstData ? 1 : 0);
-      setIsLast(lastDisplayed === lastData ? 1 : 0);
+      setIsFirst(firstDisplayed === firstData ? true : false);
+      setIsLast(lastDisplayed === lastData ? true : false);
     }
   }, [projects]);
 
   const updateProjects = async () => {
     if (pos < maxPage) {
-      setPos((prev) => prev + 1);
-      await setOffset((prev) => prev + 1);
+      setPos(prev => prev + 1);
+      await setOffset(prev => prev + 1);
       mutate(fetchedProjects);
       mutate(`api/projects?page=${offset}`);
     } else {
-      await setOffset((prev) => prev + 1);
+      await setOffset(prev => prev + 1);
     }
     return null;
   };
@@ -47,16 +41,12 @@ export default function PaginateBtn({
         className="paginate-btn"
         disabled={isFirst}
         onClick={() => {
-          setOffset((prev) => prev - 1);
+          setOffset(prev => prev - 1);
         }}
       >
         Prev
       </button>
-      <button
-        className="paginate-btn"
-        disabled={isLast}
-        onClick={updateProjects}
-      >
+      <button className="paginate-btn" disabled={isLast} onClick={updateProjects}>
         Next
       </button>
     </PaginateBtnStyled>

@@ -1,15 +1,23 @@
-import { useState } from "react";
+import { FC, useState } from 'react';
 
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
-import { getAllProjects } from "lib/api";
-import { useGetProjects } from "hooks/projects";
+import { getAllProjects } from 'lib/api';
+import { useGetProjects } from 'hooks/projects';
 
-import Projects from "components/Projects";
-import PaginateBtn from "components/PaginateBtn";
-import PreviewAlert from "components/PreviewAlert";
+import Projects from 'components/Projects';
+import PaginateBtn from 'components/PaginateBtn';
+import PreviewAlert from 'components/PreviewAlert';
+import SeoContainer from 'components/SeoContainer';
 
-export default function Home({ initialData, preview }) {
+import { TProjects, TApiProject } from 'types/project';
+
+type HomeProps = {
+  initialData: TApiProject;
+  preview: any;
+};
+
+const Home: FC<HomeProps> = ({ initialData, preview }) => {
   // State for offset page query
   const [offset, setOffset] = useState(0);
 
@@ -30,14 +38,11 @@ export default function Home({ initialData, preview }) {
       <>
         <h2>Projects</h2>
         <article className="projects-list">
-          {projects &&
-            projects.map((project, index) => (
-              <Projects key={index} project={project} />
-            ))}
+          {projects && projects.map((project, index) => <Projects key={index} project={project} />)}
         </article>
 
         <PaginateBtn
-          {...initialData}
+          initialData={initialData}
           setOffset={setOffset}
           offset={offset}
           fetchedProjects={fetchedProjects}
@@ -49,6 +54,7 @@ export default function Home({ initialData, preview }) {
 
   return (
     <>
+      <SeoContainer />
       <HomeStyled>
         <section className="intro">
           <h1>Hi, I'm Umma Ahimsha</h1>
@@ -59,15 +65,16 @@ export default function Home({ initialData, preview }) {
       </HomeStyled>
     </>
   );
-}
+};
 
 export async function getStaticProps() {
-  const result = await getAllProjects();
+  const result: TProjects = await getAllProjects();
+
   // Pass data to the page via props
   return {
     props: {
       initialData: {
-        message: "Fetched Projects",
+        message: 'Fetched Projects',
         data: result?.slice(0, 3),
         dataCount: result?.length,
         firstData: result ? result[0].slug : null,
@@ -100,3 +107,5 @@ const HomeStyled = styled.section`
     font-size: clamp(1.4rem, 5vw, 1.6rem);
   }
 `;
+
+export default Home;
