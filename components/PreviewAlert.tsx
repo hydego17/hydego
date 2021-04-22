@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
-import Link from "next/link";
-import { FaWindowClose } from "react-icons/fa";
+import styled from '@emotion/styled';
+import Link from 'next/link';
+import { FaWindowClose } from 'react-icons/fa';
 
 export default function PreviewAlert() {
   return (

@@ -1,22 +1,23 @@
-import styled from "@emotion/styled";
-import Link from "next/link";
-import { urlFor } from "lib/api";
+import styled from '@emotion/styled';
+import Link from 'next/link';
+import { urlFor } from 'lib/api';
+import { FC } from 'react';
+import { TProject } from 'types/project';
 
-export default function Projects({ project }) {
+type ProjectProps = {
+  project: TProject;
+};
+
+const Projects: FC<ProjectProps> = ({ project }) => {
   const { title, subtitle, coverImage, slug, link, code } = project;
 
   return (
     <ProjectsStyled className="project-card">
       <figure className="card-image">
-        <img
-          src={urlFor(coverImage).width(150).url()}
-          alt={title}
-          width={150}
-          height={100}
-        />
+        <img src={urlFor(coverImage).width(150).url()} alt={title} width={150} height={100} />
       </figure>
       <article className="card-body">
-        <Link target="_blank" as={`projects/${slug}`} href="projects/[slug]">
+        <Link as={`projects/${slug}`} href="projects/[slug]">
           <a className="project-title">
             <h3>{title}</h3>
           </a>
@@ -44,7 +45,7 @@ export default function Projects({ project }) {
       </article>
     </ProjectsStyled>
   );
-}
+};
 
 const ProjectsStyled = styled.article`
   width: 100%;
@@ -101,3 +102,5 @@ const ProjectsStyled = styled.article`
     padding: 0.25rem;
   }
 `;
+
+export default Projects;

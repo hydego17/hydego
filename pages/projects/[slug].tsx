@@ -1,18 +1,16 @@
-import { useRouter } from "next/router";
-import ErrorPage from "next/error";
-import styled from "@emotion/styled";
-import BlockContent from "@sanity/block-content-to-react";
-import { urlFor, getSingleProject, getPaginatedProjects } from "lib/api";
+import { InferGetStaticPropsType } from 'next';
+import { useRouter } from 'next/router';
+import styled from '@emotion/styled';
+import BlockContent from '@sanity/block-content-to-react';
 
-import PreviewAlert from "components/PreviewAlert";
+import { urlFor, getSingleProject, getPaginatedProjects } from 'lib/api';
+import { TProject, TProjects } from 'types/project';
 
-export default function ProjectDetail({ project, preview }) {
+import PreviewAlert from 'components/PreviewAlert';
+
+export default function ProjectDetail({ project, preview }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter();
 
-  // Check fallback status
-  if (!router.isFallback && !project?.slug) {
-    return <ErrorPage statusCode="404" />;
-  }
   if (router.isFallback) {
     return <h2> Loading... </h2>;
   }
@@ -61,7 +59,7 @@ export default function ProjectDetail({ project, preview }) {
         </section>
 
         <figure className="detail-image">
-          <img src={urlFor(coverImage)} alt={title} />
+          <img src={urlFor(coverImage).url()} alt={title} />
         </figure>
       </ProjectDetailStyled>
     </>
@@ -69,16 +67,16 @@ export default function ProjectDetail({ project, preview }) {
 }
 
 export async function getStaticProps({ params, preview = false, previewData }) {
-  const project = await getSingleProject(params.slug, preview);
+  const project: TProject = await getSingleProject(params.slug, preview);
 
   return { props: { project, preview }, revalidate: 1 };
 }
 
 export async function getStaticPaths() {
   // Get all slugs from projects and provide it to paths
-  const projects = await getPaginatedProjects();
+  const projects: TProjects = await getPaginatedProjects();
 
-  const paths = projects?.map((p) => ({ params: { slug: p.slug } }));
+  const paths = projects?.map(p => ({ params: { slug: p.slug } }));
 
   return { paths, fallback: true };
 }
