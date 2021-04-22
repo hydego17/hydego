@@ -1,25 +1,18 @@
-import { NextSeo } from 'next-seo';
+import { InferGetStaticPropsType } from 'next';
 import styled from '@emotion/styled';
 import BlockContent from '@sanity/block-content-to-react';
+
 import { getAboutMePage } from 'lib/api';
+import { TAboutPage } from 'types/page';
 
-export default function About({ content }) {
-  const SEO = {
-    title: 'About Me – Umma Ahimsha',
-    description: 'About me | Umma Ahimsha',
-    canonical: 'https://hydego.me/about',
-    openGraph: {
-      title: 'About Me - Umma Ahimsha',
-      url: 'https://hydego.me/about',
-      description: 'About me | Umma Ahimsha',
-    },
-  };
+import SeoContainer from 'components/SeoContainer';
 
+export default function About({ content }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
-      <NextSeo {...SEO} />
+      <SeoContainer title={`About Me – Umma Ahimsha`} description={`About me | Umma Ahimsha`} type="Website" />
       <AboutStyled>
-        <h1>About Me</h1>
+        <h1>{content.title}</h1>
         <hr />
 
         <article>
@@ -31,7 +24,7 @@ export default function About({ content }) {
 }
 
 export async function getStaticProps() {
-  const content = await getAboutMePage();
+  const content: TAboutPage = await getAboutMePage();
 
   return {
     props: {
