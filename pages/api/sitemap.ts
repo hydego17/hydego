@@ -1,20 +1,23 @@
 import { getAllProjects } from 'lib/api';
+import { getAllArchives } from 'lib/archive';
+import { TArchives } from 'types/archive';
+import { TProjects } from 'types/project';
 
 export default async (req, res) => {
   // Fetch data from a CMS.
-  const Projects = await getAllProjects();
+  const Projects: TProjects = await getAllProjects();
+  const Archives: TArchives = await getAllArchives();
 
-  const routes = Projects.map(project => `/projects/${project.slug}`);
+  const projectRoutes = Projects.map(project => `/projects/${project.slug}`);
+  const archiveRoutes = Archives.map(archive => `/archive/${archive.slug}`);
   const localRoutes = ['/index', '/about', '/archive'];
 
-  const pages = routes.concat(localRoutes);
+  const pages = [...localRoutes, ...projectRoutes, ...archiveRoutes];
 
   const urlSet = pages
     .map(page => {
-      // Remove none route related parts of filename.
-      const path = page.replace('pages', '').replace(/(.tsx|.ts)/, '');
       // Remove the word index from route
-      const route = path === '/index' ? '' : path;
+      const route = page === '/index' ? '' : page;
       // Build url portion of sitemap.xml
       return `<url><loc>https://hydego.me${route}</loc></url>`;
     })
