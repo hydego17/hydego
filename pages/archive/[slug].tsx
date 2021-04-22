@@ -1,34 +1,50 @@
-import { useRouter } from "next/router";
-import styled from "@emotion/styled";
-import BlockContent from "@sanity/block-content-to-react";
+import { InferGetStaticPropsType } from 'next';
+import { useRouter } from 'next/router';
+import styled from '@emotion/styled';
+import BlockContent from '@sanity/block-content-to-react';
 
-import { getAllArchives, getSingleArchive } from "lib/archive";
-import PreviewAlert from "components/PreviewAlert";
+import { getAllArchives, getSingleArchive } from 'lib/archive';
+import { TArchive, TArchives } from 'types/archive';
 
-export default function Archive({ archive, preview }) {
+import SeoContainer from 'components/SeoContainer';
+import PreviewAlert from 'components/PreviewAlert';
+
+export default function Archive({ archive, preview }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter();
 
   if (router.isFallback) {
     return <h2> Loading... </h2>;
   }
 
+  const { title, content, date } = archive;
+
   return (
-    <ArchiveStyled>
-      {preview && <PreviewAlert />}
+    <>
+      <SeoContainer
+        title={`${title} – Umma Ahimsha`}
+        description={`${title} - Archive`}
+        date={date}
+        type="article"
+        author={`Umma Ahimsha`}
+      />
 
-      <header>
-        <h1>{archive.title}</h1>
-      </header>
+      <ArchiveStyled>
+        {preview && <PreviewAlert />}
 
-      <hr />
+        <header>
+          <h1>{title}</h1>
+        </header>
 
-      <BlockContent blocks={archive.content} />
-    </ArchiveStyled>
+        <hr />
+
+        <BlockContent blocks={content} />
+      </ArchiveStyled>
+    </>
   );
 }
 
 export async function getStaticProps({ params, preview = false, previewData }) {
-  const archive = await getSingleArchive(params.slug, preview);
+  const archive: TArchive = await getSingleArchive(params.slug, preview);
 
   return {
     props: {
@@ -40,9 +56,9 @@ export async function getStaticProps({ params, preview = false, previewData }) {
 }
 
 export async function getStaticPaths() {
-  const archives = await getAllArchives();
+  const archives: TArchives = await getAllArchives();
 
-  const paths = archives?.map((p) => ({
+  const paths = archives?.map(p => ({
     params: {
       slug: p.slug,
     },
@@ -55,8 +71,8 @@ export async function getStaticPaths() {
 const ArchiveStyled = styled.article`
   max-width: 600px;
   min-height: 100vh;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+    'Helvetica Neue', sans-serif;
 
   header {
     display: flex;
