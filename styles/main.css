@@ -18,8 +18,7 @@
   --paginateBg: #e4e4e4;
   --divider: rgba(237, 237, 237);
   --borderColor: rgba(233, 233, 233);
-  --boxShadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
-    0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06);
+  --boxShadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06);
 }
 
 [data-theme='dark'] {
@@ -31,7 +30,15 @@
   --paginateBg: #3f3f3f;
   --divider: #3c3c3c;
   --borderColor: rgb(65, 64, 68);
-  --boxShadow: 0 2.8px 2.2px rgba(200, 200, 200, 0.034),
-    0 6.7px 5.3px rgba(200, 200, 200, 0.048),
+  --boxShadow: 0 2.8px 2.2px rgba(200, 200, 200, 0.034), 0 6.7px 5.3px rgba(200, 200, 200, 0.048),
     0 12.5px 10px rgba(200, 200, 200, 0.06);
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

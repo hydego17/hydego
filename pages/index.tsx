@@ -21,6 +21,9 @@ const Home: FC<HomeProps> = ({ initialData, preview }) => {
   // State for offset page query
   const [offset, setOffset] = useState(0);
 
+  // Loading Mutate state
+  const [loadingMutate, setLoadingMutate] = useState(false);
+
   const { data: fetchedProjects, loading, error, mutate } = useGetProjects({
     offset,
     initialData,
@@ -38,7 +41,13 @@ const Home: FC<HomeProps> = ({ initialData, preview }) => {
       <>
         <h2>Projects</h2>
         <article className="projects-list">
-          {projects && projects.map((project, index) => <Projects key={index} project={project} />)}
+          <>
+            {loadingMutate ? (
+              <div className="loading-info">Loading...</div>
+            ) : (
+              <> {projects && projects.map((project, index) => <Projects key={index} project={project} />)}</>
+            )}
+          </>
         </article>
 
         <PaginateBtn
@@ -47,6 +56,7 @@ const Home: FC<HomeProps> = ({ initialData, preview }) => {
           offset={offset}
           fetchedProjects={fetchedProjects}
           mutate={mutate}
+          setLoadingMutate={setLoadingMutate}
         />
       </>
     );
@@ -101,6 +111,12 @@ const HomeStyled = styled.section`
 
   .projects-list {
     min-height: 30vh;
+
+    .loading-info {
+      margin-top: 1rem;
+      animation: fadeIn ease 0.3s 1;
+      -webkit-animation: fadeIn ease 0.3s 1;
+    }
   }
 
   h2 {

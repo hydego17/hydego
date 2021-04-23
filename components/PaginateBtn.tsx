@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 
-export default function PaginateBtn({ initialData, fetchedProjects, setOffset, offset, mutate }) {
+export default function PaginateBtn({ initialData, fetchedProjects, setOffset, offset, mutate, setLoadingMutate }) {
   // // State for disabled buttons
   const [isFirst, setIsFirst] = useState(false);
   const [isLast, setIsLast] = useState(false);
@@ -25,10 +25,12 @@ export default function PaginateBtn({ initialData, fetchedProjects, setOffset, o
 
   const updateProjects = async () => {
     if (pos < maxPage) {
-      setPos(prev => prev + 1);
+      setLoadingMutate(true);
+      await setPos(prev => prev + 1);
       await setOffset(prev => prev + 1);
-      mutate(fetchedProjects);
-      mutate(`api/projects?page=${offset}`);
+      await mutate(fetchedProjects);
+      await mutate(`api/projects?page=${offset}`);
+      setLoadingMutate(false);
     } else {
       await setOffset(prev => prev + 1);
     }

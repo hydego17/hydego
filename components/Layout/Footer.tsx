@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import { FaGithub, FaTwitter, FaEnvelope } from "react-icons/fa";
+import styled from '@emotion/styled';
+import { FaGithub, FaTwitter, FaEnvelope } from 'react-icons/fa';
 
 export default function Footer() {
   return (
@@ -7,35 +7,20 @@ export default function Footer() {
       <FooterStyled>
         <div className="container">
           <div className="social-links">
-            <a
-              title="Twitter"
-              href="https://twitter.com/umma_ahimsha"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a title="Twitter" href="https://twitter.com/umma_ahimsha" target="_blank" rel="noopener noreferrer">
               <FaTwitter />
             </a>
-            <a
-              title="Github"
-              href="https://github.com/hydego17"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a title="Github" href="https://github.com/hydego17" target="_blank" rel="noopener noreferrer">
               <FaGithub />
             </a>
 
-            <a
-              title="Email"
-              href="mailto:uahimsha@gmail.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a title="Email" href="mailto:uahimsha@gmail.com" target="_blank" rel="noopener noreferrer">
               <FaEnvelope />
             </a>
           </div>
 
           <div className="copyright">
-            <small> Copyright © Umma Ahimsha</small>
+            <small> Copyright © {new Date().getFullYear()} Umma Ahimsha</small>
           </div>
         </div>
       </FooterStyled>
