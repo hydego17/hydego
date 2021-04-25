@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 
 export default function PaginateBtn({ initialData, fetchedProjects, setOffset, offset, mutate, setLoadingMutate }) {
   // // State for disabled buttons
@@ -7,6 +8,8 @@ export default function PaginateBtn({ initialData, fetchedProjects, setOffset, o
   const [isLast, setIsLast] = useState(false);
 
   const [pos, setPos] = useState(1);
+
+  const router = useRouter();
 
   // Disable Pagination Button
   const projects = fetchedProjects.data;
@@ -28,8 +31,10 @@ export default function PaginateBtn({ initialData, fetchedProjects, setOffset, o
       setLoadingMutate(true);
       await setPos(prev => prev + 1);
       await setOffset(prev => prev + 1);
-      await mutate(fetchedProjects);
-      await mutate(`api/projects?page=${offset}`);
+      console.log('ok');
+      // await mutate(fetchedProjects);
+      // await mutate(`api/projects?page=${offset}`);
+      await mutate();
       setLoadingMutate(false);
     } else {
       await setOffset(prev => prev + 1);
