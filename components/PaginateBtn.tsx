@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { useRouter } from 'next/router';
 
-export default function PaginateBtn({ initialData, fetchedProjects, setOffset, offset, mutate, setLoadingMutate }) {
+export default function PaginateBtn({ initialData, fetchedProjects, setOffset, mutate, setLoadingMutate }) {
   // // State for disabled buttons
   const [isFirst, setIsFirst] = useState(false);
   const [isLast, setIsLast] = useState(false);
 
   const [pos, setPos] = useState(1);
-
-  const router = useRouter();
 
   // Disable Pagination Button
   const projects = fetchedProjects.data;

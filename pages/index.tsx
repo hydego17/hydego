@@ -42,7 +42,9 @@ const Home: FC<HomeProps> = ({ initialData, preview }) => {
         <h2>Projects</h2>
         <article className="projects-list">
           <>
-            {loadingMutate ? (
+            {error ? (
+              <div className="loading-info">Ups...Something went wrong</div>
+            ) : loadingMutate ? (
               <div className="loading-info">Loading...</div>
             ) : (
               <> {projects && projects.map((project, index) => <Projects key={index} project={project} />)}</>
@@ -50,14 +52,15 @@ const Home: FC<HomeProps> = ({ initialData, preview }) => {
           </>
         </article>
 
-        <PaginateBtn
-          initialData={initialData}
-          setOffset={setOffset}
-          offset={offset}
-          fetchedProjects={fetchedProjects}
-          mutate={mutate}
-          setLoadingMutate={setLoadingMutate}
-        />
+        {!error && (
+          <PaginateBtn
+            initialData={initialData}
+            setOffset={setOffset}
+            fetchedProjects={fetchedProjects}
+            mutate={mutate}
+            setLoadingMutate={setLoadingMutate}
+          />
+        )}
       </>
     );
   }
