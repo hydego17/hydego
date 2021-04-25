@@ -55,9 +55,9 @@ const Home: FC<HomeProps> = ({ initialData, preview }) => {
         {!error && (
           <PaginateBtn
             initialData={initialData}
-            setOffset={setOffset}
             fetchedProjects={fetchedProjects}
             mutate={mutate}
+            setOffset={setOffset}
             setLoadingMutate={setLoadingMutate}
           />
         )}

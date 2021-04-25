@@ -1,7 +1,17 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 
-export default function PaginateBtn({ initialData, fetchedProjects, setOffset, mutate, setLoadingMutate }) {
+import { TApiProject, TProjects } from 'types/project';
+
+type PaginateBtnProps = {
+  initialData: TApiProject;
+  fetchedProjects: TApiProject;
+  mutate: () => Promise<TApiProject>;
+  setOffset: Dispatch<SetStateAction<number>>;
+  setLoadingMutate: Dispatch<SetStateAction<boolean>>;
+};
+
+const PaginateBtn: FC<PaginateBtnProps> = ({ initialData, fetchedProjects, mutate, setOffset, setLoadingMutate }) => {
   // // State for disabled buttons
   const [isFirst, setIsFirst] = useState(false);
   const [isLast, setIsLast] = useState(false);
@@ -54,7 +64,7 @@ export default function PaginateBtn({ initialData, fetchedProjects, setOffset, m
       </button>
     </PaginateBtnStyled>
   );
-}
+};
 
 const PaginateBtnStyled = styled.div`
   float: right;
@@ -76,3 +86,5 @@ const PaginateBtnStyled = styled.div`
     }
   }
 `;
+
+export default PaginateBtn;
