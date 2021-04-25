@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 
-import { TApiProject, TProjects } from 'types/project';
+import { TApiProject } from 'types/project';
 
 type PaginateBtnProps = {
   initialData: TApiProject;
