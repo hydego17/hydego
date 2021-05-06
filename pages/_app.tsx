@@ -2,18 +2,21 @@ import { AppProps } from 'next/app';
 import { ThemeProvider } from 'next-themes';
 
 import Layout from 'components/Layout';
-import GlobalStyles from 'styles/globals';
+import NProgress from 'components/NProgress';
 
 import 'styles/main.css';
+import 'styles/nprogress.css';
+import GlobalStyles from 'styles/globals';
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   return (
     <>
       <ThemeProvider defaultTheme="system">
+        <GlobalStyles />
         <Layout>
-          <GlobalStyles />
           <Component {...pageProps} key={router.route} />
         </Layout>
+        <NProgress />
       </ThemeProvider>
     </>
   );
