@@ -69,7 +69,7 @@ export async function getStaticPaths() {
 
 // Style
 const ArchiveStyled = styled.article`
-  max-width: 600px;
+  /* max-width: 600px; */
   min-height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
     'Helvetica Neue', sans-serif;
@@ -80,7 +80,13 @@ const ArchiveStyled = styled.article`
     align-items: center;
     padding-bottom: 1rem;
   }
+
   h1 {
-    font-size: clamp(1.4rem, 2.5vw, 1.75rem);
+    font-size: clamp(1.75rem, 2.5vw, 2rem);
+  }
+
+  p {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 `;
