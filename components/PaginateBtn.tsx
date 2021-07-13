@@ -1,65 +1,35 @@
-import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import styled from '@emotion/styled';
 
-import { TApiProject } from 'types/project';
+import { PaginatorContext } from '../components/Pagination/providers';
 
-type PaginateBtnProps = {
-  initialData: TApiProject;
-  fetchedProjects: TApiProject;
-  mutate: () => Promise<TApiProject>;
-  setOffset: Dispatch<SetStateAction<number>>;
-  setLoadingMutate: Dispatch<SetStateAction<boolean>>;
-};
+type PaginateBtnProps = {};
 
-const PaginateBtn: FC<PaginateBtnProps> = ({ initialData, fetchedProjects, mutate, setOffset, setLoadingMutate }) => {
-  // // State for disabled buttons
-  const [isFirst, setIsFirst] = useState(false);
-  const [isLast, setIsLast] = useState(false);
+const PaginateBtn: React.FC<PaginateBtnProps> = () => {
+  // react hooks
+  const { actions, state } = useContext(PaginatorContext);
 
-  const [pos, setPos] = useState(1);
+  // constants
+  const { changePage } = actions;
+  const { currentPage, pagesQuantity, isDisabled } = state;
+  const isFirst = currentPage === 1;
+  const isLast = pagesQuantity ? currentPage > pagesQuantity - 1 : true;
 
-  // Disable Pagination Button
-  const projects = fetchedProjects.data;
+  // handlers
+  const handlePreviousClick = () => {
+    if (!isFirst) changePage(currentPage - 1);
+  };
 
-  const { firstData, lastData, maxPage } = initialData;
-
-  useEffect(() => {
-    if (projects) {
-      const firstDisplayed = projects[0].slug;
-      const lastDisplayed = projects[projects.length - 1].slug;
-
-      setIsFirst(firstDisplayed === firstData ? true : false);
-      setIsLast(lastDisplayed === lastData ? true : false);
-    }
-  }, [projects]);
-
-  const updateProjects = async () => {
-    if (pos < maxPage) {
-      await setPos(prev => prev + 1);
-      await setOffset(prev => prev + 1);
-      setLoadingMutate(true);
-      // await mutate(fetchedProjects);
-      // await mutate(`api/projects?page=${offset}`);
-      await mutate();
-      setLoadingMutate(false);
-    } else {
-      await setOffset(prev => prev + 1);
-    }
-    return null;
+  const handleNextClick = () => {
+    if (!isLast) changePage(currentPage + 1);
   };
 
   return (
     <PaginateBtnStyled>
-      <button
-        className="paginate-btn"
-        disabled={isFirst}
-        onClick={() => {
-          setOffset(prev => prev - 1);
-        }}
-      >
+      <button className="paginate-btn" disabled={isFirst || isDisabled} onClick={handlePreviousClick}>
         Prev
       </button>
-      <button className="paginate-btn" disabled={isLast} onClick={updateProjects}>
+      <button className="paginate-btn" disabled={isLast || isDisabled} onClick={handleNextClick}>
         Next
       </button>
     </PaginateBtnStyled>

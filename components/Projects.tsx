@@ -1,6 +1,6 @@
+import Image from 'next/image';
 import styled from '@emotion/styled';
 import Link from 'next/link';
-import { urlFor } from 'lib/api';
 import { FC } from 'react';
 import { TProject } from 'types/project';
 
@@ -14,7 +14,7 @@ const Projects: FC<ProjectProps> = ({ project }) => {
   return (
     <ProjectsStyled className="project-card">
       <figure className="card-image">
-        <img src={urlFor(coverImage).width(150).url()} alt={title} width={150} height={100} />
+        <Image src={coverImage} alt={title} width={150} height={120} />
       </figure>
       <article className="card-body">
         <Link as={`projects/${slug}`} href="projects/[slug]">

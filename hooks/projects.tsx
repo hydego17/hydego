@@ -1,17 +1,25 @@
 import useSWR from 'swr';
-import { TApiProject } from 'types/project';
+
+import { TProjects } from 'types/project';
 
 type THooksProps = {
-  offset: number;
-  initialData: TApiProject;
+  initialData: any;
+  params: {
+    offset?: number | undefined;
+    limit?: number | undefined;
+  };
 };
 
 const fetcher = url => fetch(url).then(res => res.json());
 
-export const useGetProjects = ({ offset, initialData }: THooksProps) => {
-  const { data, error, mutate } = useSWR<TApiProject>(`/api/projects?page=${offset || 0}`, fetcher, {
-    initialData,
-  });
+export const useGetProjects = ({ params, initialData }: THooksProps) => {
+  const { data, error, mutate } = useSWR<TProjects>(
+    `/api/projects?offset=${params.offset}&limit=${params.limit}`,
+    fetcher,
+    {
+      initialData,
+    },
+  );
 
   return {
     data,

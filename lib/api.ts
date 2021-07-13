@@ -1,27 +1,15 @@
 import client, { previewClient } from './sanity';
-import imgUrlBuilder from '@sanity/image-url';
-
-//
-//
+import { TProjects } from 'types/project';
 
 export const getClient = (preview) => (preview ? previewClient : client);
 
-// Builder for Image Cropping functionality
-const builder = imgUrlBuilder(client);
-
-export function urlFor(source) {
-  return builder.image(source);
-}
-
-//
-//
-
 export const projectFields = `
+_id,
 title,
 subtitle,
 content,
 techStacks,
-coverImage,
+'coverImage': coverImage.asset -> url,
 link,
 code,
 'slug':slug.current,
@@ -40,6 +28,19 @@ export async function getAllProjects() {
   return results;
 }
 
+export async function getInitialProjects({ limit }: { limit: number }) {
+  const totalData = await client.fetch<number>(`count(*[_type == "projects"])`);
+
+  const initialData = await client.fetch<TProjects>(
+    `*[_type == "projects"] 
+    | order(_createdAt desc)
+    {${projectFields}}[0...${limit || 1}]
+   `
+  );
+
+  return { initialData, totalData };
+}
+
 export async function getSingleProject(slug, preview) {
   const currClient = getClient(preview);
   const result = await currClient
@@ -55,11 +56,16 @@ export async function getSingleProject(slug, preview) {
   return result;
 }
 
-export async function getPaginatedProjects({ offset = 0 } = { offset: 0 }) {
-  const data = await client.fetch(
+type PaginatedProps = {
+  offset: number;
+  limit: number;
+};
+
+export async function getPaginatedProjects({ offset, limit }: PaginatedProps = { offset: 0, limit: 1 }) {
+  const data = await client.fetch<TProjects>(
     `*[_type == "projects"] 
     | order(_createdAt desc)
-    {${projectFields}}[${offset}...${offset + 3}]
+    {${projectFields}}[${offset}...${offset + limit}]
    `
   );
 

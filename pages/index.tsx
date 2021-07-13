@@ -1,103 +1,103 @@
-import { FC, useState } from 'react';
-
+import { NextPage } from 'next';
 import styled from '@emotion/styled';
 
-import { getAllProjects } from 'lib/api';
+import { TProjects } from 'types/project';
+import { getInitialProjects } from 'lib/api';
 import { useGetProjects } from 'hooks/projects';
+import { usePaginator } from 'hooks/usePaginator';
 
 import Projects from 'components/Projects';
 import PaginateBtn from 'components/PaginateBtn';
 import PreviewAlert from 'components/PreviewAlert';
 import SeoContainer from 'components/SeoContainer';
+import { Paginator } from 'components/Pagination';
 
-import { TProjects, TApiProject } from 'types/project';
+// set page size constant
+const PAGE_SIZE = 3;
+
+export async function getStaticProps() {
+  const { initialData, totalData } = await getInitialProjects({ limit: PAGE_SIZE });
+
+  // Pass data to the page via props
+  return {
+    props: {
+      initialData,
+      totalData,
+    },
+    revalidate: 30,
+  };
+}
 
 type HomeProps = {
-  initialData: TApiProject;
-  preview: any;
+  initialData: TProjects;
+  totalData: number;
+  preview: boolean;
 };
 
-const Home: FC<HomeProps> = ({ initialData, preview }) => {
-  // State for offset page query
-  const [offset, setOffset] = useState(0);
-
-  // Loading Mutate state
-  const [loadingMutate, setLoadingMutate] = useState(false);
-
-  const { data: fetchedProjects, loading, error, mutate } = useGetProjects({
-    offset,
-    initialData,
+const Home: NextPage<HomeProps> = ({ initialData, totalData, preview }) => {
+  const { currentPage, setCurrentPage, isDisabled, pagesQuantity, offset } = usePaginator({
+    total: totalData,
+    initialState: {
+      pageSize: PAGE_SIZE,
+      currentPage: 1,
+      isDisabled: false,
+    },
   });
 
-  const projects = fetchedProjects?.data;
+  const { data: fetchedProjects, error, mutate } = useGetProjects({
+    initialData,
+    params: {
+      offset,
+      limit: PAGE_SIZE,
+    },
+  });
 
-  // Conditional Rendering
-  let content = null;
-
-  if (loading) {
-    content = <h3>Loading...</h3>;
-  } else {
-    content = (
-      <>
-        <h2>Projects</h2>
-        <article className="projects-list">
-          <>
-            {error ? (
-              <div className="loading-info">Ups...Something went wrong</div>
-            ) : loadingMutate ? (
-              <div className="loading-info">Loading...</div>
-            ) : (
-              <> {projects && projects.map((project, index) => <Projects key={index} project={project} />)}</>
-            )}
-          </>
-        </article>
-
-        {!error && (
-          <PaginateBtn
-            initialData={initialData}
-            fetchedProjects={fetchedProjects}
-            mutate={mutate}
-            setOffset={setOffset}
-            setLoadingMutate={setLoadingMutate}
-          />
-        )}
-      </>
-    );
-  }
+  // page change handlers
+  const onPageChange = async (nextPage: number) => {
+    await setCurrentPage(nextPage);
+    await mutate();
+  };
 
   return (
     <>
       <SeoContainer />
+
       <HomeStyled>
         <section className="intro">
           <h1>Hi, I'm Umma Ahimsha</h1>
           <p>a web developer</p>
         </section>
+
         {preview && <PreviewAlert />}
-        {content}
+
+        <h2>Projects</h2>
+
+        <article className="projects-list">
+          <>
+            {error ? (
+              <div className="loading-info">Ups...Something went wrong</div>
+            ) : (
+              <>
+                {fetchedProjects.map((project) => (
+                  <Projects key={project._id} project={project} />
+                ))}
+              </>
+            )}
+          </>
+        </article>
+
+        <Paginator
+          isDisabled={isDisabled}
+          currentPage={currentPage}
+          pagesQuantity={pagesQuantity}
+          onPageChange={onPageChange}
+        >
+          <PaginateBtn />
+        </Paginator>
       </HomeStyled>
     </>
   );
 };
-
-export async function getStaticProps() {
-  const result: TProjects = await getAllProjects();
-
-  // Pass data to the page via props
-  return {
-    props: {
-      initialData: {
-        message: 'Fetched Projects',
-        data: result?.slice(0, 3),
-        dataCount: result?.length,
-        firstData: result ? result[0].slug : null,
-        lastData: result ? result[result.length - 1].slug : null,
-        maxPage: Math.ceil(result?.length / 3),
-      },
-    },
-    revalidate: 1,
-  };
-}
 
 const HomeStyled = styled.section`
   .intro {
@@ -113,7 +113,7 @@ const HomeStyled = styled.section`
   }
 
   .projects-list {
-    min-height: 30vh;
+    min-height: 40vh;
 
     .loading-info {
       margin-top: 1rem;
