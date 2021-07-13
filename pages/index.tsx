@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { NextPage } from 'next';
 import styled from '@emotion/styled';
 
@@ -35,6 +36,8 @@ type HomeProps = {
 };
 
 const Home: NextPage<HomeProps> = ({ initialData, totalData, preview }) => {
+  const projectRef = useRef<HTMLDivElement>(null);
+
   const { currentPage, setCurrentPage, isDisabled, pagesQuantity, offset } = usePaginator({
     total: totalData,
     initialState: {
@@ -55,7 +58,13 @@ const Home: NextPage<HomeProps> = ({ initialData, totalData, preview }) => {
   // page change handlers
   const onPageChange = async (nextPage: number) => {
     await setCurrentPage(nextPage);
-    await mutate();
+
+    window.scrollTo({
+      top: projectRef.current.offsetTop - 160,
+      behavior: 'smooth',
+    });
+
+    await mutate().then(() => {});
   };
 
   return (
@@ -72,7 +81,7 @@ const Home: NextPage<HomeProps> = ({ initialData, totalData, preview }) => {
 
         <h2>Projects</h2>
 
-        <article className="projects-list">
+        <article className="projects-list" ref={projectRef}>
           <>
             {error ? (
               <div className="loading-info">Ups...Something went wrong</div>
@@ -113,7 +122,7 @@ const HomeStyled = styled.section`
   }
 
   .projects-list {
-    min-height: 40vh;
+    /* min-height: 438px; */
 
     .loading-info {
       margin-top: 1rem;

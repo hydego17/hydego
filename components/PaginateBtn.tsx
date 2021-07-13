@@ -37,11 +37,12 @@ const PaginateBtn: React.FC<PaginateBtnProps> = () => {
 };
 
 const PaginateBtnStyled = styled.div`
-  float: right;
+  /* float: right; */
+  text-align: center;
   padding: 2rem 0;
 
   .paginate-btn {
-    padding: 0.3rem 0.4rem;
+    padding: 0.3rem 0.5rem;
     margin-left: 0.5rem;
     border-radius: 2px;
     border: 0;
@@ -53,6 +54,7 @@ const PaginateBtnStyled = styled.div`
 
     &:disabled {
       color: #858585;
+      background: none;
     }
   }
 `;
