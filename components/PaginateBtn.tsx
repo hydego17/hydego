@@ -38,12 +38,14 @@ const PaginateBtn: React.FC<PaginateBtnProps> = () => {
 
 const PaginateBtnStyled = styled.div`
   /* float: right; */
-  text-align: center;
+  /* text-align: center; */
   padding: 2rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
 
   .paginate-btn {
     padding: 0.3rem 0.5rem;
-    margin-left: 0.5rem;
     border-radius: 2px;
     border: 0;
     outline: 0;
@@ -51,6 +53,10 @@ const PaginateBtnStyled = styled.div`
     cursor: pointer;
     transition: all 0.3s ease;
     font-size: 0.9rem;
+
+    &:hover {
+      background: #919191;
+    }
 
     &:disabled {
       color: #858585;

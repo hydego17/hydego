@@ -55,9 +55,9 @@ const ProjectsStyled = styled.article`
   cursor: pointer;
   margin-top: 1rem;
   padding: 1rem;
-  transition: box-shadow 0.3s ease;
-  animation: fadeIn ease 0.3s 1;
-  -webkit-animation: fadeIn ease 0.3s 1;
+  transition: box-shadow 0.5s ease;
+  animation: fadeIn ease 0.5s 1;
+  -webkit-animation: fadeIn ease 0.5s 1;
 
   .card-body {
     width: 100%;

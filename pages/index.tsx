@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useState, useRef } from 'react';
 import { NextPage } from 'next';
 import styled from '@emotion/styled';
 
@@ -12,6 +12,7 @@ import PaginateBtn from 'components/PaginateBtn';
 import PreviewAlert from 'components/PreviewAlert';
 import SeoContainer from 'components/SeoContainer';
 import { Paginator } from 'components/Pagination';
+import { useTheme } from 'next-themes';
 
 // set page size constant
 const PAGE_SIZE = 3;
@@ -36,6 +37,11 @@ type HomeProps = {
 };
 
 const Home: NextPage<HomeProps> = ({ initialData, totalData, preview }) => {
+  const { theme } = useTheme();
+
+  const isDark = theme === 'dark';
+
+  const [isMutating, setIsMutating] = useState(false);
   const projectRef = useRef<HTMLDivElement>(null);
 
   const { currentPage, setCurrentPage, isDisabled, pagesQuantity, offset } = usePaginator({
@@ -59,12 +65,14 @@ const Home: NextPage<HomeProps> = ({ initialData, totalData, preview }) => {
   const onPageChange = async (nextPage: number) => {
     await setCurrentPage(nextPage);
 
+    setIsMutating(true);
+
+    await mutate().then(() => setIsMutating(false));
+
     window.scrollTo({
-      top: projectRef.current.offsetTop - 160,
+      top: projectRef.current.offsetTop - 150,
       behavior: 'smooth',
     });
-
-    await mutate().then(() => {});
   };
 
   return (
@@ -79,12 +87,16 @@ const Home: NextPage<HomeProps> = ({ initialData, totalData, preview }) => {
 
         {preview && <PreviewAlert />}
 
-        <h2>Projects</h2>
+        <h2 ref={projectRef}>Projects</h2>
 
-        <article className="projects-list" ref={projectRef}>
+        <article className="projects-list">
           <>
             {error ? (
               <div className="loading-info">Ups...Something went wrong</div>
+            ) : isMutating ? (
+              <div className="loading-info">
+                <img className="loader" src={isDark ? 'loader.svg' : 'loader-dark.svg'} alt="Loading..." />
+              </div>
             ) : (
               <>
                 {fetchedProjects.map((project) => (
@@ -126,8 +138,11 @@ const HomeStyled = styled.section`
 
     .loading-info {
       margin-top: 1rem;
-      animation: fadeIn ease 0.3s 1;
-      -webkit-animation: fadeIn ease 0.3s 1;
+      animation: fadeIn ease 0.5s 1;
+
+      img {
+        animation: fadeIn ease 0.5s 1;
+      }
     }
   }
 

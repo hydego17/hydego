@@ -14,8 +14,7 @@ const GlobalStyles = () => {
           min-height: 80vh;
           transition: background 0.3s ease;
           min-height: 100%;
-          font-family: -apple-system, BlinkMacSystemFont, 'Inter', Helvetica,
-            sans-serif;
+          font-family: -apple-system, BlinkMacSystemFont, 'Inter', Helvetica, sans-serif;
 
           &::-webkit-scrollbar {
             height: 13px;
@@ -113,6 +112,13 @@ const GlobalStyles = () => {
           }
         }
 
+        .loader {
+          width: 70px;
+          height: 70px;
+          margin: 0 10px;
+          display: inline-block;
+        }
+
         .react-toggle {
           touch-action: pan-x;
 
@@ -167,8 +173,7 @@ const GlobalStyles = () => {
           background-color: #000000;
         }
 
-        .react-toggle--checked:hover:not(.react-toggle--disabled)
-          .react-toggle-track {
+        .react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
           background-color: #909497;
         }
 
