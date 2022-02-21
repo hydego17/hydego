@@ -9,6 +9,30 @@ import { TArchive, TArchives } from 'types/archive';
 import SeoContainer from 'components/SeoContainer';
 import PreviewAlert from 'components/PreviewAlert';
 
+export const getStaticProps = async ({ params, preview = false, previewData }) => {
+  const archive: TArchive = await getSingleArchive(params.slug, preview);
+
+  return {
+    props: {
+      archive,
+      preview,
+    },
+    revalidate: 60,
+  };
+};
+
+export const getStaticPaths = async () => {
+  const archives: TArchives = await getAllArchives();
+
+  const paths = archives?.map((p) => ({
+    params: {
+      slug: p.slug,
+    },
+  }));
+
+  return { paths, fallback: true };
+};
+
 export default function Archive({ archive, preview }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter();
 
@@ -41,30 +65,6 @@ export default function Archive({ archive, preview }: InferGetStaticPropsType<ty
       </ArchiveStyled>
     </>
   );
-}
-
-export async function getStaticProps({ params, preview = false, previewData }) {
-  const archive: TArchive = await getSingleArchive(params.slug, preview);
-
-  return {
-    props: {
-      archive,
-      preview,
-    },
-    revalidate: 1,
-  };
-}
-
-export async function getStaticPaths() {
-  const archives: TArchives = await getAllArchives();
-
-  const paths = archives?.map(p => ({
-    params: {
-      slug: p.slug,
-    },
-  }));
-
-  return { paths, fallback: true };
 }
 
 // Style

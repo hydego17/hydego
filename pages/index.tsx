@@ -1,34 +1,32 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { NextPage } from 'next';
+import { useTheme } from 'next-themes';
+import useSWR from 'swr';
 import styled from '@emotion/styled';
 
-import { TProjects } from 'types/project';
-import { getInitialProjects } from 'lib/api';
-import { useGetProjects } from 'hooks/projects';
 import { usePaginator } from 'hooks/usePaginator';
+import { getInitialProjects } from 'lib/api';
+import type { TProjects } from 'types/project';
 
 import Projects from 'components/Projects';
-import PaginateBtn from 'components/PaginateBtn';
 import PreviewAlert from 'components/PreviewAlert';
 import SeoContainer from 'components/SeoContainer';
-import { Paginator } from 'components/Pagination';
-import { useTheme } from 'next-themes';
+import Pagination from 'components/Pagination';
 
 // set page size constant
 const PAGE_SIZE = 3;
 
-export async function getStaticProps() {
+export const getStaticProps = async () => {
   const { initialData, totalData } = await getInitialProjects({ limit: PAGE_SIZE });
 
-  // Pass data to the page via props
   return {
     props: {
       initialData,
       totalData,
     },
-    revalidate: 30,
+    revalidate: 60,
   };
-}
+};
 
 type HomeProps = {
   initialData: TProjects;
@@ -36,14 +34,23 @@ type HomeProps = {
   preview: boolean;
 };
 
-const Home: NextPage<HomeProps> = ({ initialData, totalData, preview }) => {
-  const { theme } = useTheme();
+// Store current page number in a Set Object
+const pageSet = new Set();
+pageSet.add(1);
 
+const Home: NextPage<HomeProps> = ({ initialData, totalData, preview }) => {
+  // Access app theme
+  const { theme } = useTheme();
   const isDark = theme === 'dark';
 
-  const [isMutating, setIsMutating] = useState(false);
-  const projectRef = useRef<HTMLDivElement>(null);
+  // Store page title in a ref
+  const titleRef = useRef<HTMLDivElement>(null);
+  // Store initial data from server in a ref
+  const dataRef = useRef<TProjects>(initialData);
 
+  const [isMutating, setIsMutating] = useState(false);
+
+  // Invoke pagination hook to transform page size data
   const { currentPage, setCurrentPage, isDisabled, pagesQuantity, offset } = usePaginator({
     total: totalData,
     initialState: {
@@ -53,27 +60,42 @@ const Home: NextPage<HomeProps> = ({ initialData, totalData, preview }) => {
     },
   });
 
-  const { data: fetchedProjects, error, mutate } = useGetProjects({
-    initialData,
-    params: {
-      offset,
-      limit: PAGE_SIZE,
+  // Invoke SWR hook to handle GET Projects data client-side
+  const { data: fetchedProjects, error, mutate } = useSWR<TProjects>(
+    `/api/projects?offset=${offset}&limit=${PAGE_SIZE}`,
+    {
+      fallbackData: dataRef.current,
+      onSuccess: (data) => {
+        // When data is fetched, update the current ref with the latest one,
+        // to prevent initial data being rendered again.
+        dataRef.current = data;
+      },
+    }
+  );
+
+  const isLoading = (!fetchedProjects && !error) || isMutating;
+
+  // Page change handlers
+  const onPageChange = useCallback(
+    async (nextPage: number) => {
+      if (!pageSet.has(nextPage)) {
+        pageSet.add(nextPage);
+        setIsMutating(true);
+        setCurrentPage(nextPage);
+        await mutate();
+        setIsMutating(false);
+      } else {
+        await setCurrentPage(nextPage);
+        mutate();
+      }
+
+      window.scrollTo({
+        top: titleRef.current.offsetTop - 150,
+        behavior: 'smooth',
+      });
     },
-  });
-
-  // page change handlers
-  const onPageChange = async (nextPage: number) => {
-    await setCurrentPage(nextPage);
-
-    setIsMutating(true);
-
-    await mutate().then(() => setIsMutating(false));
-
-    window.scrollTo({
-      top: projectRef.current.offsetTop - 150,
-      behavior: 'smooth',
-    });
-  };
+    [mutate, setCurrentPage]
+  );
 
   return (
     <>
@@ -81,40 +103,36 @@ const Home: NextPage<HomeProps> = ({ initialData, totalData, preview }) => {
 
       <HomeStyled>
         <section className="intro">
-          <h1>Hi, I'm Umma Ahimsha</h1>
-          <p>a web developer</p>
+          <h1>{`Hi, I'm Umma Ahimsha`}</h1>
+          <p>{`a web developer`}</p>
         </section>
 
         {preview && <PreviewAlert />}
 
-        <h2 ref={projectRef}>Projects</h2>
+        <h2 ref={titleRef}>Projects</h2>
 
         <article className="projects-list">
-          <>
-            {error ? (
-              <div className="loading-info">Ups...Something went wrong</div>
-            ) : isMutating ? (
-              <div className="loading-info">
-                <img className="loader" src={isDark ? 'loader.svg' : 'loader-dark.svg'} alt="Loading..." />
-              </div>
-            ) : (
-              <>
-                {fetchedProjects.map((project) => (
-                  <Projects key={project._id} project={project} />
-                ))}
-              </>
-            )}
-          </>
+          {error && <div className="loading-info">Ups...Something went wrong</div>}
+
+          {isLoading ? (
+            <div className="loading-info">
+              <img className="loader" src={isDark ? 'loader.svg' : 'loader-dark.svg'} alt="Loading..." />
+            </div>
+          ) : (
+            <>
+              {fetchedProjects?.map((project) => (
+                <Projects key={project._id} project={project} />
+              ))}
+            </>
+          )}
         </article>
 
-        <Paginator
+        <Pagination
           isDisabled={isDisabled}
           currentPage={currentPage}
           pagesQuantity={pagesQuantity}
           onPageChange={onPageChange}
-        >
-          <PaginateBtn />
-        </Paginator>
+        />
       </HomeStyled>
     </>
   );

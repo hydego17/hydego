@@ -7,6 +7,17 @@ import { TAboutPage } from 'types/page';
 
 import SeoContainer from 'components/SeoContainer';
 
+export const getStaticProps = async () => {
+  const content: TAboutPage = await getAboutMePage();
+
+  return {
+    props: {
+      content,
+    },
+    revalidate: 60,
+  };
+};
+
 export default function About({ content }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
@@ -21,17 +32,6 @@ export default function About({ content }: InferGetStaticPropsType<typeof getSta
       </AboutStyled>
     </>
   );
-}
-
-export async function getStaticProps() {
-  const content: TAboutPage = await getAboutMePage();
-
-  return {
-    props: {
-      content,
-    },
-    revalidate: 1,
-  };
 }
 
 const AboutStyled = styled.section`

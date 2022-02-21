@@ -1,4 +1,4 @@
-import { Dispatch, useState, useMemo, SetStateAction } from 'react';
+import { useState, useMemo } from 'react';
 
 type InitialState = {
   pageSize?: number;
@@ -6,35 +6,23 @@ type InitialState = {
   isDisabled?: boolean;
 };
 
-type UsePaginator = {
+type UsePaginatorProps = {
   total?: number;
   initialState: InitialState;
 };
 
-export const usePaginator = ({
-  total,
-  initialState,
-}: UsePaginator): {
-  offset: number;
-  pagesQuantity: number;
-  currentPage: number;
-  pageSize: number;
-  isDisabled: boolean;
-  setPageSize: Dispatch<SetStateAction<number>>;
-  setIsDisabled: Dispatch<SetStateAction<boolean>>;
-  setCurrentPage: Dispatch<SetStateAction<number>>;
-} => {
+export const usePaginator = ({ total, initialState }: UsePaginatorProps) => {
   // states
   const [pageSize, setPageSize] = useState<number>(initialState.pageSize ?? 0);
   const [currentPage, setCurrentPage] = useState<number>(initialState.currentPage);
   const [isDisabled, setIsDisabled] = useState<boolean>(initialState.isDisabled ?? false);
 
-  // memos
+
+  // memoized
   const offset = useMemo(() => {
     if (!pageSize) {
       return 0;
     }
-
     return currentPage * pageSize - pageSize;
   }, [currentPage, pageSize]);
 
@@ -42,7 +30,6 @@ export const usePaginator = ({
     if (!total || !pageSize) {
       return 0;
     }
-
     return Math.ceil(total / pageSize);
   }, [total, pageSize]);
 

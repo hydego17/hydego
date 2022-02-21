@@ -1,7 +1,7 @@
 import client, { previewClient } from './sanity';
 import { TProjects } from 'types/project';
 
-export const getClient = (preview) => (preview ? previewClient : client);
+export const getClient = (preview: boolean) => (preview ? previewClient : client);
 
 export const projectFields = `
 _id,
@@ -41,7 +41,7 @@ export async function getInitialProjects({ limit }: { limit: number }) {
   return { initialData, totalData };
 }
 
-export async function getSingleProject(slug, preview) {
+export async function getSingleProject(slug: string, preview: boolean) {
   const currClient = getClient(preview);
   const result = await currClient
     .fetch(

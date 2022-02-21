@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 
@@ -7,7 +6,7 @@ import Footer from './Footer';
 
 import Transition from 'components/Transition';
 
-export default function Layout({ children }) {
+const Layout: React.FC = ({ children }) => {
   const router = useRouter();
 
   return (
@@ -19,10 +18,12 @@ export default function Layout({ children }) {
       <Footer />
     </>
   );
-}
+};
 
 const LayoutStyled = styled.div`
   min-height: 75vh;
   display: flex;
   flex-direction: column;
 `;
+
+export default Layout;

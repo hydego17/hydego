@@ -1,21 +1,23 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
+
 import { getAllProjects } from 'lib/api';
 import { getAllArchives } from 'lib/archive';
-import { TArchives } from 'types/archive';
-import { TProjects } from 'types/project';
+import type { TArchives } from 'types/archive';
+import type { TProjects } from 'types/project';
 
-export default async (req, res) => {
+export default async function GenerateSitemap(req: NextApiRequest, res: NextApiResponse) {
   // Fetch data from a CMS.
   const Projects: TProjects = await getAllProjects();
   const Archives: TArchives = await getAllArchives();
 
-  const projectRoutes = Projects.map(project => `/projects/${project.slug}`);
-  const archiveRoutes = Archives.map(archive => `/archive/${archive.slug}`);
+  const projectRoutes = Projects.map((project) => `/projects/${project.slug}`);
+  const archiveRoutes = Archives.map((archive) => `/archive/${archive.slug}`);
   const localRoutes = ['/index', '/about', '/archive'];
 
   const pages = [...localRoutes, ...projectRoutes, ...archiveRoutes];
 
   const urlSet = pages
-    .map(page => {
+    .map((page) => {
       // Remove the word index from route
       const route = page === '/index' ? '' : page;
       // Build url portion of sitemap.xml
@@ -31,4 +33,4 @@ export default async (req, res) => {
   // write the sitemap
   res.write(sitemap);
   res.end();
-};
+}

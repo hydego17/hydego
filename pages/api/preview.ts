@@ -1,13 +1,17 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
+
 import { getSingleProject } from 'lib/api';
 import { getSingleArchive } from 'lib/archive';
 
-export default async function previewReadOnly(req, res) {
+export default async function PreviewReadOnly(req: NextApiRequest, res: NextApiResponse) {
   if (req.query.secret !== process.env.SANITY_PREVIEW_SECRET || !req.query.slug) {
     return res.status(401).json({ message: 'Invalid Token' });
   }
 
-  const project = await getSingleProject(req.query.slug, true);
-  const archive = await getSingleArchive(req.query.slug, true);
+  const slug = req.query.slug as string;
+
+  const project = await getSingleProject(slug, true);
+  const archive = await getSingleArchive(slug, true);
 
   if (!project && !archive) {
     return res.status(401).json({ message: 'Invalid Slug' });

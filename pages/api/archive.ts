@@ -1,12 +1,12 @@
-import { getAllArchives } from "lib/archive";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { getAllArchives } from 'lib/archive';
 
-export default async function getArchives(req, res) {
+export default async function GetArchives(req: NextApiRequest, res: NextApiResponse) {
   try {
     const data = await getAllArchives();
 
     res.status(200).json(data);
   } catch (err) {
-    console.log(err.message);
     res.status(404).end();
   }
 }

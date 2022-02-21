@@ -1,5 +1,5 @@
-import client, { previewClient } from "./sanity";
-import { getClient } from "./api";
+import client, { previewClient } from './sanity';
+import { getClient } from './api';
 
 const projectFields = `
 title,
@@ -21,7 +21,7 @@ export async function getAllArchives() {
   return results;
 }
 
-export async function getSingleArchive(slug, preview) {
+export async function getSingleArchive(slug: string, preview: boolean) {
   const currClient = getClient(preview);
 
   const result = await currClient

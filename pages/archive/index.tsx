@@ -2,16 +2,21 @@ import { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
 import styled from '@emotion/styled';
 
-import { useGetArchive } from 'hooks/archive';
 import { getAllArchives } from 'lib/archive';
-import { TArchives } from 'types/archive';
+import type { TArchives } from 'types/archive';
 
 import SeoContainer from 'components/SeoContainer';
 
-export default function Archive({ initialData }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const { data, loading } = useGetArchive({ initialData });
+export const getStaticProps = async () => {
+  const archives: TArchives = await getAllArchives();
+  return {
+    props: { archives },
+    revalidate: 60,
+  };
+};
 
-  const format = date => {
+export default function Archive({ archives }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const format = (date) => {
     return date.substring(0, 10);
   };
 
@@ -22,33 +27,25 @@ export default function Archive({ initialData }: InferGetStaticPropsType<typeof 
         <h1>Archive</h1>
         <hr />
 
-        {loading && <h3>Loading...</h3>}
-
         <table>
           <tbody>
-            {data &&
-              data.map((archive, index) => (
-                <tr key={index} className="archive">
-                  <td className="archive_title">
-                    <Link href="/archive/[slug]" as={`/archive/${archive.slug}`}>
-                      <a> {archive.title} </a>
-                    </Link>
-                  </td>
-                  <td className="archive_date">
-                    <time dateTime={format(archive.date)}>{format(archive.date)}</time>
-                  </td>
-                </tr>
-              ))}
+            {archives?.map((archive, index) => (
+              <tr key={index} className="archive">
+                <td className="archive_title">
+                  <Link href="/archive/[slug]" as={`/archive/${archive.slug}`}>
+                    <a> {archive.title} </a>
+                  </Link>
+                </td>
+                <td className="archive_date">
+                  <time dateTime={format(archive.date)}>{format(archive.date)}</time>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </ArchiveStyled>
     </>
   );
-}
-
-export async function getStaticProps() {
-  const initialData: TArchives = await getAllArchives();
-  return { props: { initialData }, revalidate: 1 };
 }
 
 const ArchiveStyled = styled.section`

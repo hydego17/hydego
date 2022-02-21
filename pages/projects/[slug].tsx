@@ -10,6 +10,21 @@ import { TProject, TProjects } from 'types/project';
 import SeoContainer from 'components/SeoContainer';
 import PreviewAlert from 'components/PreviewAlert';
 
+export const getStaticProps = async ({ params, preview = false, previewData }) => {
+  const project: TProject = await getSingleProject(params.slug, preview);
+
+  return { props: { project, preview }, revalidate: 60 };
+};
+
+export const getStaticPaths = async () => {
+  // Get all slugs from projects and provide it to paths
+  const projects: TProjects = await getPaginatedProjects();
+
+  const paths = projects?.map((p) => ({ params: { slug: p.slug } }));
+
+  return { paths, fallback: true };
+};
+
 export default function ProjectDetail({ project, preview }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter();
 
@@ -47,14 +62,14 @@ export default function ProjectDetail({ project, preview }: InferGetStaticPropsT
           <section className="links">
             <h2> Links </h2>
             <small>
-              <a href={link} target="_blank" rel="noopener">
+              <a href={link} target="_blank" rel="noopener noreferrer">
                 Site
               </a>
             </small>
 
             {code && (
               <small>
-                <a href={code} target="_blank" rel="noopener">
+                <a href={code} target="_blank" rel="noopener noreferrer">
                   Code
                 </a>
               </small>
@@ -68,21 +83,6 @@ export default function ProjectDetail({ project, preview }: InferGetStaticPropsT
       </ProjectDetailStyled>
     </>
   );
-}
-
-export async function getStaticProps({ params, preview = false, previewData }) {
-  const project: TProject = await getSingleProject(params.slug, preview);
-
-  return { props: { project, preview }, revalidate: 1 };
-}
-
-export async function getStaticPaths() {
-  // Get all slugs from projects and provide it to paths
-  const projects: TProjects = await getPaginatedProjects();
-
-  const paths = projects?.map((p) => ({ params: { slug: p.slug } }));
-
-  return { paths, fallback: true };
 }
 
 // Style

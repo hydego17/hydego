@@ -1,5 +1,7 @@
-export default function exitPreview(_, res) {
+import type { NextApiRequest, NextApiResponse } from 'next';
+
+export default function ExitPreview(req: NextApiRequest, res: NextApiResponse) {
   res.clearPreviewData();
-  res.writeHead(307, { Location: "/" });
+  res.writeHead(307, { Location: '/' });
   res.end();
 }

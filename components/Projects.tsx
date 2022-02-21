@@ -1,42 +1,41 @@
 import Image from 'next/image';
-import styled from '@emotion/styled';
 import Link from 'next/link';
-import { FC } from 'react';
-import { TProject } from 'types/project';
+import styled from '@emotion/styled';
+
+import type { TProject } from 'types/project';
 
 type ProjectProps = {
   project: TProject;
 };
 
-const Projects: FC<ProjectProps> = ({ project }) => {
-  const { title, subtitle, coverImage, slug, link, code } = project;
-
+export default function Projects({ project }: ProjectProps) {
   return (
     <ProjectsStyled className="project-card">
       <figure className="card-image">
-        <Image src={coverImage} alt={title} width={150} height={120} />
+        <Image src={project.coverImage} alt={project.title} width={150} height={120} />
       </figure>
+
       <article className="card-body">
-        <Link as={`projects/${slug}`} href="projects/[slug]">
+        <Link as={`/projects/${project.slug}`} href="/projects/[slug]">
           <a className="project-title">
-            <h3>{title}</h3>
+            <h3>{project.title}</h3>
           </a>
         </Link>
 
         <hr />
 
-        <p>{subtitle}</p>
+        <p>{project.subtitle}</p>
 
         <div className="links">
           <small>
-            <a href={link} target="_blank" rel="noopener">
+            <a href={project.link} target="_blank" rel="noopener noreferrer">
               Site
             </a>
           </small>
 
-          {code && (
+          {project.code && (
             <small>
-              <a href={code} target="_blank" rel="noopener">
+              <a href={project.code} target="_blank" rel="noopener noreferrer">
                 Code
               </a>
             </small>
@@ -45,7 +44,7 @@ const Projects: FC<ProjectProps> = ({ project }) => {
       </article>
     </ProjectsStyled>
   );
-};
+}
 
 const ProjectsStyled = styled.article`
   width: 100%;
@@ -104,5 +103,3 @@ const ProjectsStyled = styled.article`
     padding: 0.25rem;
   }
 `;
-
-export default Projects;
