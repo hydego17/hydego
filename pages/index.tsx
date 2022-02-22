@@ -64,6 +64,7 @@ const Home: NextPage<HomeProps> = ({ initialData, totalData, preview }) => {
   const { data: fetchedProjects, error, mutate } = useSWR<TProjects>(
     `/api/projects?offset=${offset}&limit=${PAGE_SIZE}`,
     {
+      isPaused: () => isMutating,
       fallbackData: dataRef.current,
       onSuccess: (data) => {
         // When data is fetched, update the current ref with the latest one,
@@ -82,12 +83,11 @@ const Home: NextPage<HomeProps> = ({ initialData, totalData, preview }) => {
         pageSet.add(nextPage);
         setIsMutating(true);
         setCurrentPage(nextPage);
-        await mutate().finally(() => {
-          setIsMutating(false);
-        });
+        await mutate();
+        setIsMutating(false);
       } else {
-        await setCurrentPage(nextPage);
-        mutate();
+        setCurrentPage(nextPage);
+        await mutate();
       }
 
       window.scrollTo({
