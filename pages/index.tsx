@@ -64,7 +64,6 @@ const Home: NextPage<HomeProps> = ({ initialData, totalData, preview }) => {
   const { data: fetchedProjects, error, mutate } = useSWR<TProjects>(
     `/api/projects?offset=${offset}&limit=${PAGE_SIZE}`,
     {
-      isPaused: () => isMutating,
       fallbackData: dataRef.current,
       onSuccess: (data) => {
         // When data is fetched, update the current ref with the latest one,
