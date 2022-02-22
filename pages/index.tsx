@@ -82,8 +82,9 @@ const Home: NextPage<HomeProps> = ({ initialData, totalData, preview }) => {
         pageSet.add(nextPage);
         setIsMutating(true);
         setCurrentPage(nextPage);
-        await mutate();
-        setIsMutating(false);
+        await mutate().finally(() => {
+          setIsMutating(false);
+        });
       } else {
         await setCurrentPage(nextPage);
         mutate();
