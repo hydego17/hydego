@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { getSingleProject } from 'lib/api';
-import { getSingleArchive } from 'lib/archive';
+import { getSingleProject } from '@/lib/api';
+import { getSingleArchive } from '@/lib/archive';
 
 export default async function PreviewReadOnly(req: NextApiRequest, res: NextApiResponse) {
   if (req.query.secret !== process.env.SANITY_PREVIEW_SECRET || !req.query.slug) {

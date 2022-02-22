@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styled from '@emotion/styled';
 
-import type { TProject } from 'types/project';
+import type { TProject } from '@/types/project';
 
 type ProjectProps = {
   project: TProject;

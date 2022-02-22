@@ -1,5 +1,5 @@
 import client, { previewClient } from './sanity';
-import { TProjects } from 'types/project';
+import { TProjects } from '@/types/project';
 
 export const getClient = (preview: boolean) => (preview ? previewClient : client);
 
@@ -28,17 +28,10 @@ export async function getAllProjects() {
   return results;
 }
 
-export async function getInitialProjects({ limit }: { limit: number }) {
+export async function getTotalProjects() {
   const totalData = await client.fetch<number>(`count(*[_type == "projects"])`);
 
-  const initialData = await client.fetch<TProjects>(
-    `*[_type == "projects"] 
-    | order(_createdAt desc)
-    {${projectFields}}[0...${limit || 1}]
-   `
-  );
-
-  return { initialData, totalData };
+  return totalData;
 }
 
 export async function getSingleProject(slug: string, preview: boolean) {

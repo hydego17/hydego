@@ -2,10 +2,10 @@ import { InferGetStaticPropsType } from 'next';
 import styled from '@emotion/styled';
 import BlockContent from '@sanity/block-content-to-react';
 
-import { getAboutMePage } from 'lib/api';
-import { TAboutPage } from 'types/page';
+import { getAboutMePage } from '@/lib/api';
+import { TAboutPage } from '@/types/page';
 
-import SeoContainer from 'components/SeoContainer';
+import SeoContainer from '@/components/SeoContainer';
 
 export const getStaticProps = async () => {
   const content: TAboutPage = await getAboutMePage();

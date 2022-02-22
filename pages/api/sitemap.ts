@@ -1,9 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { getAllProjects } from 'lib/api';
-import { getAllArchives } from 'lib/archive';
-import type { TArchives } from 'types/archive';
-import type { TProjects } from 'types/project';
+import { getAllProjects } from '@/lib/api';
+import { getAllArchives } from '@/lib/archive';
+import type { TArchives } from '@/types/archive';
+import type { TProjects } from '@/types/project';
 
 export default async function GenerateSitemap(req: NextApiRequest, res: NextApiResponse) {
   // Fetch data from a CMS.

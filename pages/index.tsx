@@ -1,27 +1,33 @@
-import { useState, useRef, useCallback } from 'react';
+import { useRef, useCallback } from 'react';
 import { NextPage } from 'next';
 import { useTheme } from 'next-themes';
-import useSWR from 'swr';
+import { dehydrate, QueryClient, useQuery } from 'react-query';
 import styled from '@emotion/styled';
 
-import { usePaginator } from 'hooks/usePaginator';
-import { getInitialProjects } from 'lib/api';
-import type { TProjects } from 'types/project';
+import { usePaginator } from '@/hooks/usePaginator';
+import { getTotalProjects, getPaginatedProjects } from '@/lib/api';
+import type { TProjects } from '@/types/project';
 
-import Projects from 'components/Projects';
-import PreviewAlert from 'components/PreviewAlert';
-import SeoContainer from 'components/SeoContainer';
-import Pagination from 'components/Pagination';
+import Projects from '@/components/Projects';
+import PreviewAlert from '@/components/PreviewAlert';
+import SeoContainer from '@/components/SeoContainer';
+import Pagination from '@/components/Pagination';
 
 // set page size constant
 const PAGE_SIZE = 3;
 
 export const getStaticProps = async () => {
-  const { initialData, totalData } = await getInitialProjects({ limit: PAGE_SIZE });
+  const totalData = await getTotalProjects();
+
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(['projects', { offset: 0, limit: PAGE_SIZE }], async () => {
+    const data = await getPaginatedProjects({ offset: 0, limit: PAGE_SIZE });
+    return data;
+  });
 
   return {
     props: {
-      initialData,
+      dehydratedState: dehydrate(queryClient),
       totalData,
     },
     revalidate: 60,
@@ -29,26 +35,17 @@ export const getStaticProps = async () => {
 };
 
 type HomeProps = {
-  initialData: TProjects;
   totalData: number;
   preview: boolean;
 };
 
-// Store current page number in a Set Object
-const pageSet = new Set();
-pageSet.add(1);
-
-const Home: NextPage<HomeProps> = ({ initialData, totalData, preview }) => {
+const Home: NextPage<HomeProps> = ({ totalData, preview }) => {
   // Access app theme
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
   // Store page title in a ref
   const titleRef = useRef<HTMLDivElement>(null);
-  // Store initial data from server in a ref
-  const dataRef = useRef<TProjects>(initialData);
-
-  const [isMutating, setIsMutating] = useState(false);
 
   // Invoke pagination hook to transform page size data
   const { currentPage, setCurrentPage, isDisabled, pagesQuantity, offset } = usePaginator({
@@ -60,41 +57,26 @@ const Home: NextPage<HomeProps> = ({ initialData, totalData, preview }) => {
     },
   });
 
-  // Invoke SWR hook to handle GET Projects data client-side
-  const { data: fetchedProjects, error, mutate } = useSWR<TProjects>(
-    `/api/projects?offset=${offset}&limit=${PAGE_SIZE}`,
-    {
-      fallbackData: dataRef.current,
-      onSuccess: (data) => {
-        // When data is fetched, update the current ref with the latest one,
-        // to prevent initial data being rendered again.
-        dataRef.current = data;
-      },
+  // Invoke react-query hook to handle get Projects data client-side
+  const { data: fetchedProjects, isError, isLoading } = useQuery<TProjects>(
+    ['projects', { offset, limit: PAGE_SIZE }],
+    async () => {
+      const data = await getPaginatedProjects({ offset, limit: PAGE_SIZE });
+      return data;
     }
   );
-
-  const isLoading = (!fetchedProjects && !error) || isMutating;
 
   // Page change handlers
   const onPageChange = useCallback(
     async (nextPage: number) => {
-      if (!pageSet.has(nextPage)) {
-        pageSet.add(nextPage);
-        setIsMutating(true);
-        setCurrentPage(nextPage);
-        await mutate();
-        setIsMutating(false);
-      } else {
-        setCurrentPage(nextPage);
-        await mutate();
-      }
+      setCurrentPage(nextPage);
 
       window.scrollTo({
         top: titleRef.current.offsetTop - 150,
         behavior: 'smooth',
       });
     },
-    [mutate, setCurrentPage]
+    [setCurrentPage]
   );
 
   return (
@@ -112,7 +94,7 @@ const Home: NextPage<HomeProps> = ({ initialData, totalData, preview }) => {
         <h2 ref={titleRef}>Projects</h2>
 
         <article className="projects-list">
-          {error && <div className="loading-info">Ups...Something went wrong</div>}
+          {isError && <div className="loading-info">Ups...Something went wrong</div>}
 
           {isLoading ? (
             <div className="loading-info">

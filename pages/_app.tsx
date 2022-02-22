@@ -1,35 +1,21 @@
-import 'styles/main.css';
+import '@/styles/main.css';
 import 'nprogress/nprogress.css';
-import { AppProps } from 'next/app';
+import React from 'react';
 import { ThemeProvider } from 'next-themes';
-import dynamic from 'next/dynamic';
-import { SWRConfig } from 'swr';
+import type { AppProps } from 'next/app';
 
-import GlobalStyles from 'styles/globals';
-import Layout from 'components/Layout';
-
-const NProgress = dynamic(
-  () => {
-    return import('components/NProgress');
-  },
-  { ssr: false }
-);
+import { ReactQueryProvider } from '@/providers';
+import Layout from '@/components/Layout';
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   return (
-    <SWRConfig
-      value={{
-        fetcher: (resource, init) => fetch(resource, init).then((res) => res.json()),
-      }}
-    >
+    <ReactQueryProvider dehydratedState={pageProps.dehydratedState}>
       <ThemeProvider defaultTheme="system">
-        <GlobalStyles />
         <Layout>
           <Component {...pageProps} key={router.route} />
         </Layout>
-        <NProgress />
       </ThemeProvider>
-    </SWRConfig>
+    </ReactQueryProvider>
   );
 }
 

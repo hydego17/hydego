@@ -4,11 +4,11 @@ import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import BlockContent from '@sanity/block-content-to-react';
 
-import { getSingleProject, getPaginatedProjects } from 'lib/api';
-import { TProject, TProjects } from 'types/project';
+import { getSingleProject, getPaginatedProjects } from '@/lib/api';
+import { TProject, TProjects } from '@/types/project';
 
-import SeoContainer from 'components/SeoContainer';
-import PreviewAlert from 'components/PreviewAlert';
+import SeoContainer from '@/components/SeoContainer';
+import PreviewAlert from '@/components/PreviewAlert';
 
 export const getStaticProps = async ({ params, preview = false, previewData }) => {
   const project: TProject = await getSingleProject(params.slug, preview);

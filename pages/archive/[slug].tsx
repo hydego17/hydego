@@ -3,11 +3,11 @@ import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import BlockContent from '@sanity/block-content-to-react';
 
-import { getAllArchives, getSingleArchive } from 'lib/archive';
-import { TArchive, TArchives } from 'types/archive';
+import { getAllArchives, getSingleArchive } from '@/lib/archive';
+import { TArchive, TArchives } from '@/types/archive';
 
-import SeoContainer from 'components/SeoContainer';
-import PreviewAlert from 'components/PreviewAlert';
+import SeoContainer from '@/components/SeoContainer';
+import PreviewAlert from '@/components/PreviewAlert';
 
 export const getStaticProps = async ({ params, preview = false, previewData }) => {
   const archive: TArchive = await getSingleArchive(params.slug, preview);
