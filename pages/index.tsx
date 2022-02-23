@@ -57,16 +57,10 @@ const Home: NextPage<HomeProps> = ({ totalData, preview }) => {
   });
 
   // Invoke react-query hook to handle get Projects data client-side
-  const { data: projects, isError, isLoading, isFetching } = useQuery(
-    ['projects', offset],
-    async () => {
-      const data = await getPaginatedProjects({ offset, limit: PAGE_SIZE });
-      return data;
-    },
-    {
-      keepPreviousData: true,
-    }
-  );
+  const { data: projects, isError, isLoading } = useQuery(['projects', offset], async () => {
+    const data = await getPaginatedProjects({ offset, limit: PAGE_SIZE });
+    return data;
+  });
 
   // Page change handlers
   const onPageChange = useCallback(
@@ -98,7 +92,7 @@ const Home: NextPage<HomeProps> = ({ totalData, preview }) => {
         <article className="projects-list">
           {isError && <div className="loading-info">Ups...Something went wrong</div>}
 
-          {isLoading || isFetching ? (
+          {isLoading ? (
             <div className="loading-info">
               <img className="loader" src={isDark ? 'loader.svg' : 'loader-dark.svg'} alt="Loading..." />
             </div>
