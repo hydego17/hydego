@@ -1,14 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { getAllProjects } from '@/lib/api';
-import { getAllArchives } from '@/lib/archive';
-import type { TArchives } from '@/types/archive';
-import type { TProjects } from '@/types/project';
+import { getAllProjects } from '@/data/projects';
+import { getAllArchives } from '@/data/archive';
 
 export default async function GenerateSitemap(req: NextApiRequest, res: NextApiResponse) {
-  // Fetch data from a CMS.
-  const Projects: TProjects = await getAllProjects();
-  const Archives: TArchives = await getAllArchives();
+  // Fetch data from a Sanity
+  const Projects = await getAllProjects();
+  const Archives = await getAllArchives();
 
   const projectRoutes = Projects.map((project) => `/projects/${project.slug}`);
   const archiveRoutes = Archives.map((archive) => `/archive/${archive.slug}`);
@@ -30,6 +28,7 @@ export default async function GenerateSitemap(req: NextApiRequest, res: NextApiR
 
   // set response content header to xml
   res.setHeader('Content-Type', 'text/xml');
+
   // write the sitemap
   res.write(sitemap);
   res.end();

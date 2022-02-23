@@ -1,10 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { getSingleProject } from '@/lib/api';
-import { getSingleArchive } from '@/lib/archive';
+import { getSingleProject } from '@/data/projects';
+import { getSingleArchive } from '@/data/archive';
 
 export default async function PreviewReadOnly(req: NextApiRequest, res: NextApiResponse) {
-  if (req.query.secret !== process.env.SANITY_PREVIEW_SECRET || !req.query.slug) {
+  const noSlugFound = !req.query.slug;
+  const secretNotMatch = req.query.secret !== process.env.SANITY_PREVIEW_SECRET;
+
+  if (secretNotMatch || noSlugFound) {
     return res.status(401).json({ message: 'Invalid Token' });
   }
 
@@ -17,7 +20,7 @@ export default async function PreviewReadOnly(req: NextApiRequest, res: NextApiR
     return res.status(401).json({ message: 'Invalid Slug' });
   }
 
-  res.setPreviewData({ message: 'ok' });
+  res.setPreviewData({ message: 'Success get preview' });
 
   if (project) {
     res.writeHead(307, { Location: `/projects/${project.slug}` });

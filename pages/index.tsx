@@ -4,9 +4,8 @@ import { useTheme } from 'next-themes';
 import { dehydrate, QueryClient, useQuery } from 'react-query';
 import styled from '@emotion/styled';
 
+import { getTotalProjects, getPaginatedProjects } from '@/data/projects';
 import { usePaginator } from '@/hooks/usePaginator';
-import { getTotalProjects, getPaginatedProjects } from '@/lib/api';
-import type { TProjects } from '@/types/project';
 
 import Projects from '@/components/Projects';
 import PreviewAlert from '@/components/PreviewAlert';
@@ -20,9 +19,9 @@ export const getStaticProps = async () => {
   const totalData = await getTotalProjects();
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(['projects', { offset: 0, limit: PAGE_SIZE }], async () => {
-    const data = await getPaginatedProjects({ offset: 0, limit: PAGE_SIZE });
-    return data;
+  await queryClient.prefetchQuery(['projects', 0], async () => {
+    const projects = await getPaginatedProjects({ offset: 0, limit: PAGE_SIZE });
+    return projects;
   });
 
   return {
@@ -58,11 +57,14 @@ const Home: NextPage<HomeProps> = ({ totalData, preview }) => {
   });
 
   // Invoke react-query hook to handle get Projects data client-side
-  const { data: fetchedProjects, isError, isLoading } = useQuery<TProjects>(
-    ['projects', { offset, limit: PAGE_SIZE }],
+  const { data: projects, isError, isLoading, isFetching } = useQuery(
+    ['projects', offset],
     async () => {
       const data = await getPaginatedProjects({ offset, limit: PAGE_SIZE });
       return data;
+    },
+    {
+      keepPreviousData: true,
     }
   );
 
@@ -96,13 +98,13 @@ const Home: NextPage<HomeProps> = ({ totalData, preview }) => {
         <article className="projects-list">
           {isError && <div className="loading-info">Ups...Something went wrong</div>}
 
-          {isLoading ? (
+          {isLoading || isFetching ? (
             <div className="loading-info">
               <img className="loader" src={isDark ? 'loader.svg' : 'loader-dark.svg'} alt="Loading..." />
             </div>
           ) : (
             <>
-              {fetchedProjects?.map((project) => (
+              {projects?.map((project) => (
                 <Projects key={project._id} project={project} />
               ))}
             </>

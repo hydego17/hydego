@@ -1,8 +1,8 @@
 import React from 'react';
-import { Hydrate, HydrateProps, QueryClient, QueryClientProvider } from 'react-query';
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 type ReactQueryProviderProps = {
-  dehydratedState: HydrateProps['state'];
+  dehydratedState: unknown;
 };
 
 export const ReactQueryProvider: React.FC<ReactQueryProviderProps> = ({ dehydratedState, children }) => {

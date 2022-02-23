@@ -4,5 +4,3 @@ export type TArchive = {
   date: string;
   content: [];
 };
-
-export type TArchives = TArchive[];

@@ -1,6 +1,4 @@
-//@ts-nocheck
-
-import sanityClient, { ClientConfig } from '@sanity/client';
+import sanity, { ClientConfig } from '@sanity/client';
 
 const options: ClientConfig = {
   projectId: process.env.SANITY_PROJECT_ID,
@@ -10,10 +8,16 @@ const options: ClientConfig = {
   // In development we'll set it to false since we need the freshest and latest data (slower)
 };
 
-export const previewClient = sanityClient({
+// Sanity default client
+const sanityClient = sanity(options);
+
+// Sanity preview client
+const previewClient = sanity({
   ...options,
   useCdn: false,
   token: process.env.SANITY_API_TOKEN,
 });
 
-export default sanityClient(options);
+const getClient = (preview: boolean) => (preview ? previewClient : sanityClient);
+
+export { sanityClient, previewClient, getClient };

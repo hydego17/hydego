@@ -4,21 +4,20 @@ import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import BlockContent from '@sanity/block-content-to-react';
 
-import { getSingleProject, getPaginatedProjects } from '@/lib/api';
-import { TProject, TProjects } from '@/types/project';
+import { getSingleProject, getPaginatedProjects } from '@/data/projects';
 
 import SeoContainer from '@/components/SeoContainer';
 import PreviewAlert from '@/components/PreviewAlert';
 
 export const getStaticProps = async ({ params, preview = false, previewData }) => {
-  const project: TProject = await getSingleProject(params.slug, preview);
+  const project = await getSingleProject(params.slug, preview);
 
   return { props: { project, preview }, revalidate: 60 };
 };
 
 export const getStaticPaths = async () => {
   // Get all slugs from projects and provide it to paths
-  const projects: TProjects = await getPaginatedProjects();
+  const projects = await getPaginatedProjects();
 
   const paths = projects?.map((p) => ({ params: { slug: p.slug } }));
 

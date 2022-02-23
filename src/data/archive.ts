@@ -1,5 +1,5 @@
-import client, { previewClient } from './sanity';
-import { getClient } from './api';
+import { sanityClient, getClient } from '@/lib/sanity';
+import type { TArchive } from '@/types/archive';
 
 const projectFields = `
 title,
@@ -9,30 +9,36 @@ date,
 `;
 
 export async function getAllArchives() {
-  // For pagination, take only 3 first data
-  // Descending order (newest first)
-  const results = await client.fetch(
+  return await sanityClient.fetch<TArchive[]>(
     `*[_type == "archive"] 
       | order(date desc)
       {${projectFields}}
      `
   );
-
-  return results;
 }
 
 export async function getSingleArchive(slug: string, preview: boolean) {
   const currClient = getClient(preview);
 
-  const result = await currClient
-    .fetch(
+  const data = await currClient
+    .fetch<TArchive>(
       `*[_type== "archive" && slug.current == $slug]
         { ${projectFields}
         content[]{..., "asset": asset-> }
         }`,
       { slug }
     )
-    .then((res) => (preview ? (res?.[1] ? res[1] : res[0]) : res?.[0]));
+    .then((res) => {
+      // return preview ? (res?.[1] ? res[1] : res[0]) : res?.[0]
 
-  return result;
+      let result = res?.[0];
+
+      if (preview) {
+        result = res?.[1] || res?.[0];
+      }
+
+      return result;
+    });
+
+  return data as TArchive;
 }

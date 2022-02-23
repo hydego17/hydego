@@ -3,14 +3,13 @@ import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import BlockContent from '@sanity/block-content-to-react';
 
-import { getAllArchives, getSingleArchive } from '@/lib/archive';
-import { TArchive, TArchives } from '@/types/archive';
+import { getAllArchives, getSingleArchive } from '@/data/archive';
 
 import SeoContainer from '@/components/SeoContainer';
 import PreviewAlert from '@/components/PreviewAlert';
 
 export const getStaticProps = async ({ params, preview = false, previewData }) => {
-  const archive: TArchive = await getSingleArchive(params.slug, preview);
+  const archive = await getSingleArchive(params.slug, preview);
 
   return {
     props: {
@@ -22,7 +21,7 @@ export const getStaticProps = async ({ params, preview = false, previewData }) =
 };
 
 export const getStaticPaths = async () => {
-  const archives: TArchives = await getAllArchives();
+  const archives = await getAllArchives();
 
   const paths = archives?.map((p) => ({
     params: {

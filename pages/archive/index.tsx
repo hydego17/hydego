@@ -2,13 +2,12 @@ import { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
 import styled from '@emotion/styled';
 
-import { getAllArchives } from '@/lib/archive';
-import type { TArchives } from '@/types/archive';
+import { getAllArchives } from '@/data/archive';
 
 import SeoContainer from '@/components/SeoContainer';
 
 export const getStaticProps = async () => {
-  const archives: TArchives = await getAllArchives();
+  const archives = await getAllArchives();
   return {
     props: { archives },
     revalidate: 60,
