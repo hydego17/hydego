@@ -8,12 +8,9 @@ import GlobalStyles from '@/styles/globals';
 import Header from './Header';
 import Footer from './Footer';
 
-const NProgress = dynamic(
-  () => {
-    return import('@/components/NProgress');
-  },
-  { ssr: false }
-);
+const NProgress = dynamic(() => {
+  return import('@/components/NProgress');
+});
 
 const Layout: React.FC = ({ children }) => {
   const router = useRouter();

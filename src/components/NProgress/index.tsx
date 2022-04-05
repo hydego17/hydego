@@ -27,5 +27,5 @@ export default function Progress() {
     };
   }, [router.events]);
 
-  return <></>;
+  return null;
 }
