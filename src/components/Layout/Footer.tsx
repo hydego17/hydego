@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { FaGithub, FaTwitter, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaTwitter, FaLinkedin } from 'react-icons/fa';
 
 export default function Footer() {
   return (
@@ -14,8 +14,8 @@ export default function Footer() {
               <FaGithub />
             </a>
 
-            <a title="Email" href="mailto:uahimsha@gmail.com" target="_blank" rel="noopener noreferrer">
-              <FaEnvelope />
+            <a title="LinkedIn" href="https://linkedin.com/in/umma-ahimsha" target="_blank" rel="noopener noreferrer">
+              <FaLinkedin />
             </a>
           </div>
 
