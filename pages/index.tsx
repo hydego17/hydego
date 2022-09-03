@@ -1,27 +1,25 @@
 import { useRef, useCallback } from 'react';
-import { NextPage } from 'next';
 import { useTheme } from 'next-themes';
-import { dehydrate, QueryClient, useQuery } from 'react-query';
+import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import styled from '@emotion/styled';
 
 import { getTotalProjects, getPaginatedProjects } from '@/data/projects';
-import { usePaginator } from '@/hooks/usePaginator';
+import { usePaginator } from '@/hooks/use-paginator';
 
-import Projects from '@/components/Projects';
-import PreviewAlert from '@/components/PreviewAlert';
-import SeoContainer from '@/components/SeoContainer';
-import Pagination from '@/components/Pagination';
+import MyProjects from '@/components/my-projects';
+import PreviewAlert from '@/components/perview-alert';
+import SeoContainer from '@/components/seo-container';
+import Pagination from '@/components/_pagination';
 
 // set page size constant
 const PAGE_SIZE = 3;
 
-export const getStaticProps = async () => {
+export async function getStaticProps() {
   const totalData = await getTotalProjects();
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(['projects', 0], async () => {
-    const projects = await getPaginatedProjects({ offset: 0, limit: PAGE_SIZE });
-    return projects;
+    return await getPaginatedProjects({ offset: 0, limit: PAGE_SIZE });
   });
 
   return {
@@ -31,14 +29,14 @@ export const getStaticProps = async () => {
     },
     revalidate: 60,
   };
-};
+}
 
-type HomeProps = {
+interface HomeProps {
   totalData: number;
   preview: boolean;
-};
+}
 
-const Home: NextPage<HomeProps> = ({ totalData, preview }) => {
+const Home = ({ totalData, preview }: HomeProps) => {
   // Access app theme
   const { theme } = useTheme();
   const isDark = theme === 'dark';
@@ -57,9 +55,12 @@ const Home: NextPage<HomeProps> = ({ totalData, preview }) => {
   });
 
   // Invoke react-query hook to handle get Projects data client-side
-  const { data: projects, isError, isLoading } = useQuery(['projects', offset], async () => {
-    const data = await getPaginatedProjects({ offset, limit: PAGE_SIZE });
-    return data;
+  const {
+    data: projects,
+    isError,
+    isLoading,
+  } = useQuery(['projects', offset], async () => {
+    return await getPaginatedProjects({ offset, limit: PAGE_SIZE });
   });
 
   // Page change handlers
@@ -99,7 +100,7 @@ const Home: NextPage<HomeProps> = ({ totalData, preview }) => {
           ) : (
             <>
               {projects?.map((project) => (
-                <Projects key={project._id} project={project} />
+                <MyProjects key={project._id} project={project} />
               ))}
             </>
           )}
@@ -120,7 +121,6 @@ const HomeStyled = styled.section`
   .intro {
     margin-bottom: 4rem;
     h1 {
-      padding-right: 2rem;
       margin-bottom: 1rem;
     }
     p {
@@ -130,8 +130,6 @@ const HomeStyled = styled.section`
   }
 
   .projects-list {
-    /* min-height: 438px; */
-
     .loading-info {
       margin-top: 1rem;
       animation: fadeIn ease 0.5s 1;
@@ -143,7 +141,7 @@ const HomeStyled = styled.section`
   }
 
   h2 {
-    font-size: clamp(1.4rem, 5vw, 1.6rem);
+    font-size: clamp(1.25rem, 5vw, 1.6rem);
   }
 `;
 

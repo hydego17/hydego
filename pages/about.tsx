@@ -1,10 +1,10 @@
-import { InferGetStaticPropsType } from 'next';
+import type { InferGetStaticPropsType } from 'next';
 import styled from '@emotion/styled';
-import BlockContent from '@sanity/block-content-to-react';
+import { PortableText } from '@portabletext/react';
 
 import { getAboutMePage } from '@/data/pages';
 
-import SeoContainer from '@/components/SeoContainer';
+import SeoContainer from '@/components/seo-container';
 
 export const getStaticProps = async () => {
   const content = await getAboutMePage();
@@ -20,13 +20,13 @@ export const getStaticProps = async () => {
 export default function About({ content }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
-      <SeoContainer title={`About Me – Umma Ahimsha`} description={`About me | Umma Ahimsha`} type="Website" />
+      <SeoContainer title={`About Me - Umma Ahimsha`} description={`About me | Umma Ahimsha`} type="Website" />
       <AboutStyled>
         <h1>{content.title}</h1>
         <hr />
 
         <article>
-          <BlockContent blocks={content.description} />
+          <PortableText value={content.description} />
         </article>
       </AboutStyled>
     </>

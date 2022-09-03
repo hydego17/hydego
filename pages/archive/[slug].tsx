@@ -1,12 +1,12 @@
-import { InferGetStaticPropsType } from 'next';
+import type { InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
-import BlockContent from '@sanity/block-content-to-react';
+import { PortableText } from '@portabletext/react';
 
 import { getAllArchives, getSingleArchive } from '@/data/archive';
 
-import SeoContainer from '@/components/SeoContainer';
-import PreviewAlert from '@/components/PreviewAlert';
+import SeoContainer from '@/components/seo-container';
+import PreviewAlert from '@/components/perview-alert';
 
 export const getStaticProps = async ({ params, preview = false, previewData }) => {
   const archive = await getSingleArchive(params.slug, preview);
@@ -44,7 +44,7 @@ export default function Archive({ archive, preview }: InferGetStaticPropsType<ty
   return (
     <>
       <SeoContainer
-        title={`${title} – Umma Ahimsha`}
+        title={`${title} - Umma Ahimsha`}
         description={`${title} - Archive`}
         date={date}
         type="article"
@@ -60,7 +60,7 @@ export default function Archive({ archive, preview }: InferGetStaticPropsType<ty
 
         <hr />
 
-        <BlockContent blocks={content} />
+        <PortableText value={content} />
       </ArchiveStyled>
     </>
   );

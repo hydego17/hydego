@@ -5,9 +5,9 @@ import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
 
 import { ReactQueryProvider } from '@/providers';
-import Layout from '@/components/Layout';
+import Layout from '@/layout';
 
-function MyApp({ Component, pageProps, router }: AppProps) {
+export default function HydegoApp({ Component, pageProps, router }: AppProps) {
   return (
     <ReactQueryProvider dehydratedState={pageProps.dehydratedState}>
       <ThemeProvider defaultTheme="system">
@@ -18,5 +18,3 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     </ReactQueryProvider>
   );
 }
-
-export default MyApp;

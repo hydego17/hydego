@@ -1,10 +1,10 @@
-import { InferGetStaticPropsType } from 'next';
+import type { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
 import styled from '@emotion/styled';
 
 import { getAllArchives } from '@/data/archive';
 
-import SeoContainer from '@/components/SeoContainer';
+import SeoContainer from '@/components/seo-container';
 
 export const getStaticProps = async () => {
   const archives = await getAllArchives();
@@ -29,7 +29,7 @@ export default function Archive({ archives }: InferGetStaticPropsType<typeof get
         <table>
           <tbody>
             {archives?.map((archive, index) => (
-              <tr key={index} className="archive">
+              <tr key={archive.slug} className="archive">
                 <td className="archive_title">
                   <Link href="/archive/[slug]" as={`/archive/${archive.slug}`}>
                     <a> {archive.title} </a>

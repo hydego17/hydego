@@ -1,13 +1,13 @@
-import { InferGetStaticPropsType } from 'next';
+import type { InferGetStaticPropsType } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
-import BlockContent from '@sanity/block-content-to-react';
+import { PortableText } from '@portabletext/react';
 
 import { getSingleProject, getPaginatedProjects } from '@/data/projects';
 
-import SeoContainer from '@/components/SeoContainer';
-import PreviewAlert from '@/components/PreviewAlert';
+import SeoContainer from '@/components/seo-container';
+import PreviewAlert from '@/components/perview-alert';
 
 export const getStaticProps = async ({ params, preview = false, previewData }) => {
   const project = await getSingleProject(params.slug, preview);
@@ -50,7 +50,7 @@ export default function ProjectDetail({ project, preview }: InferGetStaticPropsT
 
           <article className="description">
             <h2> Case Study </h2>
-            <BlockContent blocks={project.content} />
+            <PortableText value={project.content} />
           </article>
 
           <article className="technology">
@@ -86,15 +86,11 @@ export default function ProjectDetail({ project, preview }: InferGetStaticPropsT
 
 // Style
 const ProjectDetailStyled = styled.section`
-  padding: 0 0.5rem;
-
   .detail-image {
     position: relative;
     overflow: hidden;
     border-radius: 5px;
     padding: 0.25rem;
-    /* width: 400px;
-    height: 400px; */
 
     @media screen and (min-width: 678px) {
       margin-right: 2rem;

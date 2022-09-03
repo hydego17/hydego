@@ -12,13 +12,13 @@ type SeoContainerProps = {
   tag?: string;
 };
 
-const SeoContainer: FC<SeoContainerProps> = props => {
+const SeoContainer: FC<SeoContainerProps> = (props) => {
   const { ...customMeta } = props;
   const router = useRouter();
 
   const meta = {
-    title: 'Umma Ahimsha - Developer, Designer, Geeks',
-    description: `Front-End Developer and Graphic Designer based in Jakarta, Indonesia.`,
+    title: 'Umma Ahimsha - Web Developer & Geeks',
+    description: `Web Developer based in Jakarta, Indonesia.`,
     type: 'website',
     ...customMeta,
   };
@@ -33,10 +33,7 @@ const SeoContainer: FC<SeoContainerProps> = props => {
         <meta name="robots" content="follow, index" />
         <link rel="canonical" href={`https://hydego.me${router.asPath}`} />
         <meta charSet="utf-8" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
         <link href="/favicon.ico" rel="shortcut icon" />
         <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
 
@@ -46,10 +43,7 @@ const SeoContainer: FC<SeoContainerProps> = props => {
         <meta property="og:type" content={meta.type} />
         <meta property="og:site_name" content="Umma Ahimsha" />
         <meta property="og:image" content={meta.image} />
-        <meta
-          property="og:url"
-          content={`https://hydego.me${router.asPath}`}
-        />
+        <meta property="og:url" content={`https://hydego.me${router.asPath}`} />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />

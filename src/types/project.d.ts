@@ -4,7 +4,7 @@ export type TProject = {
   subtitle: string;
   slug: string;
   coverImage: string;
-  content: unknown[];
+  content: any[];
   link: string;
   code: string;
   techStacks: string;

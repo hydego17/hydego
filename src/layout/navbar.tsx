@@ -1,22 +1,24 @@
 import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import Link from 'next/link';
-import Toggle from 'react-toggle';
 
 import { useTheme } from 'next-themes';
 
 import { FaMoon } from 'react-icons/fa';
 import { BsSun } from 'react-icons/bs';
 
-export default function Header() {
+export default function Navbar() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+
   // After mounting, we have access to the theme
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <HeaderStyled>
-      <header className="container">
+      <div className="container">
         <ul className="nav-header">
           <li>
             <Link href="/">
@@ -34,22 +36,18 @@ export default function Header() {
             </Link>
           </li>
         </ul>
+
         {mounted && (
-          <div className="nav-toggle">
-            <label htmlFor="theme-toggle"></label>
-            <Toggle
-              id="theme-toggle"
-              aria-labelledby="theme-toggle"
-              checked={theme === 'dark'}
-              icons={{
-                checked: <BsSun />,
-                unchecked: <FaMoon />,
-              }}
-              onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            />
-          </div>
+          <button
+            aria-label="Toggle Dark Mode"
+            type="button"
+            className="toggle-button"
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          >
+            <span>{theme === 'dark' ? <BsSun size={14} /> : <FaMoon size={14} />}</span>
+          </button>
         )}
-      </header>
+      </div>
     </HeaderStyled>
   );
 }
@@ -74,26 +72,20 @@ const HeaderStyled = styled.nav`
 
     ul.nav-header {
       display: flex;
-
-      li {
-        padding-right: 1rem;
-      }
+      gap: 1rem;
     }
-  }
 
-  .react-toggle-track-check {
-    height: 16px;
-    left: 5px;
-    svg {
-      padding: 1px;
-      color: #ffdf75;
-    }
-  }
-  .react-toggle-track-x {
-    height: 16px;
-    svg {
-      padding: 1.5px;
-      color: #ffdf75;
+    button.toggle-button {
+      cursor: pointer;
+      aspect-ratio: 1;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: fit-content;
+      border: none;
+      border-radius: 4px;
     }
   }
 `;
