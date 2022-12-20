@@ -7,6 +7,15 @@ import { getAllArchives, getSingleArchive } from '@/data/archive';
 
 import SeoContainer from '@/components/seo-container';
 import PreviewAlert from '@/components/perview-alert';
+import Image from 'next/image';
+
+const SanityImage = ({ value }) => {
+  let imageUrl = value.asset.url;
+  let width = value.asset.metadata.dimensions.width;
+  let height = value.asset.metadata.dimensions.height;
+
+  return <Image src={imageUrl} alt={value.alt} width={width} height={height} priority />;
+};
 
 export const getStaticProps = async ({ params, preview = false, previewData }) => {
   const archive = await getSingleArchive(params.slug, preview);
@@ -60,7 +69,14 @@ export default function Archive({ archive, preview }: InferGetStaticPropsType<ty
 
         <hr />
 
-        <PortableText value={content} />
+        <PortableText
+          value={content}
+          components={{
+            types: {
+              image: SanityImage,
+            },
+          }}
+        />
       </ArchiveStyled>
     </>
   );

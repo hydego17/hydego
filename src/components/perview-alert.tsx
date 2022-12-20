@@ -9,9 +9,7 @@ export default function PreviewAlert() {
         <h4>(Preview Mode)</h4>
 
         <Link href="/api/exit-preview">
-          <a>
-            <FaWindowClose />
-          </a>
+          <FaWindowClose />
         </Link>
       </div>
     </PreviewStyled>

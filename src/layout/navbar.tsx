@@ -21,19 +21,13 @@ export default function Navbar() {
       <div className="container">
         <ul className="nav-header">
           <li>
-            <Link href="/">
-              <a>Home</a>
-            </Link>
+            <Link href="/">Home</Link>
           </li>
           <li>
-            <Link href="/about">
-              <a>About</a>
-            </Link>
+            <Link href="/about">About</Link>
           </li>
           <li>
-            <Link href="/archive">
-              <a>Archive</a>
-            </Link>
+            <Link href="/archive">Archive</Link>
           </li>
         </ul>
 

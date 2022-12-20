@@ -32,7 +32,7 @@ export default function Archive({ archives }: InferGetStaticPropsType<typeof get
               <tr key={archive.slug} className="archive">
                 <td className="archive_title">
                   <Link href="/archive/[slug]" as={`/archive/${archive.slug}`}>
-                    <a> {archive.title} </a>
+                    {archive.title}
                   </Link>
                 </td>
                 <td className="archive_date">

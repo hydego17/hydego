@@ -12,14 +12,12 @@ export default function Projects({ project }: ProjectProps) {
   return (
     <ProjectsStyled className="project-card">
       <figure className="card-image">
-        <Image src={project.coverImage} alt={project.title} width={150} height={120} />
+        <Image src={project.coverImage} alt={project.title} width={200} height={100} />
       </figure>
 
       <article className="card-body">
-        <Link as={`/projects/${project.slug}`} href="/projects/[slug]">
-          <a className="project-title">
-            <h3>{project.title}</h3>
-          </a>
+        <Link as={`/projects/${project.slug}`} href="/projects/[slug]" className="project-title">
+          <h3>{project.title}</h3>
         </Link>
 
         <hr />
@@ -50,6 +48,7 @@ const ProjectsStyled = styled.article`
   width: 100%;
   display: flex;
   align-items: center;
+  gap: 1.5rem;
   border-radius: 3px;
   cursor: pointer;
   margin-top: 1rem;
@@ -68,12 +67,10 @@ const ProjectsStyled = styled.article`
 
   .card-image {
     display: flex;
-    align-items: center;
-    padding: 0.2rem;
-    flex-shrink: 1;
+    width: 165px;
+    aspect-ratio: 4/3;
     overflow: hidden;
     border-radius: 5px;
-    margin-right: 2rem;
 
     @media screen and (max-width: 678px) {
       display: none;
