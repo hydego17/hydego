@@ -46,7 +46,7 @@ export default function ProjectDetail({ project, preview }: InferGetStaticPropsT
 
           <hr />
 
-          {!code && <h2>(Private Contract)</h2>}
+          {/* {!code && <h2>(Private Contract)</h2>} */}
 
           <article className="description">
             <h2> Case Study </h2>
