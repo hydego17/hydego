@@ -14,6 +14,20 @@ interface CmsRecord {
   updated: string;
 }
 
+interface Project extends CmsRecord {
+  published: boolean;
+  title: string;
+  slug: string;
+  date: string;
+  subtitle: string;
+  cover_image: string;
+  description: string;
+  techs: string;
+  link: string;
+  repo: string;
+  images: string[];
+}
+
 interface AboutMe extends CmsRecord {
   title: string;
   subtitle: string;

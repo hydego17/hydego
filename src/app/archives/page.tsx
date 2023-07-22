@@ -1,6 +1,12 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getArchives } from '@/services/cms';
 import dayjs from 'dayjs';
+
+export const metadata: Metadata = {
+  title: 'Projects',
+  description: 'A collection of writings, poetry and proses that I have ever written.',
+};
 
 export default async function ArchivesPage() {
   const archives = await getArchives();

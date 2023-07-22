@@ -1,14 +1,14 @@
 import '@/styles/globals.css';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 import { siteConfig } from '@/config/site';
+import DayJsProvider from '@/lib/dayjs';
 import { fontSans } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { TailwindIndicator } from '@/components/tailwind-indicator';
 import { ThemeProvider } from '@/components/theme-provider';
-import DayJsProvider from '@/lib/dayjs';
 
 export const metadata: Metadata = {
   title: {
@@ -16,6 +16,16 @@ export const metadata: Metadata = {
     template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  keywords: [
+    'web developer',
+    'React',
+    'Next.js',
+    'Node.js,',
+    'Indonesia,',
+    'freelance',
+    'digital services',
+    'web solutions',
+  ],
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: 'white' },
     { media: '(prefers-color-scheme: dark)', color: 'black' },

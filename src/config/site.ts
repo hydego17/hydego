@@ -1,8 +1,9 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
+  url: 'https://hydego.id',
   name: 'Umma Ahimsha',
-  description: 'Web developer',
+  description: `I'm a freelance web developer from Indonesia, specialized in React, Node.js and Web Solutions. Freelance services for your seamless digital experiences.`,
   mainNav: [
     {
       title: 'Home',

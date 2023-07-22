@@ -1,6 +1,11 @@
+import type { Metadata } from 'next';
 import { getAboutPage } from '@/services/cms';
 
 import BlockContent from '@/components/block-content';
+
+export const metadata: Metadata = {
+  title: 'About Me',
+};
 
 export default async function AboutPage() {
   const aboutPage = await getAboutPage();

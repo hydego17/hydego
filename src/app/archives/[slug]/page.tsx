@@ -1,15 +1,29 @@
-import React from 'react';
+import type { Metadata } from 'next';
+import Link from 'next/link';
 import { getArchivePost } from '@/services/cms';
 import dayjs from 'dayjs';
 
+import { Button } from '@/components/ui/button';
 import BlockContent from '@/components/block-content';
 
-export default async function ArchivePostPage({
-  params,
-}: {
-  params: { slug?: string };
-  searchParams: Record<string, any>;
-}) {
+type PageProps = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  // read route params
+  const slug = params.slug;
+
+  // fetch data
+  const post = await getArchivePost(slug);
+
+  return {
+    title: post.title,
+  };
+}
+
+export default async function ArchivePostPage({ params }: PageProps) {
   const slug = params.slug;
 
   if (slug) {
@@ -37,7 +51,14 @@ export default async function ArchivePostPage({
 
   return (
     <section className='container grid items-center gap-6 pb-8 pt-6 md:py-10'>
+      <h1 className='text-4xl font-bold'>Ooopss...</h1>
       <div>Post Not Found</div>
+
+      <hr />
+
+      <Link href='/archives'>
+        <Button>Back to archives</Button>
+      </Link>
     </section>
   );
 }

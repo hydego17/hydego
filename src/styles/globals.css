@@ -88,7 +88,7 @@
   @apply text-mini md:text-base text-primary leading-relaxed;
 }
 
-.blockcontent p:not(:first-child) {
+.blockcontent > p:not(:first-child) {
   @apply pt-6;
 }
 
@@ -98,4 +98,11 @@
 
 .blockcontent img {
   @apply border;
+}
+
+.blockcontent ol,
+.blockcontent ul {
+  @apply !pt-2 !pl-6;
+  list-style: revert;
+  padding: revert;
 }

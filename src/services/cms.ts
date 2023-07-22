@@ -1,24 +1,74 @@
 import { config } from '@/config';
+import querystring from 'query-string';
 
 export async function getAboutPage() {
-  const res = await fetch(`${config.CMS_URL}/api/collections/about_page/records/bb4vas6vjda5e7d`, {
-    next: { revalidate: 60 },
-  }).then((res) => res.json());
+  const recordId = 'bb4vas6vjda5e7d';
 
-  return res as AboutMe;
+  const res: AboutMe = await fetch(
+    `${config.CMS_URL}/api/collections/about_page/records/${recordId}`,
+    {
+      next: { revalidate: 60 },
+    }
+  ).then((res) => res.json());
+
+  return res;
+}
+
+export async function getProjects() {
+  const params = querystring.stringify({
+    sort: '-date',
+    filter: `(published=true)`,
+  });
+
+  const res: CmsListResponse<Project[]> = await fetch(
+    `${config.CMS_URL}/api/collections/projects/records?${params}`,
+    {
+      next: { revalidate: 0 },
+    }
+  ).then((res) => res.json());
+
+  return res;
+}
+
+export async function getProjectDetail(slug: string) {
+  const params = querystring.stringify({
+    filter: `(slug='${slug}')`,
+  });
+
+  const res: CmsListResponse<Project[]> = await fetch(
+    `${config.CMS_URL}/api/collections/projects/records?${params}`,
+    {
+      next: { revalidate: 60 },
+    }
+  ).then((res) => res.json());
+
+  const post = res.items?.[0];
+
+  return post;
 }
 
 export async function getArchives() {
-  const res = await fetch(`${config.CMS_URL}/api/collections/archives/records?sort=-date`, {
-    next: { revalidate: 60 },
-  }).then((res) => res.json());
+  const params = querystring.stringify({
+    sort: '-date',
+  });
 
-  return res as CmsListResponse<Archive[]>;
+  const res: CmsListResponse<Archive[]> = await fetch(
+    `${config.CMS_URL}/api/collections/archives/records?${params}`,
+    {
+      next: { revalidate: 60 },
+    }
+  ).then((res) => res.json());
+
+  return res;
 }
 
 export async function getArchivePost(slug: string) {
+  const params = querystring.stringify({
+    filter: `(slug='${slug}')`,
+  });
+
   const res: CmsListResponse<Archive[]> = await fetch(
-    `${config.CMS_URL}/api/collections/archives/records?filter=(slug='${slug}')`,
+    `${config.CMS_URL}/api/collections/archives/records?${params}`,
     {
       next: { revalidate: 60 },
     }
