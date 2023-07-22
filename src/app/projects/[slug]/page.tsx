@@ -1,4 +1,4 @@
-import type { Metadata, ResolvingMetadata } from 'next';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getProjectDetail } from '@/services/cms';
@@ -13,10 +13,7 @@ type PageProps = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export async function generateMetadata(
-  { params }: PageProps,
-  parent?: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   // read route params
   const slug = params.slug;
 
@@ -25,13 +22,12 @@ export async function generateMetadata(
 
   const imageUrl = generateImageUrl(project, project.cover_image);
 
-  // optionally access and extend (rather than replace) parent metadata
-  const previousImages = (await parent)?.openGraph?.images || [];
-
   return {
     title: project.title,
     openGraph: {
-      images: [imageUrl, ...previousImages],
+      images: {
+        url: imageUrl,
+      },
     },
   };
 }
