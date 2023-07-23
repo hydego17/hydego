@@ -16,7 +16,7 @@ type PageProps = {
 
 export async function generateMetadata(
   { params, searchParams }: PageProps,
-  parent?: ResolvingMetadata
+  parent?: any
 ): Promise<Metadata> {
   // read route params
   const slug = params.slug;
