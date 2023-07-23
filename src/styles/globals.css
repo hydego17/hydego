@@ -13,7 +13,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 47.4% 11.2%;
 
-    --border: 214.3 31.8% 91.4%;
+    --border: 214.3 31.8% 88.4%;
     --input: 214.3 31.8% 91.4%;
 
     --card: 0 0% 100%;
@@ -82,27 +82,4 @@
 
 .text-primary {
   @apply text-slate-700 dark:text-slate-300;
-}
-
-.blockcontent {
-  @apply text-mini md:text-base text-primary leading-relaxed;
-}
-
-.blockcontent > p:not(:first-child) {
-  @apply pt-6;
-}
-
-.blockcontent a {
-  @apply underline hover:text-muted-foreground;
-}
-
-.blockcontent img {
-  @apply border;
-}
-
-.blockcontent ol,
-.blockcontent ul {
-  @apply !pt-2 !pl-6;
-  list-style: revert;
-  padding: revert;
 }

@@ -1,8 +1,5 @@
 import {
   Globe,
-  Link,
-  Link2,
-  Linkedin,
   LucideProps,
   Moon,
   SunMedium,

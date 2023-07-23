@@ -34,25 +34,25 @@ function ProjectItem({ project }: { project: Project }) {
   const imageUrl = generateImageUrl(project, project.cover_image);
 
   return (
-    <div className='group flex gap-4 rounded-md border p-4 shadow-slate-200 transition-all hover:shadow-md dark:shadow-slate-800 md:gap-6 md:p-5'>
-      <div className='mt-0.5 aspect-square h-auto w-[17%]'>
+    <div className='group flex flex-col gap-6 rounded-md border p-4 shadow-slate-200 transition-shadow hover:shadow-md dark:shadow-slate-800 md:flex-row md:p-5'>
+      <div className='mt-0.5 w-full md:aspect-square md:w-[20%]'>
         <Image
           src={imageUrl}
           alt={project.title}
           width={250}
           height={200}
-          className='aspect-square h-auto w-full rounded-lg border object-cover'
+          className='h-[225px] w-full rounded border object-cover sm:h-[400px] md:aspect-square md:h-auto'
         />
       </div>
 
       <div className='flex flex-1 flex-col justify-between gap-4 md:py-0.5'>
         <div>
           <Link href={`/projects/${project.slug}`}>
-            <h3 className='text-mini font-bold group-hover:underline md:text-lg'>
+            <h3 className='text-lg font-bold group-hover:underline'>
               {project.title}
             </h3>
           </Link>
-          <p className='mt-2 line-clamp-2 text-xs text-muted-foreground md:text-sm'>
+          <p className='mt-2 line-clamp-2 text-mini text-muted-foreground'>
             {project.subtitle}
           </p>
         </div>
@@ -61,7 +61,7 @@ function ProjectItem({ project }: { project: Project }) {
           {project.link && (
             <Link href={project.link} target='_blank' rel='noreferrer'>
               <div className='rounded-md border border-transparent bg-secondary p-2 text-secondary-foreground hover:border-primary/10'>
-                <Icons.globe className='h-3 w-3 md:h-3.5 md:w-3.5' />
+                <Icons.globe className='h-3.5 w-3.5' />
                 <span className='sr-only'>Link</span>
               </div>
             </Link>
@@ -70,7 +70,7 @@ function ProjectItem({ project }: { project: Project }) {
           {project.repo && (
             <Link href={project.repo} target='_blank' rel='noreferrer'>
               <div className='rounded-md border border-transparent bg-secondary p-2 text-secondary-foreground hover:border-primary/10'>
-                <Icons.gitHub className='h-3 w-3 md:h-3.5 md:w-3.5' />
+                <Icons.gitHub className='h-3.5 w-3.5' />
                 <span className='sr-only'>Repo</span>
               </div>
             </Link>

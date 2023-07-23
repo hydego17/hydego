@@ -102,8 +102,8 @@ export default async function ProjectDetailpage({
 
                 {project.repo && (
                   <Link href={project.repo} target='_blank' rel='noreferrer'>
-                    <div className='rounded-md border border-transparent bg-secondary p-2 text-secondary-foreground hover:border-primary/10'>
-                      <Icons.gitHub className='h-3 w-3 md:h-3.5 md:w-3.5' />
+                    <div className='rounded-md border border-transparent bg-secondary p-2.5 text-secondary-foreground hover:border-primary/10'>
+                      <Icons.gitHub className='h-4 w-4' />
                       <span className='sr-only'>Repo</span>
                     </div>
                   </Link>

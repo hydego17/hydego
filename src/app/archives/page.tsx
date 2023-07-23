@@ -17,7 +17,7 @@ export default async function ArchivesPage() {
         <h1 className='text-3xl font-bold leading-tight tracking-tight md:text-4xl'>Archives</h1>
       </div>
 
-      <hr />
+      <div></div>
 
       <ul className='divide-y'>
         {archives.items.map((archive) => (
