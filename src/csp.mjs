@@ -1,4 +1,6 @@
-const allowedSrc = ['https://apis.google.com', '*.hydego.id'].join(' ');
+const allowedSrc = ['https://apis.google.com', 'vitals.vercel-insights.com', '*.hydego.id'].join(
+  ' '
+);
 
 const allowedStyleSrc = ['https://fonts.googleapis.com'].join(' ');
 
