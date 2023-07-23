@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getArchivePost } from '@/services/cms';
 import dayjs from 'dayjs';
 
+import { siteConfig } from '@/config/site';
 import { Button } from '@/components/ui/button';
 import BlockContent from '@/components/block-content';
 
@@ -20,6 +21,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: post.title,
+    authors: [{ name: 'Umma Ahimsha', url: siteConfig.url }],
+    creator: 'Umma Ahimsha',
+    publisher: 'Umma Ahimsha',
+    openGraph: {
+      title: post.title,
+      type: 'article',
+      authors: ['Umma Ahimsha'],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      creator: '@umma_ahimsha',
+    },
   };
 }
 

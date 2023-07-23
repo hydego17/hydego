@@ -1,8 +1,9 @@
-import type { Metadata } from 'next';
+import type { Metadata, ResolvingMetadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getProjectDetail } from '@/services/cms';
 
+import { siteConfig } from '@/config/site';
 import { generateImageUrl } from '@/lib/pocketbase';
 import { Button } from '@/components/ui/button';
 import BlockContent from '@/components/block-content';
@@ -13,7 +14,10 @@ type PageProps = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata(
+  { params, searchParams }: PageProps,
+  parent?: ResolvingMetadata
+): Promise<Metadata> {
   // read route params
   const slug = params.slug;
 
@@ -22,12 +26,27 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const imageUrl = generateImageUrl(project, project.cover_image);
 
+  // optionally access and extend (rather than replace) parent metadata
+  const previousImages = (await parent)?.openGraph?.images || [];
+
   return {
     title: project.title,
+    authors: [{ name: 'Umma Ahimsha', url: siteConfig.url }],
+    creator: 'Umma Ahimsha',
+    publisher: 'Umma Ahimsha',
     openGraph: {
-      images: {
-        url: imageUrl,
-      },
+      images: [imageUrl, ...previousImages],
+      title: project.title,
+      description: project.description,
+      type: 'article',
+      authors: ['Umma Ahimsha'],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: project.title,
+      description: project.description,
+      creator: '@umma_ahimsha',
+      images: [imageUrl],
     },
   };
 }
