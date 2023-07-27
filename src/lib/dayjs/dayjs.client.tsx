@@ -1,5 +1,5 @@
 'use client';
 
-import './dayjs-base';
+import './dayjs.base';
 
 export const DayJsClient = () => null;

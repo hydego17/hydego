@@ -1,3 +1,3 @@
-import './dayjs-base';
+import './dayjs.base';
 
 export const DayJsServer = () => null;

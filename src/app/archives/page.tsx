@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { getArchives } from '@/services/cms';
 import dayjs from 'dayjs';
+
+import { getArchives } from '@/services/cms';
 
 export const metadata: Metadata = {
   title: 'Projects',

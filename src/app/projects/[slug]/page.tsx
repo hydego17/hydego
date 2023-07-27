@@ -1,9 +1,9 @@
 import type { Metadata, ResolvingMetadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getProjectDetail } from '@/services/cms';
 
 import { siteConfig } from '@/config/site';
+import { getProjectDetail } from '@/services/cms';
 import { generateImageUrl } from '@/lib/pocketbase';
 import { Button } from '@/components/ui/button';
 import BlockContent from '@/components/block-content';

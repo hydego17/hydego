@@ -1,7 +1,7 @@
 import { type MetadataRoute } from 'next';
-import { getArchives, getProjects } from '@/services/cms';
 
 import { siteConfig } from '@/config/site';
+import { getArchives, getProjects } from '@/services/cms';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // main routes

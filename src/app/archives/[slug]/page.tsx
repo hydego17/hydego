@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { getArchivePost } from '@/services/cms';
 import dayjs from 'dayjs';
 
 import { siteConfig } from '@/config/site';
+import { getArchivePost } from '@/services/cms';
 import { Button } from '@/components/ui/button';
 import BlockContent from '@/components/block-content';
 

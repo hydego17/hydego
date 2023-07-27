@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { getProjects } from '@/services/cms';
 
+import { getProjects } from '@/services/cms';
 import { generateImageUrl } from '@/lib/pocketbase';
 import { Icons } from '@/components/icons';
 
@@ -13,7 +13,8 @@ export default async function IndexPage() {
       <div className='flex max-w-[980px] flex-col items-start gap-2'>
         <h1 className='text-3xl font-bold leading-tight tracking-tight md:text-4xl'>{`Hi, I'm Umma Ahimsha`}</h1>
         <p className='max-w-[700px] text-lg text-muted-foreground'>
-          a web developer from Indonesia, dedicated to creating web apps and seamless digital experiences.
+          a web developer from Indonesia, dedicated to creating web apps and seamless digital
+          experiences.
         </p>
       </div>
 
@@ -39,8 +40,9 @@ function ProjectItem({ project }: { project: Project }) {
         <Image
           src={imageUrl}
           alt={project.title}
-          width={250}
-          height={200}
+          priority
+          width={320}
+          height={225}
           className='h-[225px] w-full rounded border object-cover sm:h-[400px] md:aspect-square md:h-auto'
         />
       </div>
@@ -48,13 +50,9 @@ function ProjectItem({ project }: { project: Project }) {
       <div className='flex flex-1 flex-col justify-between gap-4 md:py-0.5'>
         <div>
           <Link href={`/projects/${project.slug}`}>
-            <h3 className='text-lg font-bold group-hover:underline'>
-              {project.title}
-            </h3>
+            <h3 className='text-lg font-bold group-hover:underline'>{project.title}</h3>
           </Link>
-          <p className='mt-2 line-clamp-2 text-mini text-muted-foreground'>
-            {project.subtitle}
-          </p>
+          <p className='mt-2 line-clamp-2 text-mini text-muted-foreground'>{project.subtitle}</p>
         </div>
 
         <div className='flex gap-3'>

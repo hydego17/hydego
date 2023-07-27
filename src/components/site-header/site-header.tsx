@@ -4,7 +4,7 @@ import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/theme-toggle';
 
-export function SiteHeader() {
+export default function SiteHeader() {
   return (
     <header className='sticky top-0 z-40 mt-8 w-full [backdrop-filter:saturate(100%)_blur(20px)]'>
       <div className='container flex items-center space-x-4 py-8 sm:justify-between sm:space-x-0'>
@@ -14,7 +14,10 @@ export function SiteHeader() {
               <Link
                 key={index}
                 href={item.href}
-                className={cn('flex items-center font-medium text-muted-foreground hover:text-primary')}
+                className={cn(
+                  'flex items-center font-medium text-muted-foreground hover:text-primary'
+                )}
+                aria-label={item.title}
               >
                 {item.title}
               </Link>

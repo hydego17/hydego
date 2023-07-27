@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/react';
 
 import { siteConfig } from '@/config/site';
-import DayJsProvider from '@/lib/dayjs';
+import { DayJsProvider } from '@/lib/dayjs';
 import { fontSans } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 import { SiteFooter } from '@/components/site-footer';
@@ -19,11 +19,12 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   metadataBase: new URL(siteConfig.url),
   keywords: [
+    'umma ahimsha',
     'web developer',
-    'React',
-    'Next.js',
-    'Node.js,',
-    'Indonesia,',
+    'react',
+    'next.js',
+    'node.js,',
+    'indonesia,',
     'freelance',
     'digital services',
     'web solutions',
@@ -37,7 +38,6 @@ export const metadata: Metadata = {
   viewport: {
     width: 'device-width',
     initialScale: 1,
-    maximumScale: 1,
   },
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: 'white' },
@@ -69,7 +69,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             </div>
             <TailwindIndicator />
           </ThemeProvider>
-          <Analytics />
+          <Analytics mode='production' />
         </body>
       </html>
     </>
