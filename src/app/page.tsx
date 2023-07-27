@@ -21,7 +21,7 @@ export default async function IndexPage() {
       <div className='mt-10'>
         <h2 className='text-2xl font-bold md:text-3xl'>Projects</h2>
 
-        <div className='mt-8 space-y-6'>
+        <div className='mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-1'>
           {projects.items.map((project) => (
             <ProjectItem key={project.id} project={project} />
           ))}
@@ -36,14 +36,14 @@ function ProjectItem({ project }: { project: Project }) {
 
   return (
     <div className='group flex flex-col gap-6 rounded-md border p-4 shadow-slate-200 transition-shadow hover:shadow-md dark:shadow-slate-800 md:flex-row md:p-5'>
-      <div className='mt-0.5 w-full md:aspect-square md:w-[20%]'>
+      <div className='relative mt-0.5 h-[225px] w-full md:aspect-square md:h-auto md:w-[20%]'>
         <Image
           src={imageUrl}
           alt={project.title}
           priority
-          width={320}
-          height={225}
-          className='h-[225px] w-full rounded border object-cover sm:h-[400px] md:aspect-square md:h-auto'
+          fill
+          sizes='300px, (min-width: 768px) 140px'
+          className='h-auto w-auto rounded border object-cover'
         />
       </div>
 
