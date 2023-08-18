@@ -21,6 +21,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: post.title,
+    description:
+      'an archive from a collection of writings, poetry and proses that I have ever written.',
     authors: [{ name: 'Umma Ahimsha', url: siteConfig.url }],
     creator: 'Umma Ahimsha',
     publisher: 'Umma Ahimsha',
@@ -45,7 +47,7 @@ export default async function ArchivePostPage({ params }: PageProps) {
 
     if (post) {
       return (
-        <section className='container grid items-center gap-6 pb-8 pt-6 md:py-10'>
+        <section className='container pb-8 pt-6 md:py-10'>
           <div className='flex max-w-[980px] flex-col items-start gap-2'>
             <h1 className='text-3xl font-bold leading-tight tracking-tight md:text-4xl'>
               {post.title}
@@ -53,9 +55,9 @@ export default async function ArchivePostPage({ params }: PageProps) {
             <p className='text-sm text-muted-foreground'>{dayjs(post.date).format('LL')}</p>
           </div>
 
-          <hr />
+          <div className='md:max-w-[650px]'>
+            <hr className='my-6' />
 
-          <div>
             <BlockContent content={post.content} />
           </div>
         </section>

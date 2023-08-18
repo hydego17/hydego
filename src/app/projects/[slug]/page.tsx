@@ -31,6 +31,7 @@ export async function generateMetadata(
 
   return {
     title: project.title,
+    description: project.subtitle,
     authors: [{ name: 'Umma Ahimsha', url: siteConfig.url }],
     creator: 'Umma Ahimsha',
     publisher: 'Umma Ahimsha',

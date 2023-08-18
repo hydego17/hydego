@@ -1,5 +1,5 @@
 .blockcontent {
-  @apply text-mini md:text-base text-primary leading-relaxed;
+  @apply text-mini md:text-base leading-relaxed;
 }
 
 .blockcontent > p:not(:first-child) {

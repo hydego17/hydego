@@ -29,7 +29,7 @@ export default async function ArchivesPage() {
 
             <Link
               href={`/archives/${archive.slug}`}
-              className='inline-block font-semibold text-slate-700 hover:underline dark:text-slate-300 md:text-lg'
+              className='inline-block font-semibold text-gray-700 hover:underline dark:text-gray-300 md:text-lg'
             >
               {archive.title}
             </Link>

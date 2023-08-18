@@ -55,6 +55,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['var(--font-sans)', ...fontFamily.sans],
+        garamond: ['var(--font-garamond)'],
       },
       fontSize: {
         xs: ['0.75rem', { lineHeight: '1rem' }],

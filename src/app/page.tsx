@@ -35,7 +35,7 @@ function ProjectItem({ project }: { project: Project }) {
   const imageUrl = generateImageUrl(project, project.cover_image);
 
   return (
-    <div className='group flex flex-col gap-6 rounded-md border p-4 shadow-slate-200 transition-shadow hover:shadow-md dark:shadow-slate-800 md:flex-row md:p-5'>
+    <div className='group flex flex-col gap-6 rounded-md border p-4 shadow-slate-200 transition-shadow hover:shadow-md dark:shadow-zinc-800 md:flex-row md:p-5'>
       <div className='relative mt-0.5 h-[225px] w-full md:aspect-square md:h-auto md:w-[20%]'>
         <Image
           src={imageUrl}
