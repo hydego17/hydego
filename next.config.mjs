@@ -13,6 +13,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**.hydego.id',
       },
+      {
+        protocol: 'https',
+        hostname: 'hydego.pockethost.io',
+      },
     ],
   },
 
