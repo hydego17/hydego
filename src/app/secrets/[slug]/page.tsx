@@ -56,7 +56,6 @@ export default async function SecretDetailpage({ params }: PageProps) {
 
   if (slug) {
     const data = await getSecretDetail(slug);
-    console.log(data);
 
     if (data) {
       return (
