@@ -1,5 +1,6 @@
-import { config } from '@/config';
 import querystring from 'query-string';
+
+import { config } from '@/config';
 
 export async function getAboutPage() {
   const recordId = 'bb4vas6vjda5e7d';
@@ -69,6 +70,23 @@ export async function getArchivePost(slug: string) {
 
   const res: CmsListResponse<Archive[]> = await fetch(
     `${config.CMS_URL}/api/collections/archives/records?${params}`,
+    {
+      next: { revalidate: 60 },
+    }
+  ).then((res) => res.json());
+
+  const post = res.items?.[0];
+
+  return post;
+}
+
+export async function getSecretDetail(slug: string) {
+  const params = querystring.stringify({
+    filter: `(slug='${slug}')`,
+  });
+
+  const res: CmsListResponse<Secret[]> = await fetch(
+    `${config.CMS_URL}/api/collections/secrets/records?${params}`,
     {
       next: { revalidate: 60 },
     }

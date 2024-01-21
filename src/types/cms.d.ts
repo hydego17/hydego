@@ -42,3 +42,11 @@ interface Archive extends CmsRecord {
   image: string;
   content: string;
 }
+
+interface Secret extends CmsRecord {
+  slug: string;
+  title: string;
+  description: string;
+  content: string;
+  image: string;
+}
