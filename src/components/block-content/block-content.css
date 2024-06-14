@@ -16,7 +16,7 @@
 
 .blockcontent ol,
 .blockcontent ul {
-  @apply !pt-2 !pl-6;
+  @apply !pt-4 !pl-6;
   list-style: revert;
   padding: revert;
 }

@@ -114,13 +114,30 @@ export default async function ProjectDetailpage({
 
             <div className='space-y-2'>
               <h2 className='text-lg font-bold'>Preview</h2>
-              <Image
-                src={generateImageUrl(project, project.cover_image)}
-                alt={project.title}
-                width={400}
-                height={400}
-                className='h-full w-full max-w-[400px] rounded-lg border object-cover'
-              />
+
+              <div className='mt-3 grid grid-cols-2 gap-2 rounded bg-muted p-2 sm:grid-cols-3 md:gap-4 md:p-4'>
+                {project.images.map((image, idx) => (
+                  <div key={image} className='relative aspect-video'>
+                    <Image
+                      src={generateImageUrl(project, image)}
+                      alt=''
+                      fill
+                      sizes='(max-width: 640px) 200px, 300px'
+                      className='border object-cover'
+                    />
+                  </div>
+                ))}
+
+                <div className='relative aspect-video bg-black'>
+                  <Image
+                    src={generateImageUrl(project, project.cover_image)}
+                    alt={project.title}
+                    fill
+                    sizes='(max-width: 640px) 200px, 300px'
+                    className='border object-contain'
+                  />
+                </div>
+              </div>
             </div>
           </section>
         </section>
