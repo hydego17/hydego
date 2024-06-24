@@ -19,9 +19,9 @@ export default async function IndexPage() {
       </div>
 
       <div className='mt-10'>
-        <h2 className='text-2xl font-bold md:text-3xl'>Projects</h2>
+        <h2 className='text-2xl font-bold'>Projects</h2>
 
-        <div className='mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-1'>
+        <div className='mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2'>
           {projects.items.map((project) => (
             <ProjectItem key={project.id} project={project} />
           ))}
@@ -35,14 +35,14 @@ function ProjectItem({ project }: { project: Project }) {
   const imageUrl = generateImageUrl(project, project.cover_image);
 
   return (
-    <div className='group flex flex-col gap-6 rounded-md border p-4 shadow-slate-200 transition-shadow hover:shadow-md dark:shadow-zinc-800 md:flex-row md:p-5'>
-      <div className='relative mt-0.5 h-[225px] w-full md:aspect-square md:h-auto md:w-[20%]'>
+    <div className='group flex flex-col gap-6 rounded-md border p-4 shadow-slate-200 transition-shadow hover:shadow-md dark:shadow-zinc-800 md:p-5'>
+      <div className='relative mt-0.5 aspect-video h-auto w-full'>
         <Image
           src={imageUrl}
           alt={project.title}
           priority
           fill
-          sizes='300px, (min-width: 768px) 140px'
+          sizes='300px, (min-width: 768px) 300px'
           className='h-auto w-auto rounded border object-cover'
         />
       </div>
