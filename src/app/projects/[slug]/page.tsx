@@ -1,4 +1,4 @@
-import type { Metadata, ResolvingMetadata } from 'next';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -115,7 +115,16 @@ export default async function ProjectDetailpage({
             <div className='space-y-2'>
               <h2 className='text-lg font-bold'>Preview</h2>
 
-              <div className='mt-3 grid grid-cols-2 gap-2 rounded bg-muted p-2 sm:grid-cols-3 md:gap-4 md:p-4'>
+              <div className='mt-3 grid grid-cols-1 gap-4 rounded bg-muted p-4 sm:grid-cols-2'>
+                <div className='relative aspect-video bg-black'>
+                  <Image
+                    src={generateImageUrl(project, project.cover_image)}
+                    alt={project.title}
+                    fill
+                    sizes='(max-width: 640px) 200px, 300px'
+                    className='border object-contain'
+                  />
+                </div>
                 {project.images.map((image, idx) => (
                   <div key={image} className='relative aspect-video'>
                     <Image
@@ -127,16 +136,6 @@ export default async function ProjectDetailpage({
                     />
                   </div>
                 ))}
-
-                <div className='relative aspect-video bg-black'>
-                  <Image
-                    src={generateImageUrl(project, project.cover_image)}
-                    alt={project.title}
-                    fill
-                    sizes='(max-width: 640px) 200px, 300px'
-                    className='border object-contain'
-                  />
-                </div>
               </div>
             </div>
           </section>
