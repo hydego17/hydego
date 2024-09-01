@@ -51,6 +51,7 @@ export async function getProjectDetail(slug: string) {
 export async function getArchives() {
   const params = querystring.stringify({
     sort: '-date',
+    filter: `(published=true)`,
   });
 
   const res: CmsListResponse<Archive[]> = await fetch(
