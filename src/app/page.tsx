@@ -19,7 +19,7 @@ export default async function IndexPage() {
       </div>
 
       <div className='mt-10'>
-        <h2 className='text-2xl font-bold'>Projects</h2>
+        <h2 className='text-2xl font-bold'>Recent Work</h2>
 
         <div className='mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2'>
           {projects.items.map((project) => (
