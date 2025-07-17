@@ -24,7 +24,7 @@ export async function getProjects() {
   const res: CmsListResponse<Project[]> = await fetch(
     `${config.CMS_URL}/api/collections/projects/records?${params}`,
     {
-      next: { revalidate: 0 },
+      next: { revalidate: 60 },
     }
   ).then((res) => res.json());
 
