@@ -2,13 +2,15 @@ import querystring from 'query-string';
 
 import { config } from '@/config';
 
+const REVALIDATE_TIME = 60;
+
 export async function getAboutPage() {
   const recordId = 'bb4vas6vjda5e7d';
 
   const res: AboutMe = await fetch(
     `${config.CMS_URL}/api/collections/about_page/records/${recordId}`,
     {
-      next: { revalidate: 60 },
+      next: { revalidate: REVALIDATE_TIME },
     }
   ).then((res) => res.json());
 
@@ -24,7 +26,7 @@ export async function getProjects() {
   const res: CmsListResponse<Project[]> = await fetch(
     `${config.CMS_URL}/api/collections/projects/records?${params}`,
     {
-      next: { revalidate: 60 },
+      next: { revalidate: REVALIDATE_TIME },
     }
   ).then((res) => res.json());
 
@@ -39,7 +41,7 @@ export async function getProjectDetail(slug: string) {
   const res: CmsListResponse<Project[]> = await fetch(
     `${config.CMS_URL}/api/collections/projects/records?${params}`,
     {
-      next: { revalidate: 60 },
+      next: { revalidate: REVALIDATE_TIME },
     }
   ).then((res) => res.json());
 
@@ -57,7 +59,7 @@ export async function getArchives() {
   const res: CmsListResponse<Archive[]> = await fetch(
     `${config.CMS_URL}/api/collections/archives/records?${params}`,
     {
-      next: { revalidate: 60 },
+      next: { revalidate: REVALIDATE_TIME },
     }
   ).then((res) => res.json());
 
@@ -89,7 +91,7 @@ export async function getSecretDetail(slug: string) {
   const res: CmsListResponse<Secret[]> = await fetch(
     `${config.CMS_URL}/api/collections/secrets/records?${params}`,
     {
-      next: { revalidate: 60 },
+      next: { revalidate: REVALIDATE_TIME },
     }
   ).then((res) => res.json());
 
