@@ -80,7 +80,7 @@ export default async function ProjectDetailpage({
               <BlockContent content={project.description} />
             </div>
 
-            {!!project.techs && (
+            {project.techs && (
               <div className='space-y-2'>
                 <h2 className='text-lg font-bold'>Tools</h2>
                 <p>{project.techs}</p>
