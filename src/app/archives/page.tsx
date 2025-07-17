@@ -22,7 +22,7 @@ export default async function ArchivesPage() {
 
       <ul className='divide-y'>
         {archives.items.map((archive) => (
-          <li className='space-y-1 py-3'>
+          <li key={archive.id} className='space-y-1 py-3'>
             <p className='text-sm tracking-tight text-muted-foreground md:text-sm'>
               {dayjs(archive.date).format('ll')}
             </p>
